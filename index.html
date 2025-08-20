@@ -336,9 +336,10 @@
             if (specialCases.includes(reasonKey)) {
                 mainClause = location ? `${reasonStr} ${location}` : reasonStr;
             } else {
-                mainClause = location ? `เกิดเหตุ ${location} เนื่องจาก ${reasonStr}` : `เกิดเหตุเนื่องจาก ${reasonStr}`;
+                mainClause = location ? `เกิดเหตุ${reasonStr} ${location}` : `เกิดเหตุ${reasonStr}`;
             }
             thaiParts.push(mainClause);
+
 
             if (actionKey) {
                 thaiParts.push(actions.thai[actionKey]);
