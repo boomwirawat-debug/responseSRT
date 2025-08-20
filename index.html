@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>โปรแกรมสร้างข้อความประกาศสถานการณ์เดินรถ (เวอร์ชันครอบคลุม)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+        }
+        fieldset {
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        legend {
+            padding: 0 0.5rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+        .form-grid {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4 sm:p-6 md:p-8">
+    <div class="max-w-6xl mx-auto bg-white rounded-2xl shadow-lg p-6 sm:p-8">
+        <div class="text-center mb-8">
+            <h1 class="text-2xl sm:text-3xl font-bold text-gray-800">แบบฟอร์มสร้างประกาศสถานการณ์เดินรถ (เวอร์ชันครอบคลุม)</h1>
+            <p class="text-gray-500 mt-2">กรอกข้อมูลเพื่อสร้างประกาศที่ละเอียดและครอบคลุม</p>
+        </div>
+
+        <form id="announcementForm">
+            <!-- Train Information -->
+            <fieldset>
+                <legend class="text-lg">ข้อมูลขบวนรถ</legend>
+                <div class="grid form-grid gap-6 mt-4">
+                    <div>
+                        <label for="trainType" class="block text-sm font-medium text-gray-700 mb-2">ประเภทขบวนรถ</label>
+                        <select id="trainType" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <option value="รถด่วนพิเศษ">รถด่วนพิเศษ</option>
+                            <option value="รถด่วน">รถด่วน</option>
+                            <option value="รถเร็ว">รถเร็ว</option>
+                            <option value="รถธรรมดา">รถธรรมดา</option>
+                            <option value="รถท้องถิ่น">รถท้องถิ่น</option>
+                            <option value="รถชานเมือง">รถชานเมือง</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="trainNumberInput" class="block text-sm font-medium text-gray-700 mb-2">หมายเลขขบวน</label>
+                        <input type="text" id="trainNumberInput" list="trainNumbersList" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="พิมพ์เพื่อค้นหา..." required>
+                        <datalist id="trainNumbersList"></datalist>
+                    </div>
+                    <div>
+                        <label for="origin" class="block text-sm font-medium text-gray-700 mb-2">สถานีต้นทาง</label>
+                        <input type="text" id="origin" list="stationList" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="พิมพ์ชื่อสถานี..." required>
+                    </div>
+                    <div>
+                        <label for="destination" class="block text-sm font-medium text-gray-700 mb-2">สถานีปลายทาง</label>
+                        <input type="text" id="destination" list="stationList" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="พิมพ์ชื่อสถานี..." required>
+                        <datalist id="stationList"></datalist>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Incident Details -->
+            <fieldset>
+                <legend class="text-lg">รายละเอียดเหตุการณ์</legend>
+                <div class="grid form-grid gap-6 mt-4">
+                    <div class="col-span-full sm:col-span-1">
+                        <label for="reason" class="block text-sm font-medium text-gray-700 mb-2">สาเหตุ</label>
+                        <select id="reason" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <option value="1">1. รถจักรขัดข้อง</option>
+                            <option value="2">2. ตู้โดยสารขัดข้อง</option>
+                            <option value="3">3. เครื่องปรับอากาศชำรุด</option>
+                            <option value="4">4. ออกจากต้นทางล่าช้า</option>
+                            <option value="5">5. รอรถหมุนเวียน</option>
+                            <option value="6">6. ชนยานพาหนะ</option>
+                            <option value="7">7. ชนสัตว์</option>
+                            <option value="8">8. ชนคน</option>
+                            <option value="9">9. ดินสไลด์</option>
+                            <option value="10">10. น้ำท่วม</option>
+                            <option value="11">11. รอเปิดทาง</option>
+                            <option value="12">12. มีสิ่งกีดขวางในทาง</option>
+                            <option value="13">13. ระบบอาณัติสัญญาณขัดข้อง</option>
+                            <option value="14">14. ขบวนรถตกราง</option>
+                            <option value="15">15. รอเคลียร์เส้นทาง</option>
+                        </select>
+                    </div>
+                    <div id="carriageNumberWrapper" class="hidden">
+                        <label for="carriageNumber" class="block text-sm font-medium text-gray-700 mb-2">หมายเลขตู้โดยสาร</label>
+                        <input type="text" id="carriageNumber" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="เช่น คันที่ 3">
+                    </div>
+                    <div>
+                        <label for="locationType" class="block text-sm font-medium text-gray-700 mb-2">ประเภทสถานที่เกิดเหตุ</label>
+                        <select id="locationType" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <option value="at_station">ที่สถานี</option>
+                            <option value="between_stations">ระหว่างสถานี</option>
+                            <option value="not_specified">ไม่ระบุ</option>
+                        </select>
+                    </div>
+                    <div id="locationAtStationWrapper">
+                        <label for="locationStation" class="block text-sm font-medium text-gray-700 mb-2">ชื่อสถานี</label>
+                        <input type="text" id="locationStation" list="stationList" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="เช่น ชะอวด">
+                    </div>
+                    <div id="locationBetweenWrapper" class="hidden grid grid-cols-2 gap-4">
+                        <div>
+                            <label for="locationBetween1" class="block text-sm font-medium text-gray-700 mb-2">จากสถานี</label>
+                            <input type="text" id="locationBetween1" list="stationList" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="เช่น ชะอวด">
+                        </div>
+                        <div>
+                            <label for="locationBetween2" class="block text-sm font-medium text-gray-700 mb-2">ถึงสถานี</label>
+                            <input type="text" id="locationBetween2" list="stationList" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="เช่น บ้านตูล">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="actionTaken" class="block text-sm font-medium text-gray-700 mb-2">การดำเนินการแก้ไข</label>
+                        <select id="actionTaken" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <option value="">-- ไม่ระบุ --</option>
+                            <option value="fixing">เจ้าหน้าที่กำลังดำเนินการแก้ไข</option>
+                            <option value="waiting_rescue">กำลังรอรถจักรมาทำการช่วยเหลือ</option>
+                            <option value="waiting_inspection">รอเจ้าหน้าที่เข้าตรวจสอบ</option>
+                            <option value="clearing">กำลังเคลียร์พื้นที่</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Passenger Information -->
+            <fieldset>
+                <legend class="text-lg">ข้อมูลสำหรับผู้โดยสาร</legend>
+                <div class="grid form-grid gap-6 mt-4">
+                     <div>
+                        <label for="delayTime" class="block text-sm font-medium text-gray-700 mb-2">เวลาที่คาดว่าจะล่าช้า (ถ้ามี)</label>
+                        <input type="text" id="delayTime" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="เช่น 30 นาที">
+                    </div>
+                    <div>
+                        <label for="instruction" class="block text-sm font-medium text-gray-700 mb-2">คำแนะนำผู้โดยสาร</label>
+                        <select id="instruction" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <option value="none">ไม่มี</option>
+                            <option value="wait">โปรดรอการประกาศครั้งต่อไป</option>
+                            <option value="alternative">กำลังจัดเตรียมการขนส่งทางเลือก</option>
+                        </select>
+                    </div>
+                    <div class="col-span-full">
+                        <label for="notes" class="block text-sm font-medium text-gray-700 mb-2">บันทึกเพิ่มเติม</label>
+                        <textarea id="notes" rows="2" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="ระบุข้อมูลอื่นๆ เพิ่มเติม..."></textarea>
+                    </div>
+                    <div class="col-span-full flex items-center">
+                        <input id="otherTrainsAffected" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                        <label for="otherTrainsAffected" class="ml-2 block text-sm text-gray-900">เหตุการณ์นี้อาจส่งผลกระทบต่อขบวนรถอื่น</label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="col-span-full">
+                <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-300">
+                    สร้างข้อความประกาศ
+                </button>
+            </div>
+        </form>
+
+        <!-- Output area -->
+        <div id="outputArea" class="mt-8 pt-6 border-t border-gray-200 hidden">
+            <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-4">ข้อความประกาศที่สร้างขึ้น</h2>
+            <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="text-lg font-semibold text-gray-700">ภาษาไทย</h3>
+                    <button onclick="copyToClipboard('thaiOutput')" class="bg-gray-200 text-gray-600 px-3 py-1 rounded-md text-sm hover:bg-gray-300">คัดลอก</button>
+                </div>
+                <p id="thaiOutput" class="text-gray-800 whitespace-pre-wrap"></p>
+            </div>
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="text-lg font-semibold text-gray-700">English</h3>
+                    <button onclick="copyToClipboard('englishOutput')" class="bg-gray-200 text-gray-600 px-3 py-1 rounded-md text-sm hover:bg-gray-300">คัดลอก</button>
+                </div>
+                <p id="englishOutput" class="text-gray-800 whitespace-pre-wrap"></p>
+            </div>
+        </div>
+        
+        <div id="toast" class="fixed bottom-5 right-5 bg-green-500 text-white py-2 px-4 rounded-lg shadow-lg opacity-0 transition-opacity duration-300">
+            คัดลอกข้อความแล้ว!
+        </div>
+    </div>
+
+    <script>
+        const reasonSelect = document.getElementById('reason');
+        const carriageNumberWrapper = document.getElementById('carriageNumberWrapper');
+        const locationTypeSelect = document.getElementById('locationType');
+        const locationAtStationWrapper = document.getElementById('locationAtStationWrapper');
+        const locationBetweenWrapper = document.getElementById('locationBetweenWrapper');
+
+        const trainTypeMap = { 'รถด่วนพิเศษ': 'Special Express', 'รถด่วน': 'Express', 'รถเร็ว': 'Rapid', 'รถธรรมดา': 'Ordinary', 'รถท้องถิ่น': 'Local', 'รถชานเมือง': 'Commuter' };
+
+        const reasons = {
+            '1': { thai: "รถจักรขัดข้อง", english: "a locomotive failure" },
+            '2': { thai: "ตู้โดยสารขัดข้อง", english: "a carriage failure" },
+            '3': { thai: "เครื่องปรับอากาศชำรุด", english: "an air conditioning failure" },
+            '4': { thai: "ออกจากต้นทางล่าช้า", english: "a delayed departure from its origin station" },
+            '5': { thai: "รอรถหมุนเวียน", english: "waiting for connecting rolling stock" },
+            '6': { thai: "ชนยานพาหนะ", english: "a collision with a vehicle" },
+            '7': { thai: "ชนสัตว์", english: "a collision with an animal" },
+            '8': { thai: "ชนคน", english: "an accident involving a person" },
+            '9': { thai: "ดินสไลด์", english: "a landslide on the track" },
+            '10': { thai: "น้ำท่วม", english: "flooding on the track" },
+            '11': { thai: "รอเปิดทาง", english: "waiting for track clearance" },
+            '12': { thai: "มีสิ่งกีดขวางในทาง", english: "an obstruction on the track" },
+            '13': { thai: "ระบบอาณัติสัญญาณขัดข้อง", english: "a signaling system failure" },
+            '14': { thai: "ขบวนรถตกราง", english: "a train derailment" },
+            '15': { thai: "รอเคลียร์เส้นทาง", english: "waiting for the line to be cleared" }
+        };
+        
+        const actions = {
+            thai: {
+                "fixing": "ขณะนี้เจ้าหน้าที่กำลังดำเนินการแก้ไข",
+                "waiting_rescue": "ขณะนี้กำลังรอรถจักรมาทำการช่วยเหลือ",
+                "waiting_inspection": "ขณะนี้รอเจ้าหน้าที่เข้าตรวจสอบความปลอดภัย",
+                "clearing": "ขณะนี้กำลังดำเนินการเคลียร์พื้นที่"
+            },
+            english: {
+                "fixing": "Crews are currently working to resolve the issue.",
+                "waiting_rescue": "A rescue locomotive is being arranged.",
+                "waiting_inspection": "We are awaiting a safety inspection.",
+                "clearing": "The area is currently being cleared."
+            }
+        };
+
+        const instructions = {
+            thai: {'wait': "โปรดรอรับฟังการประกาศครั้งต่อไป", 'alternative': "กำลังจัดเตรียมการขนส่งทางเลือกสำหรับผู้โดยสาร"},
+            english: {'wait': "Please wait for further announcements.", 'alternative': "Alternative transportation is being arranged."}
+        };
+
+        const stationNames = [
+            "กรุงเทพ", "ยมราช", "โรงพยาบาลรามาธิบดี", "สามเสน", "ประดิพัทธ์", "ชุมทางบางซื่อ", "นิคมรถไฟ กม.11", "บางเขน", "ทุ่งสองห้อง", "หลักสี่", "การเคหะ กม.19", "ตลาดใหม่ดอนเมือง", "ดอนเมือง", "แกรนด์ คาแนล", "หลักหก", "คลองรังสิต", "รังสิต", "คลองหนึ่ง", "เชียงราก", "ม.ธรรมศาสตร์ (ศูนย์รังสิต)", "นวนคร", "เชียงรากน้อย", "คลองพุทรา", "บางปะอิน", "บ้านโพ", "อยุธยา", "บ้านม้า", "มาบพระจันทร์", "บ้านดอนกลาง", "พระแก้ว", "ชุมทางบ้านภาชี", "ดอนหญ้านาง", "หนองวิวัฒน์", "บ้านปลักแรด", "ท่าเรือ", "บ้านหมอ", "หนองโดน", "บ้านกลับ", "บ้านป่าหวาย", "ลพบุรี", "ท่าแค", "โคกกะเทียม", "หนองเต่า", "หนองทรายขาว", "บ้านหมี่", "ห้วยแก้ว", "ไผ่ใหญ่", "โรงเรียนจันเสน", "จันเสน", "บ้านกกกว้าว", "ช่องแค", "ทะเลหว้า", "โพนทอง", "บ้านตาคลี", "ดงมะกุ", "หัวหวาย", "หนองโพ", "หัวงิ้ว", "บ้านหนองหมู", "เนินมะกอก", "ทุ่งน้ำซึม", "นครสวรรค์", "เขาทอง", "ปากน้ำโพ", "บึงบอระเพ็ด", "ทับกฤช", "คลองปลากด", "ชุมแสง", "วังกร่าง", "หอไกร", "บางมูลนาก", "ดงตะขบ", "ตะพานหิน", "ห้วยเกตุ", "หัวดง", "วังกรด", "พิจิตร", "ท่าพ่อ", "บางกระทุ่ม", "แม่เทียบ", "บ้านใหม่", "บึงพระ", "พิษณุโลก", "บ้านเต็งหนาม", "บ้านตูม", "พรหมพิราม", "แควน้อย", "หนองตม", "บ้านบุ่ง", "บ้านโคน", "พิชัย", "ชุมทางบ้านดารา", "ไร่อ้อย", "ท่าสัก", "ตรอน", "วังกะพี้", "อุตรดิตถ์", "ศิลาอาสน์", "ท่าเสา", "บ้านด่าน", "ปางต้นผึ้ง", "เขาพลึง", "ห้วยไร่", "ไร่เกล็ดดาว", "แม่พวก", "บ้านปิน", "ผาคัน", "เด่นชัย", "ผาคอ", "ปากปาน", "ปางป๋วย", "แก่งหลวง", "แม่จาง", "ห้วยแม่ต้า", "แม่เมาะ", "ห้วยรากไม้", "ศาลาผาลาด", "แม่ทะ", "หนองวัวเฒ่า", "นครลำปาง", "บ่อแฮ้ว", "ปางม่วง", "ห้างฉััตร", "ห้วยเรียน", "แม่ตาน้อย", "ขุนตาน", "ทาชมภู", "หนองหล่ม", "ศาลาแม่ทา", "ลำพูน", "ป่าเส้า", "สารภี", "เชียงใหม่", "คลองละมุง", "คลองมะพลับ", "วัดคลองปู", "คลองยาง", "หนองเรียง", "สวรรคโลก", "หนองกวย", "หนองแซง", "หนองรี", "บ้านป๊อกแป๊ก", "สระบุรี", "หนองบัว", "ชุมทางแก่งคอย", "ทับกวาง", "มาบกะเบา", "ผาเสด็จ", "หินลับ", "มวกเหล็ก", "กลางดง", "ปางอโศก", "บันไดม้า", "ปากช่อง", "ซับม่วง", "จันทึก", "คลองไผ่", "สีคิ้ว", "สูงเนิน", "กุดจิก", "โคกกรวด", "บ้านใหม่สำโรง", "นครราชสีมา", "ชุมทางถนนจิระ", "ท่าช้าง", "จักราช", "ห้วยแถลง", "ลำปลายมาศ", "หนองเต็ง", "ลำชี", "ห้วยราช", "บุรีรัมย์", "บ้านตะโก", "บ้านพลวง", "สุรินทร์", "เมืองที", "กระสัง", "ลำดวน", "ศีขรภูมิ", "บ้านกะลัน", "ห้วยทับทัน", "อุทุมพรพิสัย", "บ้านเนียม", "ศรีสะเกษ", "หนองแวง", "กันทรารมย์", "บ้านโนนผึ้ง", "ห้วยขยุง", "วารินชำราบ", "อุบลราชธานี", "บ้านไร่", "บ้านเกาะ", "หนองไข่น้ำ", "โนนสูง", "บ้านมะค่า", "บ้านดงพลอง", "เมืองคง", "หนองบัวลาย", "ชุมทางบัวใหญ่", "เนินสวัสดิ์", "ศาลาดิน", "หนองมะเขือ", "เมืองพล", "บ้านไผ่", "บ้านแฮด", "ท่าพระ", "ขอนแก่น", "สำราญ", "โนนพยอม", "น้ำพอง", "เขาสวนกวาง", "ห้วยสามพาด", "กุมภวาปี", "ห้วยเกิ้ง", "โนนสะอาด", "อุดรธานี", "หนองตะไก้", "คำกลิ้ง", "หนองขอนกว้าง", "นาทา", "หนองคาย", "ตลาดหนองคาย", "โรงเรียนอัสสัมชัญคอนแวนต์", "บ้านช่องใต้", "เขาคอก", "เขาหินดาด", "หินซ้อน", "เขาสูง", "แก่งเสือเต้น", "เขื่อนป่าสักชลสิทธิ์", "บ้านหนองบัว", "โคกสลุง", "สุรนารายณ์", "บ้านปากจาบ", "เขายายกะตา", "ตลาดลำนารายณ์", "ลำนารายณ์", "บ้านเกาะรัง", "แผ่นดินทอง", "บ้านจงโก", "โคกคลี", "ช่องสำราญ", "บ้านวะตะแบก (เทพสถิต)", "ห้วยยายจิ๋ว", "บ้านหนองปรือโป่ง", "บำเหน็จณรงค์", "บ้านกลอย", "วังกะอาม", "โนนคร้อ", "จัตุรัส", "หนองฉิม", "บ้านตาเนิน", "บ้านหนองขาม", "บ้านเหลื่อม", "บ้านโคกกระเบื้อง", "หนองพลวง", "บ้านกระพี้", "บ้านเก่างิ้ว", "บ้านสระครก", "บ้านโลกรัง", "อุรุพงษ์", "พญาไท", "ราชปรารภ", "มักกะสัน", "อโศก", "คลองตัน", "สุขุมวิท 71", "หัวหมาก", "บ้านทับช้าง", "ซอยวัดลานบุญ", "ลาดกระบัง", "พระจอมเกล้า", "หัวตะเข้", "บรรจุและแยกสินค้ากล่อง (ไอซีดี) ที่ลาดกระบัง", "คลองหลวงแพ่ง", "คลองอุดมชลจร", "เปร็ง", "คลองแขวงกลั่น", "คลองบางพระ", "ชุมทางฉะเชิงเทรา", "บางขวัญ", "โพรงอากาศ", "บางน้ำเปรี้ยว", "ชุมทางคลองสิบเก้า", "คลองยี่สิบเอ็ด", "โยทะกา", "บ้านสร้าง", "บ้านปากพลี", "ปราจีนบุรี", "โคกมะกอก", "ประจันตคาม", "บ้านดงบัง", "กบินทร์บุรี", "กบินทร์เก่า", "หนองสัง", "พระปรง", "บ้านแก้ง", "ศาลาลำดวน", "สระแก้ว", "ศูนย์ราชการจังหวัดสระแก้ว", "ท่าเกษม", "ห้วยโจด", "วัฒนานคร", "บ้านโป่งคอม", "ห้วยเดื่อ", "อรัญประเทศ", "ด่านพรมแดนบ้านคลองลึก", "บุใหญ่", "องครักษ์", "วิหารแดง", "แปดริ้ว", "พานทอง", "ชลบุรี", "บางพระ", "เขาพระบาท", "ชุมทางศรีราชา", "แหลมฉบัง", "บางละมุง", "พัทยา", "พัทยาใต้", "ตลาดน้ำ 4 ภาค", "บ้านห้วยขวาง", "ญาณสังวราราม", "สวนนงนุช", "ชุมทางเขาชีจรรย์", "บ้านพลูตาหลวง", "บ้านฉาง", "มาบตาพุด", "แม่น้ำ", "แม่น้ำ (โรงกลั่นน้ำมันบางจาก)", "บางซ่อน", "บางบำหรุ", "ธนบุรี", "จรัลสนิทวงศ์", "บางระมาด", "ชุมทางตลิ่งชัน", "บ้านฉิมพลี", "ศาลาธรรมสพน์", "พุทธมณฑล สาย 2", "ศาลายา", "คลองมหาสวัสดิ์", "วัดสุวรรณ", "วัดงิ้วราย", "นครชัยศรี", "ท่าแฉลบ", "ต้นสำโรง", "พระราชวังสนามจันทร์", "นครปฐม", "โพรงมะเดื่อ", "ชุมทางหนองปลาดุก", "คลองบางตาล", "บ้านโป่ง", "นครชุมน์", "คลองตาคต", "เจ็ดเสมียน", "โพธาราม", "บ้านกล้วย", "สะพานจุฬาลงกรณ์", "บ้านคูบัว", "ราชบุรี", "บ่อตะคร้อ", "บ้านป่าไก่", "ปากท่อ", "ห้วยโรง", "บางเค็ม", "เขาย้อย", "หนองปลาไหล", "บางจาก", "เพชรบุรี", "เขาทโมน", "หนองไม้เหลือง", "หนองจอก", "หนองศาลา", "ชะอำ", "ห้วยทรายเหนือ", "ห้วยทรายใต้", "หัวหิน", "หนองแก", "สวนสนประดิพัทธ์", "วังก์พง", "เขาเต่า", "ปราณบุรี", "ห้วยขวาง", "หนองคาง", "สามร้อยยอด", "สามกระทาย", "กุยบุรี", "บ่อนอก", "ทุ่งมะเม่า", "คั่นกระได", "ประจวบคีรีขันธ์", "หว้ากอ", "หนองหิน", "วังด้วน", "ห้วยยาง", "ทับสะแก", "ทุ่งประดู่", "ดอนทราย", "โคกตาหอม", "บ้านกรูด", "หนองมงคล", "นาผักขวง", "บางสะพานใหญ่", "หินกอง", "ชะมวง", "บางสะพานน้อย", "ห้วยสัก", "บ้านทรายทอง", "เขาไชยราช", "มาบอำมฤต", "บ้านทรัพย์สมบูรณ์", "คลองวังช้าง", "ปะทิว", "บ้านคอกม้า", "สพลี", "หนองเนียน", "นาชะอัง", "ชุมพร", "แสงแดด", "ทุ่งคา", "วิสัย", "บ้านครน", "สวี", "เขาสวนทุเรียน", "เขาปีบ", "ปากตะโก", "ท่าทอง", "ควนหินมุ้ย", "หลังสวน", "คลองขนาน", "ทุ่งมะพร้าว", "ละแม", "บ้านดวด", "คันธุลี", "ดอนธูป", "ท่าชนะ", "บ้านเกาะมุกข์", "เขาพนมแบก", "ไชยา", "คลองขุด", "ท่าฉาง", "คลองไทร", "ชุมทางบ้านทุ่งโพธิ์", "มะลวน", "สุราษฎร์ธานี", "บ่อกรัง", "เขาหัวควาย", "เขาพลู", "คลองยา", "บ้านนา", "ห้วยมุด", "นาสาร", "คลองปราบ", "พรุพี", "คลองสูญ", "บ้านส้อง", "บ้านพรุกระแชง", "ห้วยปริก", "กระเบียด", "ฉวาง", "คลองจันดี", "หลักช้าง", "คลองกุย", "นาบอน", "คลองจัง", "บ้านเกาะปริง", "ชุมทางทุ่งสง", "ไสใหญ่", "ช่องเขา", "ร่อนพิบูลย์", "ชุมทางเขาชุมทอง", "บ้านตูล", "ควนหนองคว้า", "บ้านทุ่งค่าย", "ชะอวด", "หนองจิก", "บ้านนางหลง", "บ้านตรอกแค", "บ้านขอนหาด", "แหลมโตนด", "บ้านสุนทรา", "ปากคลอง", "บ้านมะกอกใต้", "ชัยบุรี", "พัทลุง", "นาปรือ", "บ้านค่ายไทย", "บ้านต้นโดน", "เขาชัยสน", "บางแก้ว", "ควนพระ", "ควนเคี่ยม", "หารกง", "วัดควนเผยอ", "หารเทา", "โคกทราย", "บ้านเกาะใหญ่", "ควนเนียง", "บางกล่ำ", "บ้านดินลาน", "ชุมทางหาดใหญ่", "นาม่วง", "วัดควนมีด", "จะนะ", "ท่าแมงลัก", "เกาะสะบ้า", "เทพา", "ตาแปด", "บ้านนิคม", "ปัตตานี (โคกโพธิ์)", "นาทุ่ง", "วัดช้างให้", "ป่าไร่", "คลองทราย", "บ้านยุโป", "ตาเซะ", "ยะลา", "ไม้แก่น", "บ้านปาแต", "รามัน", "บาลอ", "รือเสาะ", "บ้านสะโลว์บูกิตยือแร", "ลาโละ", "มะรือโบ", "กะแดะ", "ตันหยงมัส", "ป่าไผ่", "เจาะไอร้อง", "บูกิต", "ไอสะเตีย", "โต๊ะเด็ง", "สุไหงปาดี", "โคกสยา", "สุไหงโก-ลก", "คลองแงะ", "ปาดังเบซาร์", "ยางประสาท", "ดอนขุนวิเศษ", "กำแพงแสน", "ทุ่งบัว", "หนองฟัก", "โรงเรียนการบิน", "หนองวัลย์เปรียง", "ศรีสำราญ", "ดอนงิ้ว", "ดอนทอง", "หนองผักชี", "บ้านมะขามล้ม", "สะแกย่างหมู", "สุพรรณบุรี", "ถนนทรงพล", "สระโกสินารายณ์", "ลูกแก", "ท่าเรือน้อย", "บ้านหนองเสือ", "ท่าม่วง", "ปากแพรก", "กาญจนบุรี", "สะพานแควใหญ่", "เขาปูน", "วังเย็น", "วังตะเคียน", "บ้านโป่งเสี้ยว", "บ้านเก่า", "ท่าตาเสือ", "ท่ากิเลน", "วังสิงห์", "ลุ่มสุ่ม", "สะพานถ้ำกระแซ", "วังโพ", "เกาะมหามงคล", "ช่องแคบ", "วังใหญ่", "บ้านพุพงษ์", "น้ำตก", "บ้านดอนรัก", "บ้านทุ่งหลวง", "บ้านขนาย", "บ้านดอนเรียบ", "คลองยัน", "เขาหลง", "บ้านยาง", "คีรีรัฐนิคม", "ที่วัง", "บ้านพูน", "คลองมวน", "กะปาง", "ยางยวน", "ควนเมา", "ห้วยยอด", "ลำภูรา", "นาป้อ", "พรุใหญ่", "ตรัง", "บ้านป่ากอ", "กันตัง", "ชุมทางเขาชุมทอง", "บ้านเกยเชน", "บ้านทุ่งหล่อ", "โคกคราม", "บ้านห้วยยูง", "บ้านท่าช้าง", "วังวัว", "มะม่วงสองต้น", "นครศรีธรรมราช", "วงเวียนใหญ่", "ตลาดพลู", "คลองต้นไทร", "วัดไทร", "จอมทอง", "วัดสิงห์", "บางบอน", "รางโพธิ์", "รางสะแก", "การเคหะ", "สามแยก", "พรมแดน", "บางน้ำจืด", "ทุ่งสีทอง", "คอกควาย", "บ้านขอม", "คลองจาก", "มหาชัย", "บ้านแหลม", "ท่าฉลอม", "บ้านชีผ้าขาว", "คลองนกเล็ก", "บางสีคต", "บ้านบ่อ", "บางกระเจ้า", "บางโทรัด", "บ้านกาหลง", "บ้านนาขวาง", "บ้านนาโคก", "เขตเมือง", "ลาดใหญ่", "บางกระบูน", "แม่กลอง"
+        ];
+
+        function populateTrainNumbers() {
+            const trainNumbersList = document.getElementById('trainNumbersList');
+            for (let i = 1; i <= 1000; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                trainNumbersList.appendChild(option);
+            }
+        }
+
+        function populateStations() {
+            const stationList = document.getElementById('stationList');
+            stationNames.forEach(name => {
+                const option = document.createElement('option');
+                option.value = name;
+                stationList.appendChild(option);
+            });
+        }
+
+        function updateCarriageField() {
+            const selectedReasonKey = reasonSelect.value;
+            if (selectedReasonKey === '2' || selectedReasonKey === '3') {
+                carriageNumberWrapper.classList.remove('hidden');
+            } else {
+                carriageNumberWrapper.classList.add('hidden');
+                document.getElementById('carriageNumber').value = '';
+            }
+        }
+
+        function updateLocationFields() {
+            const selectedType = locationTypeSelect.value;
+            if (selectedType === 'at_station') {
+                locationAtStationWrapper.classList.remove('hidden');
+                locationBetweenWrapper.classList.add('hidden');
+            } else if (selectedType === 'between_stations') {
+                locationAtStationWrapper.classList.add('hidden');
+                locationBetweenWrapper.classList.remove('hidden');
+            } else {
+                locationAtStationWrapper.classList.add('hidden');
+                locationBetweenWrapper.classList.add('hidden');
+            }
+        }
+
+        reasonSelect.addEventListener('change', updateCarriageField);
+        locationTypeSelect.addEventListener('change', updateLocationFields);
+        
+        document.getElementById('announcementForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Gather all data
+            const trainTypeThai = document.getElementById('trainType').value;
+            const trainTypeEnglish = trainTypeMap[trainTypeThai];
+            const trainNumber = document.getElementById('trainNumberInput').value;
+            const origin = document.getElementById('origin').value;
+            const destination = document.getElementById('destination').value;
+            const reasonKey = document.getElementById('reason').value;
+            
+            // Build Location String
+            let location = '';
+            let locationEn = '';
+            const locationType = locationTypeSelect.value;
+            if (locationType === 'at_station') {
+                const station = document.getElementById('locationStation').value.trim();
+                if (station) {
+                    location = `ที่สถานี ${station}`;
+                    locationEn = `at ${station} station`;
+                }
+            } else if (locationType === 'between_stations') {
+                const station1 = document.getElementById('locationBetween1').value.trim();
+                const station2 = document.getElementById('locationBetween2').value.trim();
+                if (station1 && station2) {
+                    location = `ระหว่างสถานี ${station1} - ${station2}`;
+                    locationEn = `between ${station1} and ${station2} stations`;
+                }
+            }
+
+            const actionKey = document.getElementById('actionTaken').value;
+            const delayTime = document.getElementById('delayTime').value.trim();
+            const instructionKey = document.getElementById('instruction').value;
+            const notes = document.getElementById('notes').value.trim();
+            const otherTrainsAffected = document.getElementById('otherTrainsAffected').checked;
+            const carriageNumber = document.getElementById('carriageNumber').value.trim();
+
+            // --- Build Thai Announcement ---
+            let thaiParts = [];
+            let trainId = `${trainTypeThai}ขบวนที่ ${trainNumber} (${origin} - ${destination})`;
+            
+            let reasonStr = reasons[reasonKey].thai;
+            if (carriageNumber) {
+                reasonStr += ` (${carriageNumber})`;
+            }
+
+            let mainClause;
+            const specialCases = ['4', '5', '11', '15'];
+            if (specialCases.includes(reasonKey)) {
+                mainClause = location ? `${reasonStr} ${location}` : reasonStr;
+            } else {
+                mainClause = location ? `เกิดเหตุ ${location} เนื่องจาก ${reasonStr}` : `เกิดเหตุเนื่องจาก ${reasonStr}`;
+            }
+            thaiParts.push(mainClause);
+
+            if (actionKey) {
+                thaiParts.push(actions.thai[actionKey]);
+            }
+
+            let impactStr = "ส่งผลให้การเดินทางล่าช้ากว่ากำหนด";
+            if (delayTime) {
+                impactStr += `ประมาณ ${delayTime}`;
+            }
+            thaiParts.push(impactStr);
+
+            if (instructionKey !== 'none') {
+                thaiParts.push(instructions.thai[instructionKey]);
+            }
+            
+            if (notes) {
+                thaiParts.push(notes);
+            }
+
+            if (otherTrainsAffected) {
+                thaiParts.push("เหตุการณ์นี้อาจส่งผลกระทบต่อขบวนรถอื่นในเส้นทาง");
+            }
+
+            const thaiText = `ประกาศ: ${trainId} ${thaiParts.join('. ')}. ขออภัยในความไม่สะดวก`;
+
+            // --- Build English Announcement ---
+            let englishParts = [];
+            let trainIdEn = `${trainTypeEnglish} No. ${trainNumber} (${origin} - ${destination})`;
+            
+            let reasonStrEn = reasons[reasonKey].english;
+            if (carriageNumber) {
+                reasonStrEn += ` (${carriageNumber})`;
+            }
+
+            let mainClauseEn;
+            if (reasonKey === '4') {
+                mainClauseEn = `will have ${reasonStrEn}`;
+            } else if (['5', '11', '15'].includes(reasonKey)) {
+                mainClauseEn = `is ${reasonStrEn}` + (locationEn ? ` ${locationEn}` : '');
+            } else {
+                mainClauseEn = `is experiencing a disruption` + (locationEn ? ` ${locationEn}` : '') + ` due to ${reasonStrEn}`;
+            }
+            englishParts.push(mainClauseEn);
+
+            if (actionKey) {
+                englishParts.push(actions.english[actionKey]);
+            }
+
+            let impactStrEn = "This will cause a delay.";
+            if (delayTime) {
+                impactStrEn = `A delay of approximately ${delayTime} is expected.`;
+            }
+            englishParts.push(impactStrEn);
+            
+            if (instructionKey !== 'none') {
+                englishParts.push(instructions.english[instructionKey]);
+            }
+
+            if (notes) {
+                englishParts.push(notes);
+            }
+
+            if (otherTrainsAffected) {
+                englishParts.push("This incident may affect other trains on this route.");
+            }
+
+            const englishText = `Notice: ${trainIdEn} ${englishParts.join(' ')} We apologize for the inconvenience.`;
+
+            // Display
+            document.getElementById('thaiOutput').textContent = thaiText.replace(/\. \./g, '.').replace(/\s+/g, ' ');
+            document.getElementById('englishOutput').textContent = englishText.replace(/\. \./g, '.').replace(/\s+/g, ' ');
+            document.getElementById('outputArea').classList.remove('hidden');
+        });
+
+        function copyToClipboard(elementId) {
+            const textToCopy = document.getElementById(elementId).textContent;
+            const textArea = document.createElement('textarea');
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showToast();
+            } catch (err) {
+                console.error('Could not copy text: ', err);
+            }
+            document.body.removeChild(textArea);
+        }
+        
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.remove('opacity-0');
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+            }, 2000);
+        }
+        
+        // Initial population
+        populateTrainNumbers();
+        populateStations();
+        updateCarriageField();
+        updateLocationFields();
+    </script>
+</body>
+</html>
