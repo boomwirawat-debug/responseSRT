@@ -37,7 +37,7 @@
 
         <form id="announcementForm">
             <!-- Train Information -->
-            <fieldset>
+            <fieldset id="trainInfoFieldset">
                 <legend class="text-lg">ข้อมูลขบวนรถ</legend>
                 <div class="grid form-grid gap-6 mt-4">
                     <div>
@@ -82,7 +82,7 @@
                             <option value="5">5. รอรถหมุนเวียน</option>
                             <option value="6">6. ชนยานพาหนะ</option>
                             <option value="7">7. ชนสัตว์</option>
-                            <option value="8">8. ชนคน</option>
+                            <option value="8">8. อุบัติเหตุเกี่ยวกับบุคคล</option>
                             <option value="9">9. ดินสไลด์</option>
                             <option value="10">10. น้ำท่วม</option>
                             <option value="11">11. รอเปิดทาง</option>
@@ -91,11 +91,39 @@
                             <option value="14">14. ขบวนรถตกราง</option>
                             <option value="15">15. รอเคลียร์เส้นทาง</option>
                             <option value="16">16. ปรับเปลี่ยนตู้โดยสาร</option>
+                            <option value="17">17. ไม่มีตู้ให้บริการ</option>
                         </select>
                     </div>
                     <div id="carriageNumberWrapper" class="hidden">
                         <label for="carriageNumber" class="block text-sm font-medium text-gray-700 mb-2">หมายเลขตู้โดยสาร</label>
                         <input type="text" id="carriageNumber" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="เช่น คันที่ 3">
+                    </div>
+                     <div id="carriageChangeWrapper" class="hidden col-span-full">
+                        <label for="carriageChangeType" class="block text-sm font-medium text-gray-700 mb-2">รายละเอียดการปรับเปลี่ยน</label>
+                        <select id="carriageChangeType" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <option value="fan_to_ac">เปลี่ยนจากรถพัดลมเป็นปรับอากาศ</option>
+                            <option value="ac_to_fan">เปลี่ยนจากรถปรับอากาศเป็นรถพัดลม</option>
+                            <option value="class_upgrade">เปลี่ยนจากรถชั้น 3 เป็นรถชั้น 2</option>
+                            <option value="fan_sleeper_to_ac_sleeper">เปลี่ยนจากรถนอนพัดลมเป็นรถนอนปรับอากาศ</option>
+                            <option value="ac_sleeper_to_fan_sleeper">เปลี่ยนจากรถนอนปรับอากาศเป็นรถนอนพัดลม</option>
+                        </select>
+                    </div>
+                     <div id="unavailableCarriageWrapper" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-4 col-span-full">
+                        <div>
+                            <label for="unavailableDate" class="block text-sm font-medium text-gray-700 mb-2">วันที่</label>
+                            <input type="date" id="unavailableDate" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label for="unavailableCarriageType" class="block text-sm font-medium text-gray-700 mb-2">ประเภทตู้โดยสาร</label>
+                            <select id="unavailableCarriageType" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                <option value="ตู้นอนปรับอากาศ ชั้น1">ตู้นอนปรับอากาศ ชั้น1</option>
+                                <option value="ตู้นอนปรับอากาศ ชั้น2">ตู้นอนปรับอากาศ ชั้น2</option>
+                                <option value="ตู้นอนพัดลมชั้น2">ตู้นอนพัดลมชั้น2</option>
+                                <option value="ตู้โดยสาร ชั้น2">ตู้โดยสาร ชั้น2</option>
+                                <option value="ตู้โดยสาร ชั้น3">ตู้โดยสาร ชั้น3</option>
+                                <option value="ตู้เสบียง">ตู้เสบียง</option>
+                            </select>
+                        </div>
                     </div>
                     <div>
                         <label for="locationType" class="block text-sm font-medium text-gray-700 mb-2">ประเภทสถานที่เกิดเหตุ</label>
@@ -140,16 +168,19 @@
                         <label for="delayTime" class="block text-sm font-medium text-gray-700 mb-2">เวลาที่คาดว่าจะล่าช้า (ถ้ามี)</label>
                         <input type="text" id="delayTime" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="เช่น 30 นาที">
                     </div>
-                    <div>
+                    <div class="col-span-full">
                         <label for="instruction" class="block text-sm font-medium text-gray-700 mb-2">คำแนะนำผู้โดยสาร</label>
                         <select id="instruction" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
                             <option value="none">ไม่มี</option>
                             <option value="wait">โปรดรอการประกาศครั้งต่อไป</option>
                             <option value="alternative">กำลังจัดเตรียมการขนส่งทางเลือก</option>
+                            <option value="refund">ผู้โดยสารสามารถติดต่อขอรับคืนเงินค่าตั๋วโดยสารได้ที่สถานีรถไฟทั่วประเทศ</option>
+                            <option value="disembark">ผู้โดยสารที่ต้องการสละสิทธิ์ สามารถลงจากขบวนรถได้</option>
+                            <option value="upgrade_pets">แนะนำกรณีปรับเปลี่ยนตู้โดยสาร/สัตว์เลี้ยง</option>
                         </select>
                     </div>
                     <div class="col-span-full">
-                        <label for="notes" class="block text-sm font-medium text-gray-700 mb-2">บันทึกเพิ่มเติม</label>
+                        <label for="notes" class="block text-sm font-medium text-gray-700 mb-2">บันทึกเพิ่มเติม (จะถูกแปลอัตโนมัติ)</label>
                         <textarea id="notes" rows="2" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="ระบุข้อมูลอื่นๆ เพิ่มเติม..."></textarea>
                     </div>
                     <div class="col-span-full flex items-center">
@@ -215,21 +246,25 @@
     <script>
         const reasonSelect = document.getElementById('reason');
         const carriageNumberWrapper = document.getElementById('carriageNumberWrapper');
+        const unavailableCarriageWrapper = document.getElementById('unavailableCarriageWrapper');
+        const carriageChangeWrapper = document.getElementById('carriageChangeWrapper');
+        const departureDelayWrapper = document.getElementById('departureDelayWrapper');
         const locationTypeSelect = document.getElementById('locationType');
         const locationAtStationWrapper = document.getElementById('locationAtStationWrapper');
         const locationBetweenWrapper = document.getElementById('locationBetweenWrapper');
-
+        const trainInfoFieldset = document.getElementById('trainInfoFieldset');
+        
         const trainTypeMap = { 'รถด่วนพิเศษ': 'Special Express', 'รถด่วน': 'Express', 'รถเร็ว': 'Rapid', 'รถธรรมดา': 'Ordinary', 'รถท้องถิ่น': 'Local', 'รถชานเมือง': 'Commuter' };
 
         const reasons = {
             '1': { thai: "รถจักรขัดข้อง", english: "a locomotive failure" },
             '2': { thai: "ตู้โดยสารขัดข้อง", english: "a carriage failure" },
             '3': { thai: "เครื่องปรับอากาศชำรุด", english: "an air conditioning failure" },
-            '4': { thai: "ออกจากต้นทางล่าช้า", english: "a delayed departure from its origin station" },
+            '4': { thai: "ออกจากต้นทางล่าช้า", english: "a delayed departure from its departure station" },
             '5': { thai: "รอรถหมุนเวียน", english: "waiting for connecting rolling stock" },
             '6': { thai: "ชนยานพาหนะ", english: "a collision with a vehicle" },
             '7': { thai: "ชนสัตว์", english: "a collision with an animal" },
-            '8': { thai: "ชนคน", english: "an accident involving a person" },
+            '8': { thai: "อุบัติเหตุเกี่ยวกับบุคคล", english: "an incident involving a person" },
             '9': { thai: "ดินสไลด์", english: "a landslide on the track" },
             '10': { thai: "น้ำท่วม", english: "flooding on the track" },
             '11': { thai: "รอเปิดทาง", english: "waiting for track clearance" },
@@ -237,7 +272,8 @@
             '13': { thai: "ระบบอาณัติสัญญาณขัดข้อง", english: "a signaling system failure" },
             '14': { thai: "ขบวนรถตกราง", english: "a train derailment" },
             '15': { thai: "รอเคลียร์เส้นทาง", english: "waiting for the line to be cleared" },
-            '16': { thai: "ปรับเปลี่ยนตู้โดยสาร", english: "a carriage change" }
+            '16': { thai: "ปรับเปลี่ยนตู้โดยสาร", english: "a carriage change" },
+            '17': { thai: "ไม่มีตู้ให้บริการ", english: "a carriage is unavailable" }
         };
         
         const actions = {
@@ -256,12 +292,47 @@
         };
 
         const instructions = {
-            thai: {'wait': "โปรดรอรับฟังการประกาศครั้งต่อไป", 'alternative': "กำลังจัดเตรียมการขนส่งทางเลือกสำหรับผู้โดยสาร"},
-            english: {'wait': "Please wait for further announcements.", 'alternative': "Alternative transportation is being arranged."}
+            thai: {
+                'wait': "โปรดรอรับฟังการประกาศครั้งต่อไป", 
+                'alternative': "กำลังจัดเตรียมการขนส่งทางเลือกสำหรับผู้โดยสาร",
+                'refund': "ผู้โดยสารสามารถติดต่อขอรับคืนเงินค่าตั๋วโดยสารได้ที่สถานีรถไฟทั่วประเทศ",
+                'disembark': "ผู้โดยสารที่มีความประสงค์จะสละสิทธิ์การเดินทาง สามารถลงจากขบวนรถได้",
+                'upgrade_pets': "สำหรับผู้โดยสารที่จองล่วงหน้า ไม่มีการเก็บค่าบริการเพิ่มเติม กรณีผู้โดยสารเดินทางพร้อมสัตว์เลี้ยงโปรดติดต่อเจ้าหน้าที่สถานี ก่อนขึ้นขบวนรถ"
+            },
+            english: {
+                'wait': "Please wait for further announcements.", 
+                'alternative': "Alternative transportation is being arranged.",
+                'refund': "Passengers can request a ticket refund at any station nationwide.",
+                'disembark': "Passengers who wish to forfeit their journey may disembark.",
+                'upgrade_pets': "For passengers with advance bookings, no additional fees will be charged. Additionally, passengers traveling with pets are requested to contact station staff before boarding."
+            }
+        };
+
+        const carriageChangeMap = {
+            'fan_to_ac': { thai: "เปลี่ยนจากรถพัดลมเป็นปรับอากาศ", english: "changing from a fan car to an air-conditioned car" },
+            'ac_to_fan': { thai: "เปลี่ยนจากรถปรับอากาศเป็นรถพัดลม", english: "changing from an air-conditioned car to a fan car" },
+            'class_upgrade': { thai: "เปลี่ยนจากรถชั้น 3 เป็นรถชั้น 2", english: "upgrading from a 3rd class to a 2nd class car" },
+            'fan_sleeper_to_ac_sleeper': { thai: "เปลี่ยนจากรถนอนพัดลมเป็นรถนอนปรับอากาศ", english: "changing from a fan sleeper to an air-conditioned sleeper" },
+            'ac_sleeper_to_fan_sleeper': { thai: "เปลี่ยนจากรถนอนปรับอากาศเป็นรถนอนพัดลม", english: "changing from an air-conditioned sleeper to a fan sleeper" }
+        };
+        
+        const unavailableCarriageMap = {
+            "ตู้นอนปรับอากาศ ชั้น1": "1st Class Air-conditioned Sleeper",
+            "ตู้นอนปรับอากาศ ชั้น2": "2nd Class Air-conditioned Sleeper",
+            "ตู้นอนพัดลมชั้น2": "2nd Class Fan Sleeper",
+            "ตู้โดยสาร ชั้น2": "2nd Class Coach",
+            "ตู้โดยสาร ชั้น3": "3rd Class Coach",
+            "ตู้เสบียง": "Dining Car"
+        };
+        
+        const departureDelayMap = {
+            'late_departure': { thai: "ออกจากสถานีต้นทางล่าช้า", english: "a delayed departure from the departure station" },
+            'group_travel': { thai: "รอการโดยสารหมู่คณะ", english: "waiting for a group of passengers" },
+            'tour_extension': { thai: "ขยายเวลาการท่องเที่ยว", english: "an extended tour time" }
         };
 
         const stationTranslation = {
-            "กรุงเทพ": "Bangkok", "กรุงเทพอภิวัฒน์": "Krung Thep Aphiwat Central Terminal", "ยมราช": "Yommarat", "โรงพยาบาลรามาธิบดี": "Ramathibodi Hospital", "สามเสน": "Sam Sen", "ประดิพัทธ์": "Pradiphat", "ชุมทางบางซื่อ": "Bang Sue Grand Station", "นิคมรถไฟ กม.11": "Nikhom Rotfai KM.11", "บางเขน": "Bang Khen", "ทุ่งสองห้อง": "Thung Song Hong", "หลักสี่": "Lak Si", "การเคหะ กม.19": "Kan Kheha KM.19", "ตลาดใหม่ดอนเมือง": "Talat Mai Don Mueang", "ดอนเมือง": "Don Mueang", "แกรนด์ คาแนล": "Grand Canal", "หลักหก": "Lak Hok", "คลองรังสิต": "Khlong Rangsit", "รังสิต": "Rangsit", "คลองหนึ่ง": "Khlong Nueng", "เชียงราก": "Chiang Rak", "ม.ธรรมศาสตร์ (ศูนย์รังสิต)": "Thammasat University (Rangsit)", "นวนคร": "Nawa Nakhon", "เชียงรากน้อย": "Chiang Rak Noi", "คลองพุทรา": "Khlong Phutsa", "บางปะอิน": "Bang Pa-in", "บ้านโพ": "Ban Pho", "อยุธยา": "Ayutthaya", "บ้านม้า": "Ban Ma", "มาบพระจันทร์": "Map Phra Chan", "บ้านดอนกลาง": "Ban Don Klang", "พระแก้ว": "Phra Kaeo", "ชุมทางบ้านภาชี": "Ban Phachi Junction", "ดอนหญ้านาง": "Don Ya Nang", "หนองวิวัฒน์": "Nong Wiwat", "บ้านปลักแรด": "Ban Plak Raet", "ท่าเรือ": "Tha Ruea", "บ้านหมอ": "Ban Mo", "หนองโดน": "Nong Don", "บ้านกลับ": "Ban Klap", "บ้านป่าหวาย": "Ban Pa Wai", "ลพบุรี": "Lop Buri", "ท่าแค": "Tha Khae", "โคกกะเทียม": "Khok Kathiam", "หนองเต่า": "Nong Tao", "หนองทรายขาว": "Nong Sai Khao", "บ้านหมี่": "Ban Mi", "ห้วยแก้ว": "Huai Kaeo", "ไผ่ใหญ่": "Phai Yai", "โรงเรียนจันเสน": "Rongrian Chansen", "จันเสน": "Chansen", "บ้านกกกว้าว": "Ban Kok Kwao", "ช่องแค": "Chong Khae", "ทะเลหว้า": "Thale Wa", "โพนทอง": "Phon Thong", "บ้านตาคลี": "Ban Takhli", "ดงมะกุ": "Dong Maku", "หัวหวาย": "Hua Wai", "หนองโพ": "Nong Pho", "หัวงิ้ว": "Hua Ngiu", "บ้านหนองหมู": "Ban Nong Mu", "เนินมะกอก": "Noen Makok", "ทุ่งน้ำซึม": "Thung Nam Suem", "นครสวรรค์": "Nakhon Sawan", "เขาทอง": "Khao Thong", "ปากน้ำโพ": "Pak Nam Pho", "บึงบอระเพ็ด": "Bueng Boraphet", "ทับกฤช": "Thap Krit", "คลองปลากด": "Khlong Pla Kot", "ชุมแสง": "Chum Saeng", "วังกร่าง": "Wang Krang", "หอไกร": "Ho Krai", "บางมูลนาก": "Bang Mun Nak", "ดงตะขบ": "Dong Takhop", "ตะพานหิน": "Taphan Hin", "ห้วยเกตุ": "Huai Ket", "หัวดง": "Hua Dong", "วังกรด": "Wang Krot", "พิจิตร": "Phichit", "ท่าพ่อ": "Tha Pho", "บางกระทุ่ม": "Bang Krathum", "แม่เทียบ": "Mae Thiap", "บ้านใหม่": "Ban Mai", "บึงพระ": "Bueng Phra", "พิษณุโลก": "Phitsanulok", "บ้านเต็งหนาม": "Ban Teng Nam", "บ้านตูม": "Ban Tum", "พรหมพิราม": "Phrom Phiram", "แควน้อย": "Khwae Noi", "หนองตม": "Nong Tom", "บ้านบุ่ง": "Ban Bung", "บ้านโคน": "Ban Khon", "พิชัย": "Phichai", "ชุมทางบ้านดารา": "Ban Dara Junction", "ไร่อ้อย": "Rai Oi", "ท่าสัก": "Tha Sak", "ตรอน": "Tron", "วังกะพี้": "Wang Kapi", "อุตรดิตถ์": "Uttaradit", "ศิลาอาสน์": "Sila At", "ท่าเสา": "Tha Sao", "บ้านด่าน": "Ban Dan", "ปางต้นผึ้ง": "Pang Ton Phueng", "เขาพลึง": "Khao Phlueng", "ห้วยไร่": "Huai Rai", "ไร่เกล็ดดาว": "Rai Klet Dao", "แม่พวก": "Mae Phuak", "บ้านปิน": "Ban Pin", "ผาคัน": "Pha Khan", "เด่นชัย": "Den Chai", "ผาคอ": "Pha Kho", "ปากปาน": "Pak Pan", "ปางป๋วย": "Pang Puai", "แก่งหลวง": "Kaeng Luang", "แม่จาง": "Mae Chang", "ห้วยแม่ต้า": "Huai Mae Ta", "แม่เมาะ": "Mae Mo", "ห้วยรากไม้": "Huai Rak Mai", "ศาลาผาลาด": "Sala Pha Lat", "แม่ทะ": "Mae Tha", "หนองวัวเฒ่า": "Nong Wua Thao", "นครลำปาง": "Nakhon Lampang", "บ่อแฮ้ว": "Bo Haeo", "ปางม่วง": "Pang Muang", "ห้างฉััตร": "Hang Chat", "ห้วยเรียน": "Huai Rian", "แม่ตาน้อย": "Mae Tan Noi", "ขุนตาน": "Khun Tan", "ทาชมภู": "Tha Chomphu", "หนองหล่ม": "Nong Lom", "ศาลาแม่ทา": "Sala Mae Tha", "ลำพูน": "Lamphun", "ป่าเส้า": "Pa Sao", "สารภี": "Saraphi", "เชียงใหม่": "Chiang Mai", "คลองละมุง": "Khlong Lamung", "คลองมะพลับ": "Khlong Maphlap", "วัดคลองปู": "Wat Khlong Pu", "คลองยาง": "Khlong Yang", "หนองเรียง": "Nong Riang", "สวรรคโลก": "Sawankhalok", "หนองกวย": "Nong Kuai", "หนองแซง": "Nong Saeng", "หนองรี": "Nong Ri", "บ้านป๊อกแป๊ก": "Ban Pokpaek", "สระบุรี": "Saraburi", "หนองบัว": "Nong Bua", "ชุมทางแก่งคอย": "Kaeng Khoi Junction", "ทับกวาง": "Thap Kwang", "มาบกะเบา": "Map Kabao", "ผาเสด็จ": "Pha Sadet", "หินลับ": "Hin Lap", "มวกเหล็ก": "Muak Lek", "กลางดง": "Klang Dong", "ปางอโศก": "Pang Asok", "บันไดม้า": "Bandai Ma", "ปากช่อง": "Pak Chong", "ซับม่วง": "Sap Muang", "จันทึก": "Chanthuek", "คลองไผ่": "Khlong Phai", "สีคิ้ว": "Sikhio", "สูงเนิน": "Sung Noen", "กุดจิก": "Kut Chik", "โคกกรวด": "Khok Kruat", "บ้านใหม่สำโรง": "Ban Mai Samrong", "นครราชสีมา": "Nakhon Ratchasima", "ชุมทางถนนจิระ": "Thanon Chira Junction", "ท่าช้าง": "Tha Chang", "จักราช": "Chakkarat", "ห้วยแถลง": "Huai Thalaeng", "ลำปลายมาศ": "Lam Plai Mat", "หนองเต็ง": "Nong Teng", "ลำชี": "Lam Chi", "ห้วยราช": "Huai Rat", "บุรีรัมย์": "Buri Ram", "บ้านตะโก": "Ban Tako", "บ้านพลวง": "Ban Phluang", "สุรินทร์": "Surin", "เมืองที": "Mueang Thi", "กระสัง": "Krasang", "ลำดวน": "Lamduan", "ศีขรภูมิ": "Sikhoraphum", "บ้านกะลัน": "Ban Kalan", "ห้วยทับทัน": "Huai Thap Than", "อุทุมพรพิสัย": "Uthumphon Phisai", "บ้านเนียม": "Ban Niam", "ศรีสะเกษ": "Si Sa Ket", "หนองแวง": "Nong Waeng", "กันทรารมย์": "Kanthararom", "บ้านโนนผึ้ง": "Ban Non Phueng", "ห้วยขยุง": "Huai Khayung", "วารินชำราบ": "Warin Chamrap", "อุบลราชธานี": "Ubon Ratchathani", "บ้านไร่": "Ban Rai", "บ้านเกาะ": "Ban Ko", "หนองไข่น้ำ": "Nong Khai Nam", "โนนสูง": "Non Sung", "บ้านมะค่า": "Ban Makha", "บ้านดงพลอง": "Ban Dong Phlong", "เมืองคง": "Mueang Khong", "หนองบัวลาย": "Nong Bua Lai", "ชุมทางบัวใหญ่": "Bua Yai Junction", "เนินสวัสดิ์": "Noen Sawat", "ศาลาดิน": "Sala Din", "หนองมะเขือ": "Nong Makhuea", "เมืองพล": "Mueang Phon", "บ้านไผ่": "Ban Phai", "บ้านแฮด": "Ban Haet", "ท่าพระ": "Tha Phra", "ขอนแก่น": "Khon Kaen", "สำราญ": "Samran", "โนนพยอม": "Non Phayom", "น้ำพอง": "Nam Phong", "เขาสวนกวาง": "Khao Suan Kwang", "ห้วยสามพาด": "Huai Sam Phat", "กุมภวาปี": "Kumphawapi", "ห้วยเกิ้ง": "Huai Koeng", "โนนสะอาด": "Non Sa-at", "อุดรธานี": "Udon Thani", "หนองตะไก้": "Nong Takai", "คำกลิ้ง": "Kham Kling", "หนองขอนกว้าง": "Nong Khon Kwang", "นาทา": "Na Tha", "หนองคาย": "Nong Khai", "ตลาดหนองคาย": "Talat Nong Khai", "โรงเรียนอัสสัมชัญคอนแวนต์": "Assumption Convent School", "บ้านช่องใต้": "Ban Chong Tai", "เขาคอก": "Khao Khok", "เขาหินดาด": "Khao Hin Dat", "หินซ้อน": "Hin Son", "เขาสูง": "Khao Sung", "แก่งเสือเต้น": "Kaeng Suea Ten", "เขื่อนป่าสักชลสิทธิ์": "Pa Sak Cholasit Dam", "บ้านหนองบัว": "Ban Nong Bua", "โคกสลุง": "Khok Salung", "สุรนารายณ์": "Suranarai", "บ้านปากจาบ": "Ban Pak Chap", "เขายายกะตา": "Khao Yai Ka Ta", "ตลาดลำนารายณ์": "Talat Lam Narai", "ลำนารายณ์": "Lam Narai", "บ้านเกาะรัง": "Ban Ko Rang", "แผ่นดินทอง": "Phaen Din Thong", "บ้านจงโก": "Ban Chong Ko", "โคกคลี": "Khok Khli", "ช่องสำราญ": "Chong Samran", "บ้านวะตะแบก (เทพสถิต)": "Ban Wa Tabaek (Thep Sathit)", "ห้วยยายจิ๋ว": "Huai Yai Chio", "บ้านหนองปรือโป่ง": "Ban Nong Prue Pong", "บำเหน็จณรงค์": "Bamnet Narong", "บ้านกลอย": "Ban Kloi", "วังกะอาม": "Wang Ka-am", "โนนคร้อ": "Non Khro", "จัตุรัส": "Chatturat", "หนองฉิม": "Nong Chim", "บ้านตาเนิน": "Ban Ta Noen", "บ้านหนองขาม": "Ban Nong Kham", "บ้านเหลื่อม": "Ban Lueam", "บ้านโคกกระเบื้อง": "Ban Khok Krabueang", "หนองพลวง": "Nong Phluang", "บ้านกระพี้": "Ban Kraphi", "บ้านเก่างิ้ว": "Ban Kao Ngiu", "บ้านสระครก": "Ban Sa Khrok", "บ้านโลกรัง": "Ban Lok Rang", "อุรุพงษ์": "Uruphong", "พญาไท": "Phaya Thai", "ราชปรารภ": "Ratchaprarop", "มักกะสัน": "Makkasan", "อโศก": "Asok", "คลองตัน": "Khlong Tan", "สุขุมวิท 71": "Sukhumvit 71", "หัวหมาก": "Hua Mak", "บ้านทับช้าง": "Ban Thap Chang", "ซอยวัดลานบุญ": "Soi Wat Lan Bun", "ลาดกระบัง": "Lat Krabang", "พระจอมเกล้า": "Phra Chom Klao", "หัวตะเข้": "Hua Takhe", "บรรจุและแยกสินค้ากล่อง (ไอซีดี) ที่ลาดกระบัง": "Lat Krabang ICD", "คลองหลวงแพ่ง": "Khlong Luang Phaeng", "คลองอุดมชลจร": "Khlong Udom Chonlachon", "เปร็ง": "Preng", "คลองแขวงกลั่น": "Khlong Khwaeng Klan", "คลองบางพระ": "Khlong Bang Phra", "ชุมทางฉะเชิงเทรา": "Chachoengsao Junction", "บางขวัญ": "Bang Khwan", "โพรงอากาศ": "Phrong Akat", "บางน้ำเปรี้ยว": "Bang Nam Priao", "ชุมทางคลองสิบเก้า": "Khlong Sip Kao Junction", "คลองยี่สิบเอ็ด": "Khlong Yi Sip Et", "โยทะกา": "Yothaka", "บ้านสร้าง": "Ban Sang", "บ้านปากพลี": "Ban Pak Phli", "ปราจีนบุรี": "Prachin Buri", "โคกมะกอก": "Khok Makok", "ประจันตคาม": "Prachantakham", "บ้านดงบัง": "Ban Dong Bang", "กบินทร์บุรี": "Kabin Buri", "กบินทร์เก่า": "Kabin Kao", "หนองสัง": "Nong Sang", "พระปรง": "Phra Prong", "บ้านแก้ง": "Ban Kaeng", "ศาลาลำดวน": "Sala Lamduan", "สระแก้ว": "Sa Kaeo", "ศูนย์ราชการจังหวัดสระแก้ว": "Sa Kaeo Provincial Government Center", "ท่าเกษม": "Tha Kasem", "ห้วยโจด": "Huai Chot", "วัฒนานคร": "Watthana Nakhon", "บ้านโป่งคอม": "Ban Pong Kom", "ห้วยเดื่อ": "Huai Duea", "อรัญประเทศ": "Aranyaprathet", "ด่านพรมแดนบ้านคลองลึก": "Ban Khlong Luek Border", "บุใหญ่": "Bu Yai", "องครักษ์": "Ongkharak", "วิหารแดง": "Wihan Daeng", "แปดริ้ว": "Paet Riu", "พานทอง": "Phan Thong", "ชลบุรี": "Chon Buri", "บางพระ": "Bang Phra", "เขาพระบาท": "Khao Phra Bat", "ชุมทางศรีราชา": "Si Racha Junction", "แหลมฉบัง": "Laem Chabang", "บางละมุง": "Bang Lamung", "พัทยา": "Pattaya", "พัทยาใต้": "Pattaya Tai", "ตลาดน้ำ 4 ภาค": "Talat Nam Si Phak", "บ้านห้วยขวาง": "Ban Huai Khwang", "ญาณสังวราราม": "Yanasangwararam", "สวนนงนุช": "Suan Nong Nuch", "ชุมทางเขาชีจรรย์": "Khao Chi Chan Junction", "บ้านพลูตาหลวง": "Ban Phlu Ta Luang", "บ้านฉาง": "Ban Chang", "มาบตาพุด": "Map Ta Phut", "แม่น้ำ": "Mae Nam", "แม่น้ำ (โรงกลั่นน้ำมันบางจาก)": "Mae Nam (Bangchak Oil Refinery)", "บางซ่อน": "Bang Son", "บางบำหru": "Bang Bamru", "ธนบุรี": "Thon Buri", "จรัลสนิทวงศ์": "Charan Sanitwong", "บางระมาด": "Bang Ramat", "ชุมทางตลิ่งชัน": "Taling Chan Junction", "บ้านฉิมพลี": "Ban Chimphli", "ศาลาธรรมสพน์": "Sala Thammasop", "พุทธมณฑล สาย 2": "Phutthamonthon Sai 2", "ศาลายา": "Salaya", "คลองมหาสวัสดิ์": "Khlong Maha Sawat", "วัดสุวรรณ": "Wat Suwan", "วัดงิ้วราย": "Wat Ngiu Rai", "นครชัยศรี": "Nakhon Chai Si", "ท่าแฉลบ": "Tha Chalaep", "ต้นสำโรง": "Ton Samrong", "พระราชวังสนามจันทร์": "Sanam Chandra Palace", "นครปฐม": "Nakhon Pathom", "โพรงมะเดื่อ": "Phrong Maduea", "ชุมทางหนองปลาดุก": "Nong Pladuk Junction", "คลองบางตาล": "Khlong Bang Tan", "บ้านโป่ง": "Ban Pong", "นครชุมน์": "Nakhon Chum", "คลองตาคต": "Khlong Ta Khot", "เจ็ดเสมียน": "Chet Samian", "โพธาราม": "Photharam", "บ้านกล้วย": "Ban Kluai", "สะพานจุฬาลงกรณ์": "Chulalongkorn Bridge", "บ้านคูบัว": "Ban Khu Bua", "ราชบุรี": "Ratchaburi", "บ่อตะคร้อ": "Bo Takhro", "บ้านป่าไก่": "Ban Pa Kai", "ปากท่อ": "Pak Tho", "ห้วยโรง": "Huai Rong", "บางเค็ม": "Bang Khem", "เขาย้อย": "Khao Yoi", "หนองปลาไหล": "Nong Pla Lai", "บางจาก": "Bang Chak", "เพชรบุรี": "Phetchaburi", "เขาทโมน": "Khao Thamon", "หนองไม้เหลือง": "Nong Mai Lueang", "หนองจอก": "Nong Chok", "หนองศาลา": "Nong Sala", "ชะอำ": "Cha-am", "ห้วยทรายเหนือ": "Huai Sai Nuea", "ห้วยทรายใต้": "Huai Sai Tai", "หัวหิน": "Hua Hin", "หนองแก": "Nong Kae", "สวนสนประดิพัทธ์": "Suan Son Pradiphat", "วังก์พง": "Wangkphong", "เขาเต่า": "Khao Tao", "ปราณบุรี": "Pran Buri", "ห้วยขวาง": "Huai Khwang", "หนองคาง": "Nong Khang", "สามร้อยยอด": "Sam Roi Yot", "สามกระทาย": "Sam Krathai", "กุยบุรี": "Kui Buri", "บ่อนอก": "Bo Nok", "ทุ่งมะเม่า": "Thung Mamao", "คั่นกระได": "Khan Kradai", "ประจวบคีรีขันธ์": "Prachuap Khiri Khan", "หว้ากอ": "Wa Ko", "หนองหิน": "Nong Hin", "วังด้วน": "Wang Duan", "ห้วยยาง": "Huai Yang", "ทับสะแก": "Thap Sakae", "ทุ่งประดู่": "Thung Pradu", "ดอนทราย": "Don Sai", "โคกตาหอม": "Khok Ta Hom", "บ้านกรูด": "Ban Krut", "หนองมงคล": "Nong Mongkhon", "นาผักขวง": "Na Phak Khuang", "บางสะพานใหญ่": "Bang Saphan Yai", "หินกอง": "Hin Kong", "ชะมวง": "Chamuang", "บางสะพานน้อย": "Bang Saphan Noi", "ห้วยสัก": "Huai Sak", "บ้านทรายทอง": "Ban Sai Thong", "เขาไชยราช": "Khao Chaiyarat", "มาบอำมฤต": "Map Ammarit", "บ้านทรัพย์สมบูรณ์": "Ban Sap Sombun", "คลองวังช้าง": "Khlong Wang Chang", "ปะทิว": "Pathio", "บ้านคอกม้า": "Ban Khok Ma", "สพลี": "Saphli", "หนองเนียน": "Nong Nian", "นาชะอัง": "Na Cha-ang", "ชุมพร": "Chumphon", "แสงแดด": "Saeng Daet", "ทุ่งคา": "Thung Kha", "วิสัย": "Wisai", "บ้านครน": "Ban Khron", "สวี": "Sawi", "เขาสวนทุเรียน": "Khao Suan Thurian", "เขาปีบ": "Khao Pip", "ปากตะโก": "Pak Tako", "ท่าทอง": "Tha Thong", "ควนหินมุ้ย": "Khuan Hin Mui", "หลังสวน": "Lang Suan", "คลองขนาน": "Khlong Khanan", "ทุ่งมะพร้าว": "Thung Maphrao", "ละแม": "Lamae", "บ้านดวด": "Ban Duat", "คันธุลี": "Khanthuli", "ดอนธูป": "Don Thup", "ท่าชนะ": "Tha Chana", "บ้านเกาะมุกข์": "Ban Ko Muk", "เขาพนมแบก": "Khao Phanom Baek", "ไชยา": "Chaiya", "คลองขุด": "Khlong Khut", "ท่าฉาง": "Tha Chang", "คลองไทร": "Khlong Sai", "ชุมทางบ้านทุ่งโพธิ์": "Ban Thung Pho Junction", "มะลวน": "Maluan", "สุราษฎร์ธานี": "Surat Thani", "บ่อกรัง": "Bo Krang", "เขาหัวควาย": "Khao Hua Khwai", "เขาพลู": "Khao Phlu", "คลองยา": "Khlong Ya", "บ้านนา": "Ban Na", "ห้วยมุด": "Huai Mut", "นาสาร": "Na San", "คลองปราบ": "Khlong Prap", "พรุพี": "Phru Phi", "คลองสูญ": "Khlong Sun", "บ้านส้อง": "Ban Song", "บ้านพรุกระแชง": "Ban Phru Krachaeng", "ห้วยปริก": "Huai Prik", "กระเบียด": "Krabiat", "ฉวาง": "Chawang", "คลองจันดี": "Khlong Chan Di", "หลักช้าง": "Lak Chang", "คลองกุย": "Khlong Kui", "นาบอน": "Na Bon", "คลองจัง": "Khlong Chang", "บ้านเกาะปริง": "Ban Ko Pring", "ชุมทางทุ่งสง": "Thung Song Junction", "ไสใหญ่": "Sai Yai", "ช่องเขา": "Chong Khao", "ร่อนพิบูลย์": "Ron Phibun", "ชุมทางเขาชุมทอง": "Khao Chum Thong Junction", "บ้านตูล": "Ban Tun", "ควนหนองคว้า": "Khuan Nong Khwa", "บ้านทุ่งค่าย": "Ban Thung Khai", "ชะอวด": "Cha-uat", "หนองจิก": "Nong Chik", "บ้านนางหลง": "Ban Nang Long", "บ้านตรอกแค": "Ban Trok Khae", "บ้านขอนหาด": "Ban Khon Hat", "แหลมโตนด": "Laem Tanot", "บ้านสุนทรา": "Ban Sunthra", "ปากคลอง": "Pak Khlong", "บ้านมะกอกใต้": "Ban Makok Tai", "ชัยบุรี": "Chai Buri", "พัทลุง": "Phatthalung", "นาปรือ": "Na Prue", "บ้านค่ายไทย": "Ban Khai Thai", "บ้านต้นโดน": "Ban Ton Don", "เขาชัยสน": "Khao Chaison", "บางแก้ว": "Bang Kaeo", "ควนพระ": "Khuan Phra", "ควนเคี่ยม": "Khuan Khiam", "หารกง": "Han Kong", "วัดควนเผยอ": "Wat Khuan Phoei", "หารเทา": "Han Thao", "โคกทราย": "Khok Sai", "บ้านเกาะใหญ่": "Ban Ko Yai", "ควนเนียง": "Khuan Niang", "บางกล่ำ": "Bang Klam", "บ้านดินลาน": "Ban Din Lan", "ชุมทางหาดใหญ่": "Hat Yai Junction", "นาม่วง": "Na Muang", "วัดควนมีด": "Wat Khuan Mit", "จะนะ": "Chana", "ท่าแมงลัก": "Tha Maenglak", "เกาะสะบ้า": "Ko Saba", "เทพา": "Thepha", "ตาแปด": "Ta Paet", "บ้านนิคม": "Ban Nikhom", "ปัตตานี (โคกโพธิ์)": "Pattani (Khok Pho)", "นาทุ่ง": "Na Thung", "วัดช้างให้": "Wat Chang Hai", "ป่าไร่": "Pa Rai", "คลองทราย": "Khlong Sai", "บ้านยุโป": "Ban Yupo", "ตาเซะ": "Ta Se", "ยะลา": "Yala", "ไม้แก่น": "Mai Kaen", "บ้านปาแต": "Ban Pa Tae", "รามัน": "Raman", "บาลอ": "Balo", "รือเสาะ": "Rueso", "บ้านสะโลว์บูกิตยือแร": "Ban Salo Bukit Yuerae", "ลาโละ": "Lalo", "มะรือโบ": "Maruebo", "กะแดะ": "Kadae", "ตันหยงมัส": "Tanyong Mat", "ป่าไผ่": "Pa Phai", "เจาะไอร้อง": "Cho Airong", "บูกิต": "Bukit", "ไอสะเตีย": "Ai Satia", "โต๊ะเด็ง": "To Deng", "สุไหงปาดี": "Su-ngai Padi", "โคกสยา": "Khok Saya", "สุไหงโก-ลก": "Su-ngai Kolok", "คลองแงะ": "Khlong Ngae", "ปาดังเบซาร์": "Padang Besar", "ยางประสาท": "Yang Prasat", "ดอนขุนวิเศษ": "Don Khun Wiset", "กำแพงแสน": "Kamphaeng Saen", "ทุ่งบัว": "Thung Bua", "หนองฟัก": "Nong Fak", "โรงเรียนการบิน": "Flying School", "หนองวัลย์เปรียง": "Nong Wan Priang", "ศรีสำราญ": "Si Samran", "ดอนงิ้ว": "Don Ngiu", "ดอนทอง": "Don Thong", "หนองผักชี": "Nong Phak Chi", "บ้านมะขามล้ม": "Ban Makham Lom", "สะแกย่างหมู": "Sakae Yang Mu", "สุพรรณบุรี": "Suphan Buri", "ถนนทรงพล": "Thanon Song Phon", "สระโกสินารายณ์": "Sa Kosinarai", "ลูกแก": "Luk Kae", "ท่าเรือน้อย": "Tha Ruea Noi", "บ้านหนองเสือ": "Ban Nong Suea", "ท่าม่วง": "Tha Muang", "ปากแพรก": "Pak Phraek", "กาญจนบุรี": "Kanchanaburi", "สะพานแควใหญ่": "Saphan Khwae Yai", "เขาปูน": "Khao Pun", "วังเย็น": "Wang Yen", "วังตะเคียน": "Wang Takhian", "บ้านโป่งเสี้ยว": "Ban Pong Siao", "บ้านเก่า": "Ban Kao", "ท่าตาเสือ": "Tha Ta Suea", "ท่ากิเลน": "Tha Kilen", "วังสิงห์": "Wang Sing", "ลุ่มสุ่ม": "Lumsum", "สะพานถ้ำกระแซ": "Tham Krasae Bridge", "วังโพ": "Wang Pho", "เกาะมหามงคล": "Ko Maha Mongkhon", "ช่องแคบ": "Chongkhaep", "วังใหญ่": "Wang Yai", "บ้านพุพงษ์": "Ban Phu Phong", "น้ำตก": "Nam Tok", "บ้านดอนรัก": "Ban Don Rak", "บ้านทุ่งหลวง": "Ban Thung Luang", "บ้านขนาย": "Ban Khanai", "บ้านดอนเรียบ": "Ban Don Riap", "คลองยัน": "Khlong Yan", "เขาหลง": "Khao Luang", "บ้านยาง": "Ban Yang", "คีรีรัฐนิคม": "Khiri Rat Nikhom", "ที่วัง": "Thi Wang", "บ้านพูน": "Ban Phun", "คลองมวน": "Khlong Muan", "กะปาง": "Kapang", "ยางยวน": "Yang Yuan", "ควนเมา": "Khuan Mao", "ห้วยยอด": "Huai Yot", "ลำภูรา": "Lamphu Ra", "นาป้อ": "Na Po", "พรุใหญ่": "Phru Yai", "ตรัง": "Trang", "บ้านป่ากอ": "Ban Pa Ko", "กันตัง": "Kantang", "ชุมทางเขาชุมทอง": "Khao Chum Thong Junction", "บ้านเกยเชน": "Ban Koei Chen", "บ้านทุ่งหล่อ": "Ban Thung Lo", "โคกคราม": "Khok Khram", "บ้านห้วยยูง": "Ban Huai Yung", "บ้านท่าช้าง": "Ban Tha Chang", "วังวัว": "Wang Wua", "มะม่วงสองต้น": "Mamuang Song Ton", "นครศรีธรรมราช": "Nakhon Si Thammarat", "วงเวียนใหญ่": "Wongwian Yai", "ตลาดพลู": "Talat Phlu", "คลองต้นไทร": "Khlong Ton Sai", "วัดไทร": "Wat Sai", "จอมทอง": "Chom Thong", "วัดสิงห์": "Wat Sing", "บางบอน": "Bang Bon", "รางโพธิ์": "Rang Pho", "รางสะแก": "Rang Sakae", "การเคหะ": "Kan Kheha", "สามแยก": "Sam Yaek", "พรมแดน": "Phrom Daen", "บางน้ำจืด": "Bang Nam Chuet", "ทุ่งสีทอง": "Thung Si Thong", "คอกควาย": "Khok Khwai", "บ้านขอม": "Ban Khom", "คลองจาก": "Khlong Chak", "มหาชัย": "Maha Chai", "บ้านแหลม": "Ban Laem", "ท่าฉลอม": "Tha Chalom", "บ้านชีผ้าขาว": "Ban Chi Phakhao", "คลองนกเล็ก": "Khlong Nok Lek", "บางสีคต": "Bang Si Khot", "บ้านบ่อ": "Ban Bo", "บางกระเจ้า": "Bang Krachao", "บางโทรัด": "Bang Thorat", "บ้านกาหลง": "Ban Ka Long", "บ้านนาขวาง": "Ban Na Khwang", "บ้านนาโคก": "Ban Na Khok", "เขตเมือง": "Khet Mueang", "ลาดใหญ่": "Lat Yai", "บางกระบูน": "Bang Krabun", "แม่กลอง": "Mae Klong"
+            "กรุงเทพ(หัวลำโพง)": "Bangkok (Hua Lamphong)", "กรุงเทพอภิวัฒน์": "Krung Thep Aphiwat Central Terminal", "ยมราช": "Yommarat", "โรงพยาบาลรามาธิบดี": "Ramathibodi Hospital", "สามเสน": "Sam Sen", "ประดิพัทธ์": "Pradiphat", "ชุมทางบางซื่อ": "Bang Sue Grand Station", "นิคมรถไฟ กม.11": "Nikhom Rotfai KM.11", "บางเขน": "Bang Khen", "ทุ่งสองห้อง": "Thung Song Hong", "หลักสี่": "Lak Si", "การเคหะ กม.19": "Kan Kheha KM.19", "ตลาดใหม่ดอนเมือง": "Talat Mai Don Mueang", "ดอนเมือง": "Don Mueang", "แกรนด์ คาแนล": "Grand Canal", "หลักหก": "Lak Hok", "คลองรังสิต": "Khlong Rangsit", "รังสิต": "Rangsit", "คลองหนึ่ง": "Khlong Nueng", "เชียงราก": "Chiang Rak", "ม.ธรรมศาสตร์ (ศูนย์รังสิต)": "Thammasat University (Rangsit)", "นวนคร": "Nawa Nakhon", "เชียงรากน้อย": "Chiang Rak Noi", "คลองพุทรา": "Khlong Phutsa", "บางปะอิน": "Bang Pa-in", "บ้านโพ": "Ban Pho", "อยุธยา": "Ayutthaya", "บ้านม้า": "Ban Ma", "มาบพระจันทร์": "Map Phra Chan", "บ้านดอนกลาง": "Ban Don Klang", "พระแก้ว": "Phra Kaeo", "ชุมทางบ้านภาชี": "Ban Phachi Junction", "ดอนหญ้านาง": "Don Ya Nang", "หนองวิวัฒน์": "Nong Wiwat", "บ้านปลักแรด": "Ban Plak Raet", "ท่าเรือ": "Tha Ruea", "บ้านหมอ": "Ban Mo", "หนองโดน": "Nong Don", "บ้านกลับ": "Ban Klap", "บ้านป่าหวาย": "Ban Pa Wai", "ลพบุรี": "Lop Buri", "ท่าแค": "Tha Khae", "โคกกะเทียม": "Khok Kathiam", "หนองเต่า": "Nong Tao", "หนองทรายขาว": "Nong Sai Khao", "บ้านหมี่": "Ban Mi", "ห้วยแก้ว": "Huai Kaeo", "ไผ่ใหญ่": "Phai Yai", "โรงเรียนจันเสน": "Rongrian Chansen", "จันเสน": "Chansen", "บ้านกกกว้าว": "Ban Kok Kwao", "ช่องแค": "Chong Khae", "ทะเลหว้า": "Thale Wa", "โพนทอง": "Phon Thong", "บ้านตาคลี": "Ban Takhli", "ดงมะกุ": "Dong Maku", "หัวหวาย": "Hua Wai", "หนองโพ": "Nong Pho", "หัวงิ้ว": "Hua Ngiu", "บ้านหนองหมู": "Ban Nong Mu", "เนินมะกอก": "Noen Makok", "ทุ่งน้ำซึม": "Thung Nam Suem", "นครสวรรค์": "Nakhon Sawan", "เขาทอง": "Khao Thong", "ปากน้ำโพ": "Pak Nam Pho", "บึงบอระเพ็ด": "Bueng Boraphet", "ทับกฤช": "Thap Krit", "คลองปลากด": "Khlong Pla Kot", "ชุมแสง": "Chum Saeng", "วังกร่าง": "Wang Krang", "หอไกร": "Ho Krai", "บางมูลนาก": "Bang Mun Nak", "ดงตะขบ": "Dong Takhop", "ตะพานหิน": "Taphan Hin", "ห้วยเกตุ": "Huai Ket", "หัวดง": "Hua Dong", "วังกรด": "Wang Krot", "พิจิตร": "Phichit", "ท่าพ่อ": "Tha Pho", "บางกระทุ่ม": "Bang Krathum", "แม่เทียบ": "Mae Thiap", "บ้านใหม่": "Ban Mai", "บึงพระ": "Bueng Phra", "พิษณุโลก": "Phitsanulok", "บ้านเต็งหนาม": "Ban Teng Nam", "บ้านตูม": "Ban Tum", "พรหมพิราม": "Phrom Phiram", "แควน้อย": "Khwae Noi", "หนองตม": "Nong Tom", "บ้านบุ่ง": "Ban Bung", "บ้านโคน": "Ban Khon", "พิชัย": "Phichai", "ชุมทางบ้านดารา": "Ban Dara Junction", "ไร่อ้อย": "Rai Oi", "ท่าสัก": "Tha Sak", "ตรอน": "Tron", "วังกะพี้": "Wang Kapi", "อุตรดิตถ์": "Uttaradit", "ศิลาอาสน์": "Sila At", "ท่าเสา": "Tha Sao", "บ้านด่าน": "Ban Dan", "ปางต้นผึ้ง": "Pang Ton Phueng", "เขาพลึง": "Khao Phlueng", "ห้วยไร่": "Huai Rai", "ไร่เกล็ดดาว": "Rai Klet Dao", "แม่พวก": "Mae Phuak", "บ้านปิน": "Ban Pin", "ผาคัน": "Pha Khan", "เด่นชัย": "Den Chai", "ผาคอ": "Pha Kho", "ปากปาน": "Pak Pan", "ปางป๋วย": "Pang Puai", "แก่งหลวง": "Kaeng Luang", "แม่จาง": "Mae Chang", "ห้วยแม่ต้า": "Huai Mae Ta", "แม่เมาะ": "Mae Mo", "ห้วยรากไม้": "Huai Rak Mai", "ศาลาผาลาด": "Sala Pha Lat", "แม่ทะ": "Mae Tha", "หนองวัวเฒ่า": "Nong Wua Thao", "นครลำปาง": "Nakhon Lampang", "บ่อแฮ้ว": "Bo Haeo", "ปางม่วง": "Pang Muang", "ห้างฉััตร": "Hang Chat", "ห้วยเรียน": "Huai Rian", "แม่ตาน้อย": "Mae Tan Noi", "ขุนตาน": "Khun Tan", "ทาชมภู": "Tha Chomphu", "หนองหล่ม": "Nong Lom", "ศาลาแม่ทา": "Sala Mae Tha", "ลำพูน": "Lamphun", "ป่าเส้า": "Pa Sao", "สารภี": "Saraphi", "เชียงใหม่": "Chiang Mai", "คลองละมุง": "Khlong Lamung", "คลองมะพลับ": "Khlong Maphlap", "วัดคลองปู": "Wat Khlong Pu", "คลองยาง": "Khlong Yang", "หนองเรียง": "Nong Riang", "สวรรคโลก": "Sawankhalok", "หนองกวย": "Nong Kuai", "หนองแซง": "Nong Saeng", "หนองรี": "Nong Ri", "บ้านป๊อกแป๊ก": "Ban Pokpaek", "สระบุรี": "Saraburi", "หนองบัว": "Nong Bua", "ชุมทางแก่งคอย": "Kaeng Khoi Junction", "ทับกวาง": "Thap Kwang", "มาบกะเบา": "Map Kabao", "ผาเสด็จ": "Pha Sadet", "หินลับ": "Hin Lap", "มวกเหล็ก": "Muak Lek", "กลางดง": "Klang Dong", "ปางอโศก": "Pang Asok", "บันไดม้า": "Bandai Ma", "ปากช่อง": "Pak Chong", "ซับม่วง": "Sap Muang", "จันทึก": "Chanthuek", "คลองไผ่": "Khlong Phai", "สีคิ้ว": "Sikhio", "สูงเนิน": "Sung Noen", "กุดจิก": "Kut Chik", "โคกกรวด": "Khok Kruat", "บ้านใหม่สำโรง": "Ban Mai Samrong", "นครราชสีมา": "Nakhon Ratchasima", "ชุมทางถนนจิระ": "Thanon Chira Junction", "ท่าช้าง": "Tha Chang", "จักราช": "Chakkarat", "ห้วยแถลง": "Huai Thalaeng", "ลำปลายมาศ": "Lam Plai Mat", "หนองเต็ง": "Nong Teng", "ลำชี": "Lam Chi", "ห้วยราช": "Huai Rat", "บุรีรัมย์": "Buri Ram", "บ้านตะโก": "Ban Tako", "บ้านพลวง": "Ban Phluang", "สุรินทร์": "Surin", "เมืองที": "Mueang Thi", "กระสัง": "Krasang", "ลำดวน": "Lamduan", "ศีขรภูมิ": "Sikhoraphum", "บ้านกะลัน": "Ban Kalan", "ห้วยทับทัน": "Huai Thap Than", "อุทุมพรพิสัย": "Uthumphon Phisai", "บ้านเนียม": "Ban Niam", "ศรีสะเกษ": "Si Sa Ket", "หนองแวง": "Nong Waeng", "กันทรารมย์": "Kanthararom", "บ้านโนนผึ้ง": "Ban Non Phueng", "ห้วยขยุง": "Huai Khayung", "วารินชำราบ": "Warin Chamrap", "อุบลราชธานี": "Ubon Ratchathani", "บ้านไร่": "Ban Rai", "บ้านเกาะ": "Ban Ko", "หนองไข่น้ำ": "Nong Khai Nam", "โนนสูง": "Non Sung", "บ้านมะค่า": "Ban Makha", "บ้านดงพลอง": "Ban Dong Phlong", "เมืองคง": "Mueang Khong", "หนองบัวลาย": "Nong Bua Lai", "ชุมทางบัวใหญ่": "Bua Yai Junction", "เนินสวัสดิ์": "Noen Sawat", "ศาลาดิน": "Sala Din", "หนองมะเขือ": "Nong Makhuea", "เมืองพล": "Mueang Phon", "บ้านไผ่": "Ban Phai", "บ้านแฮด": "Ban Haet", "ท่าพระ": "Tha Phra", "ขอนแก่น": "Khon Kaen", "สำราญ": "Samran", "โนนพยอม": "Non Phayom", "น้ำพอง": "Nam Phong", "เขาสวนกวาง": "Khao Suan Kwang", "ห้วยสามพาด": "Huai Sam Phat", "กุมภวาปี": "Kumphawapi", "ห้วยเกิ้ง": "Huai Koeng", "โนนสะอาด": "Non Sa-at", "อุดรธานี": "Udon Thani", "หนองตะไก้": "Nong Takai", "คำกลิ้ง": "Kham Kling", "หนองขอนกว้าง": "Nong Khon Kwang", "นาทา": "Na Tha", "หนองคาย": "Nong Khai", "ตลาดหนองคาย": "Talat Nong Khai", "โรงเรียนอัสสัมชัญคอนแวนต์": "Assumption Convent School", "บ้านช่องใต้": "Ban Chong Tai", "เขาคอก": "Khao Khok", "เขาหินดาด": "Khao Hin Dat", "หินซ้อน": "Hin Son", "เขาสูง": "Khao Sung", "แก่งเสือเต้น": "Kaeng Suea Ten", "เขื่อนป่าสักชลสิทธิ์": "Pa Sak Cholasit Dam", "บ้านหนองบัว": "Ban Nong Bua", "โคกสลุง": "Khok Salung", "สุรนารายณ์": "Suranarai", "บ้านปากจาบ": "Ban Pak Chap", "เขายายกะตา": "Khao Yai Ka Ta", "ตลาดลำนารายณ์": "Talat Lam Narai", "ลำนารายณ์": "Lam Narai", "บ้านเกาะรัง": "Ban Ko Rang", "แผ่นดินทอง": "Phaen Din Thong", "บ้านจงโก": "Ban Chong Ko", "โคกคลี": "Khok Khli", "ช่องสำราญ": "Chong Samran", "บ้านวะตะแบก (เทพสถิต)": "Ban Wa Tabaek (Thep Sathit)", "ห้วยยายจิ๋ว": "Huai Yai Chio", "บ้านหนองปรือโป่ง": "Ban Nong Prue Pong", "บำเหน็จณรงค์": "Bamnet Narong", "บ้านกลอย": "Ban Kloi", "วังกะอาม": "Wang Ka-am", "โนนคร้อ": "Non Khro", "จัตุรัส": "Chatturat", "หนองฉิม": "Nong Chim", "บ้านตาเนิน": "Ban Ta Noen", "บ้านหนองขาม": "Ban Nong Kham", "บ้านเหลื่อม": "Ban Lueam", "บ้านโคกกระเบื้อง": "Ban Khok Krabueang", "หนองพลวง": "Nong Phluang", "บ้านกระพี้": "Ban Kraphi", "บ้านเก่างิ้ว": "Ban Kao Ngiu", "บ้านสระครก": "Ban Sa Khrok", "บ้านโลกรัง": "Ban Lok Rang", "อุรุพงษ์": "Uruphong", "พญาไท": "Phaya Thai", "ราชปรารภ": "Ratchaprarop", "มักกะสัน": "Makkasan", "อโศก": "Asok", "คลองตัน": "Khlong Tan", "สุขุมวิท 71": "Sukhumvit 71", "หัวหมาก": "Hua Mak", "บ้านทับช้าง": "Ban Thap Chang", "ซอยวัดลานบุญ": "Soi Wat Lan Bun", "ลาดกระบัง": "Lat Krabang", "พระจอมเกล้า": "Phra Chom Klao", "หัวตะเข้": "Hua Takhe", "บรรจุและแยกสินค้ากล่อง (ไอซีดี) ที่ลาดกระบัง": "Lat Krabang ICD", "คลองหลวงแพ่ง": "Khlong Luang Phaeng", "คลองอุดมชลจร": "Khlong Udom Chonlachon", "เปร็ง": "Preng", "คลองแขวงกลั่น": "Khlong Khwaeng Klan", "คลองบางพระ": "Khlong Bang Phra", "ชุมทางฉะเชิงเทรา": "Chachoengsao Junction", "บางขวัญ": "Bang Khwan", "โพรงอากาศ": "Phrong Akat", "บางน้ำเปรี้ยว": "Bang Nam Priao", "ชุมทางคลองสิบเก้า": "Khlong Sip Kao Junction", "คลองยี่สิบเอ็ด": "Khlong Yi Sip Et", "โยทะกา": "Yothaka", "บ้านสร้าง": "Ban Sang", "บ้านปากพลี": "Ban Pak Phli", "ปราจีนบุรี": "Prachin Buri", "โคกมะกอก": "Khok Makok", "ประจันตคาม": "Prachantakham", "บ้านดงบัง": "Ban Dong Bang", "กบินทร์บุรี": "Kabin Buri", "กบินทร์เก่า": "Kabin Kao", "หนองสัง": "Nong Sang", "พระปรง": "Phra Prong", "บ้านแก้ง": "Ban Kaeng", "ศาลาลำดวน": "Sala Lamduan", "สระแก้ว": "Sa Kaeo", "ศูนย์ราชการจังหวัดสระแก้ว": "Sa Kaeo Provincial Government Center", "ท่าเกษม": "Tha Kasem", "ห้วยโจด": "Huai Chot", "วัฒนานคร": "Watthana Nakhon", "บ้านโป่งคอม": "Ban Pong Kom", "ห้วยเดื่อ": "Huai Duea", "อรัญประเทศ": "Aranyaprathet", "ด่านพรมแดนบ้านคลองลึก": "Ban Khlong Luek Border", "บุใหญ่": "Bu Yai", "องครักษ์": "Ongkharak", "วิหารแดง": "Wihan Daeng", "แปดริ้ว": "Paet Riu", "พานทอง": "Phan Thong", "ชลบุรี": "Chon Buri", "บางพระ": "Bang Phra", "เขาพระบาท": "Khao Phra Bat", "ชุมทางศรีราชา": "Si Racha Junction", "แหลมฉบัง": "Laem Chabang", "บางละมุง": "Bang Lamung", "พัทยา": "Pattaya", "พัทยาใต้": "Pattaya Tai", "ตลาดน้ำ 4 ภาค": "Talat Nam Si Phak", "บ้านห้วยขวาง": "Ban Huai Khwang", "ญาณสังวราราม": "Yanasangwararam", "สวนนงนุช": "Suan Nong Nuch", "ชุมทางเขาชีจรรย์": "Khao Chi Chan Junction", "บ้านพลูตาหลวง": "Ban Phlu Ta Luang", "บ้านฉาง": "Ban Chang", "มาบตาพุด": "Map Ta Phut", "แม่น้ำ": "Mae Nam", "แม่น้ำ (โรงกลั่นน้ำมันบางจาก)": "Mae Nam (Bangchak Oil Refinery)", "บางซ่อน": "Bang Son", "บางบำหru": "Bang Bamru", "ธนบุรี": "Thon Buri", "จรัลสนิทวงศ์": "Charan Sanitwong", "บางระมาด": "Bang Ramat", "ชุมทางตลิ่งชัน": "Taling Chan Junction", "บ้านฉิมพลี": "Ban Chimphli", "ศาลาธรรมสพน์": "Sala Thammasop", "พุทธมณฑล สาย 2": "Phutthamonthon Sai 2", "ศาลายา": "Salaya", "คลองมหาสวัสดิ์": "Khlong Maha Sawat", "วัดสุวรรณ": "Wat Suwan", "วัดงิ้วราย": "Wat Ngiu Rai", "นครชัยศรี": "Nakhon Chai Si", "ท่าแฉลบ": "Tha Chalaep", "ต้นสำโรง": "Ton Samrong", "พระราชวังสนามจันทร์": "Sanam Chandra Palace", "นครปฐม": "Nakhon Pathom", "โพรงมะเดื่อ": "Phrong Maduea", "ชุมทางหนองปลาดุก": "Nong Pladuk Junction", "คลองบางตาล": "Khlong Bang Tan", "บ้านโป่ง": "Ban Pong", "นครชุมน์": "Nakhon Chum", "คลองตาคต": "Khlong Ta Khot", "เจ็ดเสมียน": "Chet Samian", "โพธาราม": "Photharam", "บ้านกล้วย": "Ban Kluai", "สะพานจุฬาลงกรณ์": "Chulalongkorn Bridge", "บ้านคูบัว": "Ban Khu Bua", "ราชบุรี": "Ratchaburi", "บ่อตะคร้อ": "Bo Takhro", "บ้านป่าไก่": "Ban Pa Kai", "ปากท่อ": "Pak Tho", "ห้วยโรง": "Huai Rong", "บางเค็ม": "Bang Khem", "เขาย้อย": "Khao Yoi", "หนองปลาไหล": "Nong Pla Lai", "บางจาก": "Bang Chak", "เพชรบุรี": "Phetchaburi", "เขาทโมน": "Khao Thamon", "หนองไม้เหลือง": "Nong Mai Lueang", "หนองจอก": "Nong Chok", "หนองศาลา": "Nong Sala", "ชะอำ": "Cha-am", "ห้วยทรายเหนือ": "Huai Sai Nuea", "ห้วยทรายใต้": "Huai Sai Tai", "หัวหิน": "Hua Hin", "หนองแก": "Nong Kae", "สวนสนประดิพัทธ์": "Suan Son Pradiphat", "วังก์พง": "Wangkphong", "เขาเต่า": "Khao Tao", "ปราณบุรี": "Pran Buri", "ห้วยขวาง": "Huai Khwang", "หนองคาง": "Nong Khang", "สามร้อยยอด": "Sam Roi Yot", "สามกระทาย": "Sam Krathai", "กุยบุรี": "Kui Buri", "บ่อนอก": "Bo Nok", "ทุ่งมะเม่า": "Thung Mamao", "คั่นกระได": "Khan Kradai", "ประจวบคีรีขันธ์": "Prachuap Khiri Khan", "หว้ากอ": "Wa Ko", "หนองหิน": "Nong Hin", "วังด้วน": "Wang Duan", "ห้วยยาง": "Huai Yang", "ทับสะแก": "Thap Sakae", "ทุ่งประดู่": "Thung Pradu", "ดอนทราย": "Don Sai", "โคกตาหอม": "Khok Ta Hom", "บ้านกรูด": "Ban Krut", "หนองมงคล": "Nong Mongkhon", "นาผักขวง": "Na Phak Khuang", "บางสะพานใหญ่": "Bang Saphan Yai", "หินกอง": "Hin Kong", "ชะมวง": "Chamuang", "บางสะพานน้อย": "Bang Saphan Noi", "ห้วยสัก": "Huai Sak", "บ้านทรายทอง": "Ban Sai Thong", "เขาไชยราช": "Khao Chaiyarat", "มาบอำมฤต": "Map Ammarit", "บ้านทรัพย์สมบูรณ์": "Ban Sap Sombun", "คลองวังช้าง": "Khlong Wang Chang", "ปะทิว": "Pathio", "บ้านคอกม้า": "Ban Khok Ma", "สพลี": "Saphli", "หนองเนียน": "Nong Nian", "นาชะอัง": "Na Cha-ang", "ชุมพร": "Chumphon", "แสงแดด": "Saeng Daet", "ทุ่งคา": "Thung Kha", "วิสัย": "Wisai", "บ้านครน": "Ban Khron", "สวี": "Sawi", "เขาสวนทุเรียน": "Khao Suan Thurian", "เขาปีบ": "Khao Pip", "ปากตะโก": "Pak Tako", "ท่าทอง": "Tha Thong", "ควนหินมุ้ย": "Khuan Hin Mui", "หลังสวน": "Lang Suan", "คลองขนาน": "Khlong Khanan", "ทุ่งมะพร้าว": "Thung Maphrao", "ละแม": "Lamae", "บ้านดวด": "Ban Duat", "คันธุลี": "Khanthuli", "ดอนธูป": "Don Thup", "ท่าชนะ": "Tha Chana", "บ้านเกาะมุกข์": "Ban Ko Muk", "เขาพนมแบก": "Khao Phanom Baek", "ไชยา": "Chaiya", "คลองขุด": "Khlong Khut", "ท่าฉาง": "Tha Chang", "คลองไทร": "Khlong Sai", "ชุมทางบ้านทุ่งโพธิ์": "Ban Thung Pho Junction", "มะลวน": "Maluan", "สุราษฎร์ธานี": "Surat Thani", "บ่อกรัง": "Bo Krang", "เขาหัวควาย": "Khao Hua Khwai", "เขาพลู": "Khao Phlu", "คลองยา": "Khlong Ya", "บ้านนา": "Ban Na", "ห้วยมุด": "Huai Mut", "นาสาร": "Na San", "คลองปราบ": "Khlong Prap", "พรุพี": "Phru Phi", "คลองสูญ": "Khlong Sun", "บ้านส้อง": "Ban Song", "บ้านพรุกระแชง": "Ban Phru Krachaeng", "ห้วยปริก": "Huai Prik", "กระเบียด": "Krabiat", "ฉวาง": "Chawang", "คลองจันดี": "Khlong Chan Di", "หลักช้าง": "Lak Chang", "คลองกุย": "Khlong Kui", "นาบอน": "Na Bon", "คลองจัง": "Khlong Chang", "บ้านเกาะปริง": "Ban Ko Pring", "ชุมทางทุ่งสง": "Thung Song Junction", "ไสใหญ่": "Sai Yai", "ช่องเขา": "Chong Khao", "ร่อนพิบูลย์": "Ron Phibun", "ชุมทางเขาชุมทอง": "Khao Chum Thong Junction", "บ้านตูล": "Ban Tun", "ควนหนองคว้า": "Khuan Nong Khwa", "บ้านทุ่งค่าย": "Ban Thung Khai", "ชะอวด": "Cha-uat", "หนองจิก": "Nong Chik", "บ้านนางหลง": "Ban Nang Long", "บ้านตรอกแค": "Ban Trok Khae", "บ้านขอนหาд": "Ban Khon Hat", "แหลมโตนด": "Laem Tanot", "บ้านสุนทรา": "Ban Sunthra", "ปากคลอง": "Pak Khlong", "บ้านมะกอกใต้": "Ban Makok Tai", "ชัยบุรี": "Chai Buri", "พัทลุง": "Phatthalung", "นาปรือ": "Na Prue", "บ้านค่ายไทย": "Ban Khai Thai", "บ้านต้นโดน": "Ban Ton Don", "เขาชัยสน": "Khao Chaison", "บางแก้ว": "Bang Kaeo", "ควนพระ": "Khuan Phra", "ควนเคี่ยม": "Khuan Khiam", "หารกง": "Han Kong", "วัดควนเผยอ": "Wat Khuan Phoei", "หารเทา": "Han Thao", "โคกทราย": "Khok Sai", "บ้านเกาะใหญ่": "Ban Ko Yai", "ควนเนียง": "Khuan Niang", "บางกล่ำ": "Bang Klam", "บ้านดินลาน": "Ban Din Lan", "ชุมทางหาดใหญ่": "Hat Yai Junction", "นาม่วง": "Na Muang", "วัดควนมีด": "Wat Khuan Mit", "จะนะ": "Chana", "ท่าแมงลัก": "Tha Maenglak", "เกาะสะบ้า": "Ko Saba", "เทพา": "Thepha", "ตาแปด": "Ta Paet", "บ้านนิคม": "Ban Nikhom", "ปัตตานี (โคกโพธิ์)": "Pattani (Khok Pho)", "นาทุ่ง": "Na Thung", "วัดช้างให้": "Wat Chang Hai", "ป่าไร่": "Pa Rai", "คลองทราย": "Khlong Sai", "บ้านยุโป": "Ban Yupo", "ตาเซะ": "Ta Se", "ยะลา": "Yala", "ไม้แก่น": "Mai Kaen", "บ้านปาแต": "Ban Pa Tae", "รามัน": "Raman", "บาลอ": "Balo", "รือเสาะ": "Rueso", "บ้านสะโลว์บูกิตยือแร": "Ban Salo Bukit Yuerae", "ลาโละ": "Lalo", "มะรือโบ": "Maruebo", "กะแดะ": "Kadae", "ตันหยงมัส": "Tanyong Mat", "ป่าไผ่": "Pa Phai", "เจาะไอร้อง": "Cho Airong", "บูกิต": "Bukit", "ไอสะเตีย": "Ai Satia", "โต๊ะเด็ง": "To Deng", "สุไหงปาดี": "Su-ngai Padi", "โคกสยา": "Khok Saya", "สุไหงโก-ลก": "Su-ngai Kolok", "คลองแงะ": "Khlong Ngae", "ปาดังเบซาร์": "Padang Besar", "ยางประสาท": "Yang Prasat", "ดอนขุนวิเศษ": "Don Khun Wiset", "กำแพงแสน": "Kamphaeng Saen", "ทุ่งบัว": "Thung Bua", "หนองฟัก": "Nong Fak", "โรงเรียนการบิน": "Flying School", "หนองวัลย์เปรียง": "Nong Wan Priang", "ศรีสำราญ": "Si Samran", "ดอนงิ้ว": "Don Ngiu", "ดอนทอง": "Don Thong", "หนองผักชี": "Nong Phak Chi", "บ้านมะขามล้ม": "Ban Makham Lom", "สะแกย่างหมู": "Sakae Yang Mu", "สุพรรณบุรี": "Suphan Buri", "ถนนทรงพล": "Thanon Song Phon", "สระโกสินารายณ์": "Sa Kosinarai", "ลูกแก": "Luk Kae", "ท่าเรือน้อย": "Tha Ruea Noi", "บ้านหนองเสือ": "Ban Nong Suea", "ท่าม่วง": "Tha Muang", "ปากแพรก": "Pak Phraek", "กาญจนบุรี": "Kanchanaburi", "สะพานแควใหญ่": "Saphan Khwae Yai", "เขาปูน": "Khao Pun", "วังเย็น": "Wang Yen", "วังตะเคียน": "Wang Takhian", "บ้านโป่งเสี้ยว": "Ban Pong Siao", "บ้านเก่า": "Ban Kao", "ท่าตาเสือ": "Tha Ta Suea", "ท่ากิλέน": "Tha Kilen", "วังสิงห์": "Wang Sing", "ลุ่มสุ่ม": "Lumsum", "สะพานถ้ำกระแซ": "Tham Krasae Bridge", "วังโพ": "Wang Pho", "เกาะมหามงคล": "Ko Maha Mongkhon", "ช่องแคบ": "Chongkhaep", "วังใหญ่": "Wang Yai", "บ้านพุพงษ์": "Ban Phu Phong", "น้ำตก": "Nam Tok", "บ้านดอนรัก": "Ban Don Rak", "บ้านทุ่งหลวง": "Ban Thung Luang", "บ้านขนาย": "Ban Khanai", "บ้านดอนเรียบ": "Ban Don Riap", "คลองยัน": "Khlong Yan", "เขาหลง": "Khao Luang", "บ้านยาง": "Ban Yang", "คีรีรัฐนิคม": "Khiri Rat Nikhom", "ที่วัง": "Thi Wang", "บ้านพูน": "Ban Phun", "คลองมวน": "Khlong Muan", "กะปาง": "Kapang", "ยางยวน": "Yang Yuan", "ควนเมา": "Khuan Mao", "ห้วยยอด": "Huai Yot", "ลำภูรา": "Lamphu Ra", "นาป้อ": "Na Po", "พรุใหญ่": "Phru Yai", "ตรัง": "Trang", "บ้านป่ากอ": "Ban Pa Ko", "กันตัง": "Kantang", "ชุมทางเขาชุมทอง": "Khao Chum Thong Junction", "บ้านเกยเชน": "Ban Koei Chen", "บ้านทุ่งหล่อ": "Ban Thung Lo", "โคกคราม": "Khok Khram", "บ้านห้วยยูง": "Ban Huai Yung", "บ้านท่าช้าง": "Ban Tha Chang", "วังวัว": "Wang Wua", "มะม่วงสองต้น": "Mamuang Song Ton", "นครศรีธรรมราช": "Nakhon Si Thammarat", "วงเวียนใหญ่": "Wongwian Yai", "ตลาดพลู": "Talat Phlu", "คลองต้นไทร": "Khlong Ton Sai", "วัดไทร": "Wat Sai", "จอมทอง": "Chom Thong", "วัดสิงห์": "Wat Sing", "บางบอน": "Bang Bon", "รางโพธิ์": "Rang Pho", "รางสะแก": "Rang Sakae", "การเคหะ": "Kan Kheha", "สามแยก": "Sam Yaek", "พรมแดน": "Phrom Daen", "บางน้ำจืด": "Bang Nam Chuet", "ทุ่งสีทอง": "Thung Si Thong", "คอกควาย": "Khok Khwai", "บ้านขอม": "Ban Khom", "คลองจาก": "Khlong Chak", "มหาชัย": "Maha Chai", "บ้านแหลม": "Ban Laem", "ท่าฉลอม": "Tha Chalom", "บ้านชีผ้าขาว": "Ban Chi Phakhao", "คลองนกเล็ก": "Khlong Nok Lek", "บางสีคต": "Bang Si Khot", "บ้านบ่อ": "Ban Bo", "บางกระเจ้า": "Bang Krachao", "บางโทรัด": "Bang Thorat", "บ้านกาหลง": "Ban Ka Long", "บ้านนาขวาง": "Ban Na Khwang", "บ้านนาโคก": "Ban Na Khok", "เขตเมือง": "Khet Mueang", "ลาดใหญ่": "Lat Yai", "บางกระบูน": "Bang Krabun", "แม่กลอง": "Mae Klong"
         };
 
         function translate(thaiName) {
@@ -287,14 +358,37 @@
             });
         }
 
-        function updateCarriageField() {
+        function updateConditionalFields() {
             const selectedReasonKey = reasonSelect.value;
-            // Show carriage number input for reasons 2, 3, and 16
-            if (['2', '3', '16'].includes(selectedReasonKey)) {
+            
+            // Show carriage number input for specific failures/changes
+            if (['2', '3'].includes(selectedReasonKey)) {
                 carriageNumberWrapper.classList.remove('hidden');
             } else {
                 carriageNumberWrapper.classList.add('hidden');
                 document.getElementById('carriageNumber').value = '';
+            }
+
+            // Show carriage change options
+            if (selectedReasonKey === '16') {
+                carriageChangeWrapper.classList.remove('hidden');
+            } else {
+                carriageChangeWrapper.classList.add('hidden');
+            }
+
+            // Show unavailable carriage notes
+            if (selectedReasonKey === '17') {
+                unavailableCarriageWrapper.classList.remove('hidden');
+            } else {
+                unavailableCarriageWrapper.classList.add('hidden');
+                document.getElementById('unavailableDate').value = '';
+            }
+            
+            // Show departure delay options
+            if (['4', '5'].includes(selectedReasonKey)) {
+                if(departureDelayWrapper) departureDelayWrapper.classList.remove('hidden');
+            } else {
+                if(departureDelayWrapper) departureDelayWrapper.classList.add('hidden');
             }
         }
 
@@ -312,18 +406,21 @@
             }
         }
 
-        reasonSelect.addEventListener('change', updateCarriageField);
+        reasonSelect.addEventListener('change', updateConditionalFields);
         locationTypeSelect.addEventListener('change', updateLocationFields);
         
         document.getElementById('announcementForm').addEventListener('submit', function(event) {
             event.preventDefault();
 
             // Gather all data
+            const reasonKey = document.getElementById('reason').value;
+            let thaiText, englishText, thaiTickerText, englishTickerText;
+
+            // Handle standard train announcements
             const trainTypeThai = document.getElementById('trainType').value;
             const trainNumber = document.getElementById('trainNumberInput').value;
             const origin = document.getElementById('origin').value;
             const destination = document.getElementById('destination').value;
-            const reasonKey = document.getElementById('reason').value;
             
             // Build Location String
             let location = '';
@@ -351,124 +448,159 @@
             const otherTrainsAffected = document.getElementById('otherTrainsAffected').checked;
             const carriageNumber = document.getElementById('carriageNumber').value.trim();
             const carriageNumberEn = carriageNumber.replace('คันที่', 'Car No.');
-
+            const unavailableDate = document.getElementById('unavailableDate').value;
+            const unavailableCarriageType = document.getElementById('unavailableCarriageType').value;
+            const carriageChangeType = document.getElementById('carriageChangeType').value;
+            const departureDelayType = document.getElementById('departureDelayType').value;
 
             // --- Build Full Thai Announcement ---
             let thaiParts = [];
             let trainId = `${trainTypeThai}ขบวนที่ ${trainNumber} (${origin} - ${destination})`;
             
             let reasonStr = reasons[reasonKey].thai;
-            if (carriageNumber) {
+            if (reasonKey === '16') {
+                reasonStr = carriageChangeMap[carriageChangeType].thai;
+            } else if (reasonKey === '4' || reasonKey === '5') {
+                reasonStr = departureDelayMap[departureDelayType].thai;
+            } else if (carriageNumber) {
                 reasonStr += ` (${carriageNumber})`;
             }
-
-            let mainClause = location ? `เกิดเหตุ${reasonStr} ${location}` : `เกิดเหตุ${reasonStr}`;
-            const specialCases = ['4', '5', '11', '15', '16'];
-            if (specialCases.includes(reasonKey)) {
-                mainClause = location ? `${reasonStr} ${location}` : reasonStr;
-            }
-            thaiParts.push(mainClause);
-
-            if (actionKey) {
-                thaiParts.push(actions.thai[actionKey]);
-            }
             
-            if (reasonKey !== '16') {
-                let impactStr = "ขบวนรถล่าช้ากว่ากำหนด";
-                if (delayTime) {
-                    impactStr += `ประมาณ ${delayTime}`;
+            if (reasonKey === '17') {
+                const date = new Date(unavailableDate);
+                const formattedDate = date.toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' });
+                const unavailableNotes = `ในวันที่ ${formattedDate} ${unavailableCarriageType} ไม่มีให้บริการ`;
+                thaiParts.push(trainId);
+                thaiParts.push(unavailableNotes);
+            } else if (reasonKey === '11' || reasonKey === '4' || reasonKey === '5') {
+                // Special order for specific reasons
+                thaiParts.push(trainId);
+                thaiParts.push(reasonStr);
+                if (notes && (reasonKey === '4' || reasonKey === '5')) thaiParts.push(notes);
+                if (location && reasonKey === '11') thaiParts.push(location);
+                if (actionKey) thaiParts.push(actions.thai[actionKey]);
+
+                if (reasonKey === '11') {
+                    if (delayTime) thaiParts.push(`ซึ่งจะทำให้ขบวนรถล่าช้าประมาณ ${delayTime}`);
+                } else {
+                    let impactStr = "ซึ่งจะทำให้ขบวนรถล่าช้า";
+                    if (delayTime) impactStr += `ประมาณ ${delayTime}`;
+                    thaiParts.push(impactStr);
                 }
-                thaiParts.push(impactStr);
-            }
 
+                if (instructionKey !== 'none') thaiParts.push(instructions.thai[instructionKey]);
+                if (notes && !['4', '5'].includes(reasonKey)) thaiParts.push(notes);
 
-            if (instructionKey !== 'none') {
-                thaiParts.push(instructions.thai[instructionKey]);
+            } else {
+                // Standard order for other reasons
+                let mainClause;
+                const specialCases = ['15', '16']; 
+                if (specialCases.includes(reasonKey)) {
+                    mainClause = location ? `${reasonStr} ${location}` : reasonStr;
+                } else {
+                    mainClause = location ? `เกิดเหตุ${reasonStr} ${location}` : `เกิดเหตุ${reasonStr}`;
+                }
+                thaiParts.push(trainId);
+                thaiParts.push(mainClause);
+                if (actionKey) thaiParts.push(actions.thai[actionKey]);
+                if (reasonKey !== '16') {
+                    let impactStr = "ซึ่งจะทำให้ขบวนรถล่าช้า";
+                    if (delayTime) impactStr += `ประมาณ ${delayTime}`;
+                    thaiParts.push(impactStr);
+                }
+                if (instructionKey !== 'none') thaiParts.push(instructions.thai[instructionKey]);
+                if (notes) thaiParts.push(notes);
             }
             
-            if (notes) {
-                thaiParts.push(notes);
-            }
-
             if (otherTrainsAffected) {
-                thaiParts.push("เหตุการณ์นี้อาจส่งผลกระทบต่อขบวนรถอื่นในเส้นทาง");
+                thaiParts.push("อาจส่งผลกระทบต่อขบวนรถอื่น");
             }
 
-            const thaiText = `ประกาศ: ${trainId} ${thaiParts.join('. ')}. ขออภัยในความไม่สะดวก`;
+            thaiText = `ประกาศ: ${thaiParts.join('. ')}. ขออภัยในความไม่สะดวก`;
 
             // --- Build Full English Announcement ---
             let englishParts = [];
             let trainIdEn = `${trainTypeMap[trainTypeThai]} No. ${trainNumber} (${translate(origin)} - ${translate(destination)})`;
             let reasonStrEn = reasons[reasonKey].english;
-            if (carriageNumber) {
+            if (reasonKey === '16') {
+                reasonStrEn = carriageChangeMap[carriageChangeType].english;
+            } else if (reasonKey === '4' || reasonKey === '5') {
+                reasonStrEn = departureDelayMap[departureDelayType].english;
+            } else if (carriageNumber) {
                 reasonStrEn += ` (${carriageNumberEn})`;
             }
-
-            let mainClauseEn;
-            if (['4', '16'].includes(reasonKey)) {
-                mainClauseEn = `will have ${reasonStrEn}`;
-            } else if (['5', '11', '15'].includes(reasonKey)) {
-                mainClauseEn = `is ${reasonStrEn}` + (locationEn ? ` ${locationEn}` : '');
-            } else {
-                mainClauseEn = `is experiencing a disruption` + (locationEn ? ` ${locationEn}` : '') + ` due to ${reasonStrEn}`;
-            }
-            englishParts.push(mainClauseEn);
-
-            if (actionKey) {
-                englishParts.push(actions.english[actionKey]);
-            }
-
-            if (reasonKey !== '16') {
-                let impactStrEn = "The train will be delayed.";
-                if (delayTime) {
-                    const delayTimeEn = delayTime.replace('นาที', 'minutes').replace('ชั่วโมง', 'hours');
-                    impactStrEn = `A delay of approximately ${delayTimeEn} is expected.`;
-                }
-                englishParts.push(impactStrEn);
-            }
             
-            if (instructionKey !== 'none') {
-                englishParts.push(instructions.english[instructionKey]);
-            }
-
-            if (notes) {
-                 // Simple keyword translation for notes
-                let translatedNotes = notes.replace(/ผู้โดยสารสามารถติดต่อขอรับคืนเงินค่าตั๋วโดยสารได้ที่สถานีปลายทาง/g, 'Passengers can request a ticket refund at the destination station.')
-                                           .replace(/จะมีการประกาศข้อมูลเพิ่มเติมในอีก (\d+) นาที/g, 'A further announcement will be made in approximately $1 minutes.')
-                                           .replace(/ผู้โดยสารที่มีความประสงค์จะสละสิทธิ์การเดินทาง สามารถลงจากขบวนรถได้/g, 'Passengers who wish to forfeit their journey may disembark.')
-                                           .replace(/จากรถพัดลมเป็นรถปรับอากาศ โดยไม่มีการเก็บค่าโดยสารเพิ่มเติม/g, 'The carriage has been upgraded from a fan car to an air-conditioned car at no extra charge.')
-                                           .replace(/หากผู้โดยสารเดินทางพร้อมสัตว์เลี้ยง โปรดติดต่อเจ้าหน้าที่สถานีก่อนขึ้นขบวนรถ/g, 'Additionally, passengers traveling with pets are requested to contact station staff before boarding.')
-                                           .replace(/ผู้โดยสาร/g, 'Passengers')
-                                           .replace(/ติดต่อ/g, 'contact')
-                                           .replace(/ขอรับ/g, 'request')
-                                           .replace(/คืนเงิน/g, 'a refund')
-                                           .replace(/ค่าตั๋ว/g, 'for tickets')
-                                           .replace(/สถานีปลายทาง/g, 'the destination station')
-                                           .replace(/ประกาศเพิ่มเติม/g, 'further announcements')
-                                           .replace(/นาที/g, 'minutes')
-                                           .replace(/ชั่วโมง/g, 'hours')
-                                           .replace(/สละสิทธิ์/g, 'forfeit the journey')
-                                           .replace(/ลงจากขบวนรถ/g, 'disembark the train');
-                englishParts.push(translatedNotes);
+            if (reasonKey === '17') {
+                const date = new Date(unavailableDate);
+                const formattedDateEn = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                const unavailableCarriageTypeEn = unavailableCarriageMap[unavailableCarriageType];
+                const unavailableNotesEn = `On ${formattedDateEn}, the ${unavailableCarriageTypeEn} will be unavailable.`;
+                englishParts.push(trainIdEn);
+                englishParts.push(unavailableNotesEn);
+            } else if (reasonKey === '11' || reasonKey === '4' || reasonKey === '5') {
+                // Special order for specific reasons
+                englishParts.push(trainIdEn);
+                englishParts.push(reasonStrEn);
+                if (notes && (reasonKey === '4' || reasonKey === '5')) englishParts.push(translateNotes(notes));
+                if (locationEn && reasonKey === '11') englishParts.push(locationEn);
+                if (actionKey) englishParts.push(actions.english[actionKey]);
+                if (reasonKey === '11') {
+                    if (delayTime) {
+                        const delayTimeEn = delayTime.replace('นาที', 'minutes').replace('ชั่วโมง', 'hours');
+                        englishParts.push(`which will cause an approximate delay of ${delayTimeEn}`);
+                    }
+                } else {
+                    let impactStrEn = "which will cause a delay.";
+                     if (delayTime) {
+                        const delayTimeEn = delayTime.replace('นาที', 'minutes').replace('ชั่วโมง', 'hours');
+                        impactStrEn = `A delay of approximately ${delayTimeEn} is expected.`;
+                    }
+                    englishParts.push(impactStrEn);
+                }
+                if (instructionKey !== 'none') englishParts.push(instructions.english[instructionKey]);
+                if (notes && !['4', '5'].includes(reasonKey)) englishParts.push(translateNotes(notes));
+            } else {
+                // Standard order for other reasons
+                englishParts.push(trainIdEn);
+                let mainClauseEn;
+                if (['16'].includes(reasonKey)) {
+                    mainClauseEn = `will have ${reasonStrEn}`;
+                } else if (['15'].includes(reasonKey)) {
+                    mainClauseEn = `is ${reasonStrEn}` + (locationEn ? ` ${locationEn}` : '');
+                } else {
+                    mainClauseEn = `is experiencing a disruption` + (locationEn ? ` ${locationEn}` : '') + ` due to ${reasonStrEn}`;
+                }
+                englishParts.push(mainClauseEn);
+                if (actionKey) englishParts.push(actions.english[actionKey]);
+                if (reasonKey !== '16') {
+                    let impactStrEn = "which will cause a delay.";
+                    if (delayTime) {
+                        const delayTimeEn = delayTime.replace('นาที', 'minutes').replace('ชั่วโมง', 'hours');
+                        impactStrEn = `A delay of approximately ${delayTimeEn} is expected.`;
+                    }
+                    englishParts.push(impactStrEn);
+                }
+                if (instructionKey !== 'none') englishParts.push(instructions.english[instructionKey]);
+                if (notes) englishParts.push(translateNotes(notes));
             }
 
             if (otherTrainsAffected) {
                 englishParts.push("This incident may affect other trains on this route.");
             }
 
-            const englishText = `Notice: ${trainIdEn} ${englishParts.join(' ')} We apologize for the inconvenience.`;
+            englishText = `Notice: ${englishParts.join(' ')} We apologize for the inconvenience.`;
 
             // --- Build Ticker Announcements ---
-            let thaiTickerText;
-            let englishTickerText;
-
-            if (reasonKey === '16') {
-                thaiTickerText = `ขบวนที่ ${trainNumber} (${origin}-${destination}) ${reasonStr} ${location ? location : ''} ขออภัยในความไม่สะดวก`.replace(/\s+/g, ' ');
-                englishTickerText = `Train No. ${trainNumber} (${translate(origin)}-${translate(destination)}) has a ${reasonStrEn} ${locationEn ? locationEn : ''}. We apologize for the inconvenience.`.replace(/\s+/g, ' ');
+            if (reasonKey === '16' || reasonKey === '17') {
+                let tickerReason = (reasonKey === '17') ? `${unavailableCarriageType} ไม่มีให้บริการ` : reasonStr;
+                thaiTickerText = `ขบวนที่ ${trainNumber} (${origin}-${destination}) ${tickerReason} ${location ? location : ''} ขออภัยในความไม่สะดวก`.replace(/\s+/g, ' ');
+                let tickerReasonEn = (reasonKey === '17') ? `${unavailableCarriageMap[unavailableCarriageType]} unavailable` : `has a ${reasonStrEn}`;
+                englishTickerText = `Train No. ${trainNumber} (${translate(origin)}-${translate(destination)}) ${tickerReasonEn} ${locationEn ? locationEn : ''}. We apologize for the inconvenience.`.replace(/\s+/g, ' ');
             } else {
                 thaiTickerText = `ขบวนที่ ${trainNumber} (${origin}-${destination}) ${reasonStr} ${location ? location : ''} ทำให้ขบวนรถล่าช้า ขออภัยในความไม่สะดวก`.replace(/\s+/g, ' ');
                 englishTickerText = `Train No. ${trainNumber} (${translate(origin)}-${translate(destination)}) delayed due to ${reasonStrEn} ${locationEn ? locationEn : ''}. We apologize for the inconvenience.`.replace(/\s+/g, ' ');
             }
+            
 
             // Display
             document.getElementById('thaiOutput').textContent = thaiText.replace(/\. \./g, '.').replace(/\s+/g, ' ');
@@ -477,6 +609,25 @@
             document.getElementById('englishTickerOutput').textContent = englishTickerText;
             document.getElementById('outputArea').classList.remove('hidden');
         });
+        
+        function translateNotes(notes) {
+            return notes.replace(/ผู้โดยสารสามารถติดต่อขอรับคืนเงินค่าตั๋วโดยสารได้ที่สถานีปลายทาง/g, 'Passengers can request a ticket refund at the destination station.')
+                        .replace(/จะมีการประกาศข้อมูลเพิ่มเติมในอีก (\d+) นาที/g, 'A further announcement will be made in approximately $1 minutes.')
+                        .replace(/ผู้โดยสารที่มีความประสงค์จะสละสิทธิ์การเดินทาง สามารถลงจากขบวนรถได้/g, 'Passengers who wish to forfeit their journey may disembark.')
+                        .replace(/จากรถพัดลมเป็นรถปรับอากาศ โดยไม่มีการเก็บค่าโดยสารเพิ่มเติม/g, 'The carriage has been upgraded from a fan car to an air-conditioned car at no extra charge.')
+                        .replace(/หากผู้โดยสารเดินทางพร้อมสัตว์เลี้ยง โปรดติดต่อเจ้าหน้าที่สถานีก่อนขึ้นขบวนรถ/g, 'Additionally, passengers traveling with pets are requested to contact station staff before boarding.')
+                        .replace(/ผู้โดยสาร/g, 'Passengers')
+                        .replace(/ติดต่อ/g, 'contact')
+                        .replace(/ขอรับ/g, 'request')
+                        .replace(/คืนเงิน/g, 'a refund')
+                        .replace(/ค่าตั๋ว/g, 'for tickets')
+                        .replace(/สถานีปลายทาง/g, 'the destination station')
+                        .replace(/ประกาศเพิ่มเติม/g, 'further announcements')
+                        .replace(/นาที/g, 'minutes')
+                        .replace(/ชั่วโมง/g, 'hours')
+                        .replace(/สละสิทธิ์/g, 'forfeit the journey')
+                        .replace(/ลงจากขบวนรถ/g, 'disembark the train');
+        }
 
         function copyToClipboard(elementId) {
             const textToCopy = document.getElementById(elementId).textContent;
@@ -504,7 +655,7 @@
         // Initial population
         populateTrainNumbers();
         populateStations();
-        updateCarriageField();
+        updateConditionalFields();
         updateLocationFields();
     </script>
 </body>
