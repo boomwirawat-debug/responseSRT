@@ -366,7 +366,7 @@
                 carriageNumberWrapper.classList.remove('hidden');
             } else {
                 carriageNumberWrapper.classList.add('hidden');
-                document.getElementById('carriageNumber').value = '';
+                if(document.getElementById('carriageNumber')) document.getElementById('carriageNumber').value = '';
             }
 
             // Show carriage change options
@@ -381,14 +381,7 @@
                 unavailableCarriageWrapper.classList.remove('hidden');
             } else {
                 unavailableCarriageWrapper.classList.add('hidden');
-                document.getElementById('unavailableDate').value = '';
-            }
-            
-            // Show departure delay options
-            if (['4', '5'].includes(selectedReasonKey)) {
-                if(departureDelayWrapper) departureDelayWrapper.classList.remove('hidden');
-            } else {
-                if(departureDelayWrapper) departureDelayWrapper.classList.add('hidden');
+                if(document.getElementById('unavailableDate')) document.getElementById('unavailableDate').value = '';
             }
         }
 
@@ -451,7 +444,6 @@
             const unavailableDate = document.getElementById('unavailableDate').value;
             const unavailableCarriageType = document.getElementById('unavailableCarriageType').value;
             const carriageChangeType = document.getElementById('carriageChangeType').value;
-            const departureDelayType = document.getElementById('departureDelayType').value;
 
             // --- Build Full Thai Announcement ---
             let thaiParts = [];
@@ -460,8 +452,6 @@
             let reasonStr = reasons[reasonKey].thai;
             if (reasonKey === '16') {
                 reasonStr = carriageChangeMap[carriageChangeType].thai;
-            } else if (reasonKey === '4' || reasonKey === '5') {
-                reasonStr = departureDelayMap[departureDelayType].thai;
             } else if (carriageNumber) {
                 reasonStr += ` (${carriageNumber})`;
             }
@@ -524,8 +514,6 @@
             let reasonStrEn = reasons[reasonKey].english;
             if (reasonKey === '16') {
                 reasonStrEn = carriageChangeMap[carriageChangeType].english;
-            } else if (reasonKey === '4' || reasonKey === '5') {
-                reasonStrEn = departureDelayMap[departureDelayType].english;
             } else if (carriageNumber) {
                 reasonStrEn += ` (${carriageNumberEn})`;
             }
