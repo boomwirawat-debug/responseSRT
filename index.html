@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="th" class="">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,55 +14,82 @@
         body {
             font-family: 'Sarabun', sans-serif;
             scroll-behavior: smooth;
-            background-color: #f1f5f9; /* bg-slate-100 */
+            background-color: #f1f5f9;
+            /* bg-slate-100 */
         }
+
         .dark body {
-             background-color: #0f172a; /* dark:bg-slate-900 */
+            background-color: #0f172a;
+            /* dark:bg-slate-900 */
         }
+
         /* Custom focus ring */
-        input:focus, select:focus, textarea:focus {
-            box-shadow: 0 0 0 2px #3b82f6; /* ring-2 ring-blue-500 */
+        input:focus,
+        select:focus,
+        textarea:focus {
+            box-shadow: 0 0 0 2px #3b82f6;
+            /* ring-2 ring-blue-500 */
             border-color: #3b82f6 !important;
             outline: none;
         }
+
         /* Simple transition for hidden elements */
         .hidden {
             display: none;
         }
+
         /* Modal styles */
-        #templateModal, #deleteConfirmModal {
+        #templateModal,
+        #deleteConfirmModal {
             transition: opacity 0.3s ease-in-out;
         }
-        #templateModal.opacity-0, #deleteConfirmModal.opacity-0 {
+
+        #templateModal.opacity-0,
+        #deleteConfirmModal.opacity-0 {
             pointer-events: none;
         }
     </style>
 </head>
+
 <body class="p-4 sm:p-6 lg:p-8">
     <div class="max-w-7xl mx-auto">
         <header class="mb-8 flex justify-between items-center">
             <div class="flex items-center gap-4">
-                 <div class="bg-indigo-600 p-3 rounded-xl text-white shadow-md">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-train-front"><path d="M8 3.1c.9 1.4 1.5 3.5 1.5 5.9"/><path d="M14.5 9c0-2.4.6-4.5 1.5-5.9"/><path d="M5 9h14v10H5z"/><path d="M5 19a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2"/><path d="M8 13h8"/><path d="m8 9-1-1"/><path d="m16 9 1-1"/></svg>
-                 </div>
+                <div class="bg-indigo-600 p-3 rounded-xl text-white shadow-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-train-front">
+                        <path d="M8 3.1c.9 1.4 1.5 3.5 1.5 5.9" />
+                        <path d="M14.5 9c0-2.4.6-4.5 1.5-5.9" />
+                        <path d="M5 9h14v10H5z" />
+                        <path d="M5 19a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2" />
+                        <path d="M8 13h8" />
+                        <path d="m8 9-1-1" />
+                        <path d="m16 9 1-1" />
+                    </svg>
+                </div>
                 <div>
                     <h1 class="text-2xl sm:text-3xl font-bold text-slate-800 dark:text-slate-200">โปรแกรมสร้างประกาศ</h1>
                     <p class="text-slate-500 dark:text-slate-400 mt-1">กรอกข้อมูลเพื่อสร้างประกาศสถานการณ์เดินรถ</p>
                 </div>
             </div>
             <button id="theme-toggle" type="button" class="text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 focus:outline-none focus:ring-4 focus:ring-slate-200 dark:focus:ring-slate-700 rounded-lg text-sm p-2.5">
-                <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                </svg>
+                <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+                </svg>
             </button>
         </header>
-
         <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
-            
             <div class="lg:col-span-3 space-y-8">
                 <!-- Template Section -->
                 <section class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sm:p-8">
                     <h2 class="text-xl font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 mb-6">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-500 lucide lucide-save"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-500 lucide lucide-save">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                            <polyline points="17 21 17 13 7 13 7 21" />
+                            <polyline points="7 3 7 8 15 8" />
+                        </svg>
                         <span>เทมเพลต (Templates)</span>
                     </h2>
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -69,18 +97,25 @@
                             <option value="">-- เลือกเทมเพลต --</option>
                         </select>
                         <div class="flex gap-4 sm:col-span-2">
-                             <button type="button" id="loadTemplateBtn" class="w-full flex items-center justify-center gap-2 bg-sky-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-sky-600 transition-all">โหลด</button>
-                             <button type="button" id="saveTemplateBtn" class="w-full flex items-center justify-center gap-2 bg-green-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-600 transition-all">บันทึก</button>
-                             <button type="button" id="deleteTemplateBtn" class="w-full flex items-center justify-center gap-2 bg-red-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-red-600 transition-all">ลบ</button>
+                            <button type="button" id="loadTemplateBtn" class="w-full flex items-center justify-center gap-2 bg-sky-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-sky-600 transition-all">โหลด</button>
+                            <button type="button" id="saveTemplateBtn" class="w-full flex items-center justify-center gap-2 bg-green-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-600 transition-all">บันทึก</button>
+                            <button type="button" id="deleteTemplateBtn" class="w-full flex items-center justify-center gap-2 bg-red-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-red-600 transition-all">ลบ</button>
                         </div>
                     </div>
                 </section>
-                
+
                 <form id="announcementForm" class="space-y-8">
                     <!-- Section 1: Train Information -->
                     <section class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sm:p-8">
                         <h2 class="text-xl font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 mb-6">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-500 lucide lucide-train-track"><path d="M2 17 17 2"/><path d="m2 14 8 8"/><path d="m5 11 8 8"/><path d="m8 8 8 8"/><path d="m11 5 8 8"/><path d="M7 22 22 7"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-500 lucide lucide-train-track">
+                                <path d="M2 17 17 2" />
+                                <path d="m2 14 8 8" />
+                                <path d="m5 11 8 8" />
+                                <path d="m8 8 8 8" />
+                                <path d="m11 5 8 8" />
+                                <path d="M7 22 22 7" />
+                            </svg>
                             <span>1. ข้อมูลขบวนรถ</span>
                         </h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -93,6 +128,7 @@
                                     <option value="รถธรรมดา">รถธรรมดา</option>
                                     <option value="รถท้องถิ่น">รถท้องถิ่น</option>
                                     <option value="รถชานเมือง">รถชานเมือง</option>
+                                    <option value="รถพิเศษโดยสาร">รถพิเศษโดยสาร</option>
                                 </select>
                             </div>
                             <div>
@@ -111,11 +147,14 @@
                             </div>
                         </div>
                     </section>
-
                     <!-- Section 2: Incident Details -->
                     <section class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sm:p-8">
                         <h2 class="text-xl font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 mb-6">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-500 lucide lucide-shield-alert"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-500 lucide lucide-shield-alert">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                                <path d="M12 8v4" />
+                                <path d="M12 16h.01" />
+                            </svg>
                             <span>2. รายละเอียดเหตุการณ์</span>
                         </h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -141,6 +180,28 @@
                                     <option value="17">17. รอเคลียร์เส้นทาง</option>
                                     <option value="18">18. ปรับเปลี่ยนตู้โดยสาร</option>
                                     <option value="19">19. ไม่มีตู้ให้บริการ</option>
+                                    <option value="20">20. ล่าช้า</option>
+                                </select>
+                            </div>
+                            <div id="subReason6Wrapper" class="hidden md:col-span-2">
+                                <label for="subReason6" class="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-2">สาเหตุย่อย (สำหรับข้อ 6)</label>
+                                <select id="subReason6" class="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-600 rounded-lg transition">
+                                    <option value="" selected>-- ไม่ระบุ --</option>
+                                    <option value="carriage_failure">1. ตู้โดยสารขัดข้อง</option>
+                                    <option value="tour_extension">2. ขยายโปรแกรมการท่องเที่ยว</option>
+                                    <option value="locomotive_failure">3. รถจักรขัดข้อง</option>
+                                    <option value="waiting_rolling_stock">4. รอขบวนรถหมุนเวียน</option>
+                                    <option value="signaling_failure">5. ระบบอาณัติสัญญาณขัดข้อง</option>
+                                    <option value="immigration_clearance">6. รอผ่านพิธีการตรวจคนเข้าเมือง</option>
+                                </select>
+                            </div>
+                            <div id="subReason20Wrapper" class="hidden md:col-span-2">
+                                <label for="subReason20" class="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-2">สาเหตุย่อย (สำหรับข้อ 20)</label>
+                                <select id="subReason20" class="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-600 rounded-lg transition">
+                                    <option value="" selected>-- ไม่ระบุ --</option>
+                                    <option value="construction">1. ผ่านเขตก่อสร้าง</option>
+                                    <option value="refueling">2. เติมน้ำ/เชื้อเพลิง</option>
+                                    <option value="waiting_pass">3. รอหลีกขบวนรถ</option>
                                 </select>
                             </div>
                             <div id="carriageNumberWrapper" class="hidden">
@@ -208,11 +269,15 @@
                             </div>
                         </div>
                     </section>
-
                     <!-- Section 3: Passenger Information -->
                     <section class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sm:p-8">
                         <h2 class="text-xl font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 mb-6">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-500 lucide lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-500 lucide lucide-users">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                <circle cx="9" cy="7" r="4" />
+                                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                            </svg>
                             <span>3. ข้อมูลสำหรับผู้โดยสาร</span>
                         </h2>
                         <div class="grid grid-cols-1 gap-6">
@@ -246,30 +311,40 @@
                             </div>
                         </div>
                     </section>
-
                     <!-- Action Buttons -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <button type="submit" class="w-full flex items-center justify-center gap-2 bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-signature"><path d="M20 19.5v.5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8.5L20 7.5V10"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m14.2 15.8 3.4 3.4 5.8-5.8"/><path d="M13 18.5a.5.5 0 0 0-1 0V20a1 1 0 0 0 1 1h1.5a.5.5 0 0 0 0-1H14v-1.5a.5.5 0 0 0-.5-.5Z"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-signature">
+                                <path d="M20 19.5v.5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8.5L20 7.5V10" />
+                                <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                                <path d="m14.2 15.8 3.4 3.4 5.8-5.8" />
+                                <path d="M13 18.5a.5.5 0 0 0-1 0V20a1 1 0 0 0 1 1h1.5a.5.5 0 0 0 0-1H14v-1.5a.5.5 0 0 0-.5-.5Z" />
+                            </svg>
                             สร้างข้อความประกาศ
                         </button>
                         <button type="button" id="clearFormBtn" class="w-full flex items-center justify-center gap-2 bg-slate-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-400 transition-all duration-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eraser"><path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21H7Z"/><path d="M22 21H7"/><path d="m5 12 5 5"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eraser">
+                                <path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21H7Z" />
+                                <path d="M22 21H7" />
+                                <path d="m5 12 5 5" />
+                            </svg>
                             ล้างข้อมูล
                         </button>
                     </div>
                 </form>
             </div>
 
-
             <!-- Right Column: Output Area -->
             <div id="outputArea" class="lg:col-span-2 self-start sticky top-8 hidden">
                 <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sm:p-8">
                     <h2 class="text-xl font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 mb-6">
-                       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-500 lucide lucide-volume-2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-500 lucide lucide-volume-2">
+                            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                            <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                            <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+                        </svg>
                         <span>ผลลัพธ์ข้อความประกาศ</span>
                     </h2>
-                    
                     <!-- Full Announcement -->
                     <div class="space-y-6">
                         <h3 class="text-base font-semibold text-slate-600 dark:text-slate-400">ข้อความประกาศ (แบบเต็ม)</h3>
@@ -277,8 +352,11 @@
                             <div class="flex justify-between items-center mb-2">
                                 <h4 class="text-sm font-semibold text-slate-700 dark:text-slate-300">ภาษาไทย</h4>
                                 <button type="button" onclick="copyToClipboard('thaiOutput', this)" class="bg-white dark:bg-slate-700 text-slate-500 dark:text-slate-300 px-3 py-1 rounded-md text-sm hover:bg-slate-100 dark:hover:bg-slate-600 hover:text-slate-700 border border-slate-300 dark:border-slate-500 transition-all flex items-center gap-1.5">
-                                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-                                   <span>คัดลอก</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy">
+                                        <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                                        <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                                    </svg>
+                                    <span>คัดลอก</span>
                                 </button>
                             </div>
                             <p id="thaiOutput" class="text-slate-800 dark:text-slate-300 whitespace-pre-wrap text-sm leading-relaxed"></p>
@@ -287,14 +365,16 @@
                             <div class="flex justify-between items-center mb-2">
                                 <h4 class="text-sm font-semibold text-sky-800 dark:text-sky-300">English</h4>
                                 <button type="button" onclick="copyToClipboard('englishOutput', this)" class="bg-white dark:bg-slate-700 text-slate-500 dark:text-slate-300 px-3 py-1 rounded-md text-sm hover:bg-slate-100 dark:hover:bg-slate-600 hover:text-slate-700 border border-slate-300 dark:border-slate-500 transition-all flex items-center gap-1.5">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy">
+                                        <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                                        <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                                    </svg>
                                     <span>Copy</span>
                                 </button>
                             </div>
                             <p id="englishOutput" class="text-sky-900 dark:text-sky-300 whitespace-pre-wrap text-sm leading-relaxed font-mono"></p>
                         </div>
                     </div>
-
                     <!-- Ticker Announcement -->
                     <div class="space-y-6 mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
                         <h3 class="text-base font-semibold text-slate-600 dark:text-slate-400">ข้อความสำหรับตัวหนังสือวิ่ง (แบบสั้น)</h3>
@@ -302,8 +382,11 @@
                             <div class="flex justify-between items-center mb-2">
                                 <h4 class="text-sm font-semibold text-amber-800 dark:text-amber-300">ภาษาไทย</h4>
                                 <button type="button" onclick="copyToClipboard('thaiTickerOutput', this)" class="bg-white dark:bg-slate-700 text-slate-500 dark:text-slate-300 px-3 py-1 rounded-md text-sm hover:bg-slate-100 dark:hover:bg-slate-600 hover:text-slate-700 border border-slate-300 dark:border-slate-500 transition-all flex items-center gap-1.5">
-                                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-                                   <span>คัดลอก</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy">
+                                        <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                                        <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                                    </svg>
+                                    <span>คัดลอก</span>
                                 </button>
                             </div>
                             <p id="thaiTickerOutput" class="text-amber-900 dark:text-amber-300 whitespace-pre-wrap font-semibold text-sm"></p>
@@ -312,25 +395,38 @@
                             <div class="flex justify-between items-center mb-2">
                                 <h4 class="text-sm font-semibold text-amber-800 dark:text-amber-300">English</h4>
                                 <button type="button" onclick="copyToClipboard('englishTickerOutput', this)" class="bg-white dark:bg-slate-700 text-slate-500 dark:text-slate-300 px-3 py-1 rounded-md text-sm hover:bg-slate-100 dark:hover:bg-slate-600 hover:text-slate-700 border border-slate-300 dark:border-slate-500 transition-all flex items-center gap-1.5">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-                                   <span>Copy</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy">
+                                        <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                                        <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                                    </svg>
+                                    <span>Copy</span>
                                 </button>
                             </div>
                             <p id="englishTickerOutput" class="text-amber-900 dark:text-amber-300 whitespace-pre-wrap font-semibold text-sm font-mono"></p>
                         </div>
                     </div>
+                     <!-- AI Powered Advice Section -->
+                    <div id="aiAdviceSection" class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
+                         <h3 class="text-base font-semibold text-slate-600 dark:text-slate-400 mb-4">✨ คำแนะนำสำหรับผู้โดยสาร (AI)</h3>
+                         <button id="generateAdviceBtn" type="button" class="w-full flex items-center justify-center gap-2 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 font-medium py-2 px-4 rounded-lg hover:bg-indigo-200 dark:hover:bg-indigo-900/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                            สร้างคำแนะนำ
+                         </button>
+                         <div id="aiAdviceContainer" class="mt-4 p-4 rounded-lg bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 min-h-[5rem]">
+                            <!-- AI-generated advice will be shown here -->
+                         </div>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
-    
     <!-- Toast Notification -->
     <div id="toast" class="fixed bottom-5 right-5 bg-green-500 text-white py-2 px-4 rounded-lg shadow-lg opacity-0 transition-opacity duration-300 flex items-center gap-2">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle-2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle-2">
+            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+            <path d="m9 12 2 2 4-4" />
+        </svg>
         <span id="toast-message"></span>
     </div>
-
     <!-- Template Save Modal -->
     <div id="templateModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 opacity-0 hidden">
         <div class="bg-white dark:bg-slate-800 rounded-lg shadow-xl p-6 w-full max-w-md" onclick="event.stopPropagation()">
@@ -343,12 +439,16 @@
             </div>
         </div>
     </div>
-    
     <!-- Delete Confirmation Modal -->
     <div id="deleteConfirmModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 opacity-0 hidden">
         <div class="bg-white dark:bg-slate-800 rounded-lg shadow-xl p-6 w-full max-w-md" onclick="event.stopPropagation()">
             <h3 class="text-lg font-bold text-red-600 dark:text-red-500 mb-4 flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2">
+                    <path d="M3 6h18" />
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                    <line x1="10" x2="10" y1="11" y2="17" />
+                    <line x1="14" x2="14" y1="11" y2="17" />
+                </svg>
                 <span>ยืนยันการลบ</span>
             </h3>
             <p class="text-slate-600 dark:text-slate-400 mb-6">คุณแน่ใจหรือไม่ว่าต้องการลบเทมเพลต "<strong id="templateNameToDelete"></strong>"? การกระทำนี้ไม่สามารถย้อนกลับได้</p>
@@ -360,470 +460,618 @@
     </div>
 
 
-<script>
-    // --- DATABASE & DICTIONARIES ---
-    const trainTypeMap = { 'รถด่วนพิเศษ': 'Special Express', 'รถด่วน': 'Express', 'รถเร็ว': 'Rapid', 'รถธรรมดา': 'Ordinary', 'รถท้องถิ่น': 'Local', 'รถชานเมือง': 'Commuter' };
-    const reasons = {
-        '1': { thai: "รถจักรขัดข้อง", english: "a locomotive failure" },
-        '2': { thai: "ตู้โดยสารขัดข้อง", english: "a carriage failure" },
-        '3': { thai: "ไม่สามารถใช้ความเร็วสูงสุดได้", english: "unable to run at maximum speed" },
-        '4': { thai: "ขบวนรถขัดข้อง", english: "a train malfunction" },
-        '5': { thai: "เครื่องปรับอากาศชำรุด", english: "an air conditioning failure" },
-        '6': { thai: "ออกจากต้นทางล่าช้า", english: "a delayed departure from its departure station" },
-        '7': { thai: "รอรถหมุนเวียน", english: "waiting for connecting rolling stock" },
-        '8': { thai: "ชนยานพาหนะ", english: "a collision with a vehicle" },
-        '9': { thai: "ชนสัตว์", english: "a collision with an animal" },
-        '10': { thai: "อุบัติเหตุเกี่ยวกับบุคคล", english: "an incident involving a person" },
-        '11': { thai: "ดินสไลด์", english: "a landslide on the track" },
-        '12': { thai: "น้ำท่วม", english: "flooding on the track" },
-        '13': { thai: "รอเปิดทาง", english: "waiting for track clearance" },
-        '14': { thai: "มีสิ่งกีดขวางในทาง", english: "an obstruction on the track" },
-        '15': { thai: "ระบบอาณัติสัญญาณขัดข้อง", english: "a signaling system failure" },
-        '16': { thai: "ขบวนรถตกราง", english: "a train derailment" },
-        '17': { thai: "รอเคลียร์เส้นทาง", english: "waiting for the line to be cleared" },
-        '18': { thai: "ปรับเปลี่ยนตู้โดยสาร", english: "a carriage change" },
-        '19': { thai: "ไม่มีตู้ให้บริการ", english: "a carriage is unavailable" }
-    };
-    const actions = {
-        thai: { "fixing": "ขณะนี้เจ้าหน้าที่กำลังดำเนินการแก้ไข", "waiting_rescue": "ขณะนี้กำลังรอรถจักรมาทำการช่วยเหลือ", "waiting_inspection": "ขณะนี้รอเจ้าหน้าที่เข้าตรวจสอบความปลอดภัย", "clearing": "ขณะนี้กำลังดำเนินการเคลียร์พื้นที่" },
-        english: { "fixing": "Crews are currently working to resolve the issue", "waiting_rescue": "A rescue locomotive is being arranged", "waiting_inspection": "We are awaiting a safety inspection", "clearing": "The area is currently being cleared" }
-    };
-    const instructions = {
-        thai: { 'wait': "โปรดรอรับฟังการประกาศครั้งต่อไป", 'alternative': "กำลังจัดเตรียมการขนส่งทางเลือกสำหรับผู้โดยสาร", 'refund': "ผู้โดยสารสามารถติดต่อขอรับคืนเงินค่าตั๋วโดยสารได้ที่สถานีรถไฟทั่วประเทศ", 'upgrade_pets': "สำหรับผู้โดยสารที่จองล่วงหน้า ไม่มีการเก็บค่าบริการเพิ่มเติม กรณีผู้โดยสารเดินทางพร้อมสัตว์เลี้ยงโปรดติดต่อเจ้าหน้าที่สถานี ก่อนขึ้นขบวนรถ" },
-        english: { 'wait': "Please wait for further announcements", 'alternative': "Alternative transportation is being arranged", 'refund': "Passengers can request a ticket refund at any station nationwide", 'upgrade_pets': "For passengers with advance bookings, no additional fees will be charged. Additionally, passengers traveling with pets are requested to contact station staff before boarding" }
-    };
-    const carriageChangeMap = {
-        'fan_to_ac': { thai: "เปลี่ยนจากรถพัดลมเป็นปรับอากาศ", english: "changing from a fan car to an air-conditioned car" },
-        'ac_to_fan': { thai: "เปลี่ยนจากรถปรับอากาศเป็นรถพัดลม", english: "changing from an air-conditioned car to a fan car" },
-        'class_upgrade': { thai: "เปลี่ยนจากรถชั้น 3 เป็นรถชั้น 2", english: "upgrading from a 3rd class to a 2nd class car" },
-        'fan_sleeper_to_ac_sleeper': { thai: "เปลี่ยนจากรถนอนพัดลมเป็นรถนอนปรับอากาศ", english: "changing from a fan sleeper to an air-conditioned sleeper" },
-        'ac_sleeper_to_fan_sleeper': { thai: "เปลี่ยนจากรถนอนปรับอากาศเป็นรถนอนพัดลม", english: "changing from an air-conditioned sleeper to a fan sleeper" }
-    };
-    const unavailableCarriageMap = {
-        "ตู้นอนปรับอากาศ ชั้น1": "1st Class Air-conditioned Sleeper", "ตู้นอนปรับอากาศ ชั้น2": "2nd Class Air-conditioned Sleeper",
-        "ตู้นอนพัดลมชั้น2": "2nd Class Fan Sleeper", "ตู้โดยสาร ชั้น2": "2nd Class Coach", "ตู้โดยสาร ชั้น3": "3rd Class Coach", "ตู้เสบียง": "Dining Car"
-    };
-    const stationTranslation = { "กบินทร์เก่า": "Kabin Kao", "กบินทร์บุรี": "Kabin Buri", "กะแดะ": "Kadae", "กะปาง": "Kapang", "กันตัง": "Kantang", "กันทรารมย์": "Kanthararom", "กุยบุรี": "Kui Buri", "กุดจิก": "Kut Chik", "กุมภวาปี": "Kumphawapi", "เกาะแขบ": "Ko Saba", "เกาะมหามงคล": "Ko Maha Mongkhon", "เกาะสะบ้า": "Ko Saba", "แก่งคอย": "Kaeng Khoi Junction", "แก่งหลวง": "Kaeng Luang", "แก่งเสือเต้น": "Kaeng Suea Ten", "กรุงเทพ(หัวลำโพง)": "Bangkok", "กรุงเทพอภิวัฒน์": "Krung Thep Aphiwat", "กระสัง": "Krasang", "กระเบียด": "Krabiat", "กลอย": "Ban Kloi", "กลางดง": "Klang Dong", "กลับ": "Ban Klap", "กล้วย": "Ban Kluai", "กวาว": "Ban Kok Kwao", "กาญจนบุรี": "Kanchanaburi", "กำแพงแสน": "Kamphaeng Saen", "กิเลน": "Tha Kilen", "กุย": "Khlong Kui", "เกาะ": "Ban Ko", "เกาะรัง": "Ban Ko Rang", "เกาะใหญ่": "Ban Ko Yai", "เก่า": "Ban Kao", "แก้ง": "Ban Kaeng", "แกรนด์ คาแนล": "Grand Canal", "ไกร": "Ho Krai", "ขอนแก่น": "Khon Kaen", "ขอนหาด": "Ban Khon Hat", "ขบวนรถ": "Train", "ขวาง": "Huai Khwang", "ขวัญ": "Bang Khwan", "ขุนตาน": "Khun Tan", "ขุนวิเศษ": "Don Khun Wiset", "ไข่น้ำ": "Nong Khai Nam", "เขาชัยสน": "Khao Chaison", "เขาไชยราช": "Khao Chaiyarat", "เขาชุมทอง": "Khao Chum Thong Junction", "เขาเต่า": "Khao Tao", "เขาทะโมน": "Khao Thamon", "เขาทอง": "Khao Thong", "เขาพระบาท": "Khao Phra Bat", "เขาพลึง": "Khao Phlueng", "เขาพลู": "Khao Phlu", "เขาปีบ": "Khao Pip", "เขาปูน": "Khao Pun", "เขาย้อย": "Khao Yoi", "เขายายกะตา": "Khao Yai Ka Ta", "เขาหลง": "Khao Luang", "เขาสวนกวาง": "Khao Suan Kwang", "เขาสวนทุเรียน": "Khao Suan Thurian", "เขาสูง": "Khao Sung", "เขาหินดาด": "Khao Hin Dat", "เขตเมือง": "Khet Mueang", "แขวงกลั่น": "Khlong Khwaeng Klan", "คันธุลี": "Khanthuli", "คั่นกระได": "Khan Kradai", "คำกลิ้ง": "Kham Kling", "คีรีรัฐนิคม": "Khiri Rat Nikhom", "คลองแขวงกลั่น": "Khlong Khwaeng Klan", "คลองจันดี": "Khlong Chan Di", "คลองจัง": "Khlong Chang", "คลองจาก": "Khlong Chak", "คลองตัน": "Khlong Tan", "คลองตาคต": "Khlong Ta Khot", "คลองทราย": "Khlong Sai", "คลองบางตาล": "Khlong Bang Tan", "คลองบางพระ": "Khlong Bang Phra", "คลองปลากด": "Khlong Pla Kot", "คลองปราบ": "Khlong Prap", "คลองปู": "Wat Khlong Pu", "คลองพุทรา": "Khlong Phutsa", "คลองไผ่": "Khlong Phai", "คลองมหาสวัสดิ์": "Khlong Maha Sawat", "คลองมะพลับ": "Khlong Maphlap", "คลองมวน": "Khlong Muan", "คลองยา": "Khlong Ya", "คลองยาง": "Khlong Yang", "คลองยัน": "Khlong Yan", "คลองยี่สิบเอ็ด": "Khlong Yi Sip Et", "คลองรังสิต": "Khlong Rangsit", "คลองละมุง": "Khlong Lamung", "คลองหลวงแพ่ง": "Khlong Luang Phaeng", "คลองวังช้าง": "Khlong Wang Chang", "คลองสิบเก้า": "Khlong Sip Kao Junction", "คลองสูญ": "Khlong Sun", "คลองหนึ่ง": "Khlong Nueng", "คลองอุดมชลจร": "Khlong Udom Chonlachon", "คลองแงะ": "Khlong Ngae", "ควนเมา": "Khuan Mao", "ควนเนียง": "Khuan Niang", "ควนพระ": "Khuan Phra", "ควนหนองคว้า": "Khuan Nong Khwa", "ควนหินมุ้ย": "Khuan Hin Mui", "ควนเคี่ยม": "Khuan Khiam", "คอกควาย": "Khok Khwai", "คอกม้า": "Ban Khok Ma", "คอม": "Ban Pong Kom", "คอนแวนต์": "Assumption Convent School", "แค": "Tha Khae", "แควน้อย": "Khwae Noi", "โคกกระเทียม": "Khok Kathiam", "โคกกรวด": "Khok Kruat", "โคกคลี": "Khok Khli", "โคกคราม": "Khok Khram", "โคกตาหอม": "Khok Ta Hom", "โคกทราย": "Khok Sai", "โคกมะกอก": "Khok Makok", "โคกสลุง": "Khok Salung", "โคกสยา": "Khok Saya", "โคน": "Ban Khon", "งิ้ว": "Hua Ngiu", "งิ้วราย": "Wat Ngiu Rai", "จันเสน": "Chansen", "จันทึก": "Chanthuek", "จักราช": "Chakkarat", "จัตุรัส": "Chatturat", "จอมทอง": "Chom Thong", "จะนะ": "Chana", "จัง": "Khlong Chang", "จันดี": "Khlong Chan Di", "ฉะเชิงเทรา": "Chachoengsao Junction", "ฉวาง": "Chawang", "ฉิมพลี": "Ban Chimphli", "ฉัตร": "Hang Chat", "ชนบท": "Chonnabot", "ชลบุรี": "Chon Buri", "ช่องแค": "Chong Khae", "ช่องแคบ": "Chongkhaep", "ช่องเขา": "Chong Khao", "ช่องสำราญ": "Chong Samran", "ชะอำ": "Cha-am", "ชะอวด": "Cha-uat", "ชะมวง": "Chamuang", "ชัยบุรี": "Chai Buri", "ไชยา": "Chaiya", "ชีผ้าขาว": "Ban Chi Phakhao", "ชุมพร": "Chumphon", "ชุมแสง": "Chum Saeng", "ชุมทางเขาชุมทอง": "Khao Chum Thong Junction", "ชุมทางแก่งคอย": "Kaeng Khoi Junction", "ชุมทางฉะเชิงเทรา": "Chachoengsao Junction", "ชุมทางตลิ่งชัน": "Taling Chan Junction", "ชุมทางถนนจิระ": "Thanon Chira Junction", "ชุมทางทุ่งสง": "Thung Song Junction", "ชุมทางบ้านทุ่งโพธิ์": "Ban Thung Pho Junction", "ชุมทางบ้านภาชี": "Ban Phachi Junction", "ชุมทางบัวใหญ่": "Bua Yai Junction", "ชุมทางบางซื่อ": "Bang Sue Grand Station", "ชุมทางศรีราชา": "Si Racha Junction", "ชุมทางหนองปลาดุก": "Nong Pladuk Junction", "ชุมทางหาดใหญ่": "Hat Yai Junction", "เชียงราก": "Chiang Rak", "เชียงรากน้อย": "Chiang Rak Noi", "เชียงใหม่": "Chiang Mai", "แชร์": "Ban Phru Krachaeng", "ไชยราช": "Khao Chaiyarat", "ซับม่วง": "Sap Muang", "ซอยวัดลานบุญ": "Soi Wat Lan Bun", "ญาณสังวราราม": "Yanasangwararam", "ดอนขุนวิเศษ": "Don Khun Wiset", "ดอนจิก": "Don Chik", "ดอนทราย": "Don Sai", "ดอนทอง": "Don Thong", "ดอนนาง": "Don Ya Nang", "ดอนมูล": "Don Mun", "ดอนเมือง": "Don Mueang", "ดอนรัก": "Ban Don Rak", "ดอนเรียบ": "Ban Don Riap", "ดอนสีนนท์": "Don Si Non", "ดอนหญ้านาง": "Don Ya Nang", "ด่านพรมแดนบ้านคลองลึก": "Ban Khlong Luek Border", "ด่าน": "Ban Dan", "ดารา": "Ban Dara Junction", "ดินลาน": "Ban Din Lan", "เด่นชัย": "Den Chai", "เดื่อ": "Huai Duea", "โดยสาร": "Coach", "ดงบัง": "Ban Dong Bang", "ดงตะขบ": "Dong Takhop", "ดงมะกุ": "Dong Maku", "ดวด": "Ban Duat", "ตลาดน้ำ 4 ภาค": "Talat Nam Si Phak", "ตลาดใหม่ดอนเมือง": "Talat Mai Don Mueang", "ตลาดหนองคาย": "Talat Nong Khai", "ตลาดพลู": "Talat Phlu", "ตลาดลำนารายณ์": "Talat Lam Narai", "ตะกอ": "Ban Tako", "ตะโก": "Pak Tako", "ตะขบ": "Dong Takhop", "ตะเคียน": "Wang Takhian", "ตันหยงมัส": "Tanyong Mat", "ตาเกษม": "Tha Kasem", "ตาคลี": "Ban Takhli", "ตาเซะ": "Ta Se", "ตานี": "Pattani (Khok Pho)", "ตาเนิน": "Ban Ta Noen", "ตาแปด": "Ta Paet", "ตาเสือ": "Tha Ta Suea", "ตำบล": "Tambon", "ตูม": "Ban Tum", "เต็งหนาม": "Ban Teng Nam", "เต่า": "Nong Tao", "โตนด": "Laem Tanot", "โต๊ะเด็ง": "To Deng", "ใต้": "Pattaya Tai", "ไตร": "Wat Sai", "ตรัง": "Trang", "ตรอน": "Tron", "ตลิ่งชัน": "Taling Chan Junction", "ตะกั่วป่า": "Takua Pa", "ถ้ำกระแซ": "Tham Krasae Bridge", "ทับกฤช": "Thap Krit", "ทับช้าง": "Ban Thap Chang", "ทับทัน": "Huai Thap Than", "ทับสะแก": "Thap Sakae", "ทับกวาง": "Thap Kwang", "ทลุง": "Phatthalung", "ทวาย": "Dawei", "ทอง": "Phaen Din Thong", "ทะเลหว้า": "Thale Wa", "ทุ่งคา": "Thung Kha", "ทุ่งค่าย": "Ban Thung Khai", "ทุ่งช้าง": "Thung Chang", "ทุ่งทอง": "Thung Thong", "ทุ่งบัว": "Thung Bua", "ทุ่งประดู่": "Thung Pradu", "ทุ่งมะพร้าว": "Thung Maphrao", "ทุ่งมะเม่า": "Thung Mamao", "ทุ่งสองห้อง": "Thung Song Hong", "ทุ่งสีทอง": "Thung Si Thong", "ทุ่งหลวง": "Ban Thung Luang", "ทุ่งหล่อ": "Ban Thung Lo", "ทุ่งอิฐ": "Thung It", "ทุ่งโพธิ์": "Ban Thung Pho Junction", "ทุ่งสง": "Thung Song Junction", "ท่าเกษม": "Tha Kasem", "ท่าข้าม": "Tha Kham", "ท่าแฉลบ": "Tha Chalaep", "ท่าช้าง": "Tha Chang", "ท่าชนะ": "Tha Chana", "ท่าชมภู": "Tha Chomphu", "ท่าฉลอม": "Tha Chalom", "ท่าฉาง": "Tha Chang", "ท่าตาเสือ": "Tha Ta Suea", "ท่าทอง": "Tha Thong", "ท่านุ่น": "Tha Nun", "ท่าพระ": "Tha Phra", "ท่าม่วง": "Tha Muang", "ท่ายาง": "Tha Yang", "ท่าเรือ": "Tha Ruea", "ท่าเรือน้อย": "Tha Ruea Noi", "ท่าศาลา": "Tha Sala", "ท่าสัก": "Tha Sak", "ท่าเสา": "Tha Sao", "ท่าฬ่อ": "Tha Lo", "ท่าอิฐ": "Tha It", "ธนบุรี": "Thon Buri", "ธรรมศาสตร์": "Thammasat University (Rangsit)", "ธัญบุรี": "Thanyaburi", "นครชัยศรี": "Nakhon Chai Si", "นครชุมน์": "Nakhon Chum", "นครปฐม": "Nakhon Pathom", "นครราชสีมา": "Nakhon Ratchasima", "นครลำปาง": "Nakhon Lampang", "นครศรีธรรมราช": "Nakhon Si Thammarat", "นครสวรรค์": "Nakhon Sawan", "นพวงศ์": "Nopphawong", "นวนคร": "Nawa Nakhon", "นวล": "Nuan", "น้อง": "Nong", "นาบอน": "Na Bon", "นาปรือ": "Na Prue", "นาป้อ": "Na Po", "นาผักขวง": "Na Phak Khuang", "นาสาร": "Na San", "นาทา": "Na Tha", "นาทุ่ง": "Na Thung", "นาม่วง": "Na Muang", "นาหว้า": "Na Wa", "นาแห้ว": "Na Haeo", "น้ำตก": "Nam Tok", "น้ำตกไทรโยคน้อย": "Sai Yok Noi Waterfall", "น้ำพอง": "Nam Phong", "นิคม": "Ban Nikhom", "นิคมรถไฟ กม.11": "Nikhom Rotfai KM.11", "เนินมะกอก": "Noen Makok", "เนินสวัสดิ์": "Noen Sawat", "เนียม": "Ban Niam", "ในเมือง": "Nai Mueang", "บ่อนอก": "Bo Nok", "บ่อตะคร้อ": "Bo Takhro", "บ่อแฮ้ว": "Bo Haeo", "บ่อกรัง": "Bo Krang", "บางกระทุ่ม": "Bang Krathum", "บางกระบูน": "Bang Krabun", "บางกล่ำ": "Bang Klam", "บางแก้ว": "Bang Kaeo", "บางขวัญ": "Bang Khwan", "บางเขน": "Bang Khen", "บางจาก": "Bang Chak", "บางซ่อน": "Bang Son", "บางตาล": "Khlong Bang Tan", "บางไทร": "Bang Sai", "บางน้ำจืด": "Bang Nam Chuet", "บางน้ำเปรี้ยว": "Bang Nam Priao", "บางบอน": "Bang Bon", "บางบำหรุ": "Bang Bamru", "บางปะอิน": "Bang Pa-in", "บางปาก": "Bang Pak", "บางปู": "Bang Pu", "บางพลี": "Bang Phli", "บางพระ": "Bang Phra", "บางโพ": "Bang Pho", "บางมูนาก": "Bang Mun Nak", "บางระมาด": "Bang Ramat", "บางสะพานน้อย": "Bang Saphan Noi", "บางสะพานใหญ่": "Bang Saphan Yai", "บางสีคต": "Bang Si Khot", "บางอ้อ": "Bang O", "บ้านกกกว้าว": "Ban Kok Kwao", "บ้านกลับ": "Ban Klap", "บ้านกลอย": "Ban Kloi", "บ้านกล้วย": "Ban Kluai", "บ้านกะลัน": "Ban Kalan", "บ้านกรูด": "Ban Krut", "บ้านเกาะ": "Ban Ko", "บ้านเกาะรัง": "Ban Ko Rang", "บ้านเกาะใหญ่": "Ban Ko Yai", "บ้านเก่า": "Ban Kao", "บ้านแก้ง": "Ban Kaeng", "บ้านขอม": "Ban Khom", "บ้านขอนหาด": "Ban Khon Hat", "บ้านขนาย": "Ban Khanai", "บ้านค่ายไทย": "Ban Khai Thai", "บ้านคอกม้า": "Ban Khok Ma", "บ้านคูบัว": "Ban Khu Bua", "บ้านแคน": "Ban Khaen", "บ้านโคกกระเบื้อง": "Ban Khok Krabueang", "บ้านโคน": "Ban Khon", "บ้านงิ้ว": "Ban Ngiu", "บ้านจงโก": "Ban Chong Ko", "บ้านฉาง": "Ban Chang", "บ้านฉิมพลี": "Ban Chimphli", "บ้านช่องใต้": "Ban Chong Tai", "บ้านชีผ้าขาว": "Ban Chi Phakhao", "บ้านซับม่วง": "Ban Sap Muang", "บ้านด่าน": "Ban Dan", "บ้านดงบัง": "Ban Dong Bang", "บ้านดงพลอง": "Ban Dong Phlong", "บ้านดอนกลาง": "Ban Don Klang", "บ้านดอนรัก": "Ban Don Rak", "บ้านดอนเรียบ": "Ban Don Riap", "บ้านดวด": "Ban Duat", "บ้านตาคลี": "Ban Takhli", "บ้านตาเนิน": "Ban Ta Noen", "บ้านตูล": "Ban Tun", "บ้านเต็งหนาม": "Ban Teng Nam", "บ้านใต้": "Ban Tai", "บ้านทรายทอง": "Ban Sai Thong", "บ้านทับช้าง": "Ban Thap Chang", "บ้านท่าช้าง": "Ban Tha Chang", "บ้านทุ่งค่าย": "Ban Thung Khai", "บ้านทุ่งโพธิ์": "Ban Thung Pho Junction", "บ้านทุ่งหลวง": "Ban Thung Luang", "บ้านธาตุ": "Ban That", "บ้านนา": "Ban Na", "บ้านนาขวาง": "Ban Na Khwang", "บ้านนาโคก": "Ban Na Khok", "บ้านนิคม": "Ban Nikhom", "บ้านเนียม": "Ban Niam", "บ้านบ่อ": "Ban Bo", "บ้านบึง": "Ban Bueng", "บ้านปิน": "Ban Pin", "บ้านป๊อกแป๊ก": "Ban Pokpaek", "บ้านโป่ง": "Ban Pong", "บ้านโป่งคอม": "Ban Pong Kom", "บ้านโป่งเสี้ยว": "Ban Pong Siao", "บ้านป่าไก่": "Ban Pa Kai", "บ้านป่าหวาย": "Ban Pa Wai", "บ้านปากจาบ": "Ban Pak Chap", "บ้านปากพลี": "Ban Pak Phli", "บ้านปาแต": "Ban Pa Tae", "บ้านผือ": "Ban Phue", "บ้านไผ่": "Ban Phai", "บ้านไผ่ใหญ่": "Phai Yai", "บ้านพรุกระแชง": "Ban Phru Krachaeng", "บ้านพลวง": "Ban Phluang", "บ้านพลูตาหลวง": "Ban Phlu Ta Luang", "บ้านพุพงษ์": "Ban Phu Phong", "บ้านโพ": "Ban Pho", "บ้านมะค่า": "Ban Makha", "บ้านมะขามล้ม": "Ban Makham Lom", "บ้านมะกอกใต้": "Ban Makok Tai", "บ้านใหม่": "Ban Mai", "บ้านใหม่สำโรง": "Ban Mai Samrong", "บ้านยาง": "Ban Yang", "บ้านยุโป": "Ban Yupo", "บ้านไร่": "Ban Rai", "บ้านสร้าง": "Ban Sang", "บ้านส้อง": "Ban Song", "บ้านสะโลว์บูกิตยือแร": "Ban Salo Bukit Yuerae", "บ้านสระครก": "Ban Sa Khrok", "บ้านสุนทรา": "Ban Sunthra", "บ้านหมอ": "Ban Mo", "บ้านหมี่": "Ban Mi", "บ้านเหลื่อม": "Ban Lueam", "บ้านแหลม": "Ban Laem", "บ้านแฮด": "Ban Haet", "บำเหน็จณรงค์": "Bamnet Narong", "บึงบอระเพ็ด": "Bueng Boraphet", "บึงพระ": "Bueng Phra", "บูกิต": "Bukit", "บุใหญ่": "Bu Yai", "บุรีรัมย์": "Buri Ram", "เบซาร์": "Padang Besar", "เบญจมบพิตร": "Wat Benchamabophit", "บึงกาฬ": "Bueng Kan", "ปากช่อง": "Pak Chong", "ปากท่อ": "Pak Tho", "ปากน้ำ": "Pak Nam", "ปากน้ำโพ": "Pak Nam Pho", "ปากปาน": "Pak Pan", "ปากแพรก": "Pak Phraek", "ปากตะโก": "Pak Tako", "ปากคลอง": "Pak Khlong", "ปางป๋วย": "Pang Puai", "ปางม่วง": "Pang Muang", "ปางอโศก": "Pang Asok", "ปางต้นผึ้ง": "Pang Ton Phueng", "ปัตตานี (โคกโพธิ์)": "Pattani (Khok Pho)", "ปาดังเบซาร์": "Padang Besar", "ป่าไร่": "Pa Rai", "ป่าไผ่": "Pa Phai", "เปร็ง": "Preng", "โป่ง": "Ban Pong", "แปดริ้ว": "Paet Riu", "ผาคัน": "Pha Khan", "ผาคอ": "Pha Kho", "ผาเสด็จ": "Pha Sadet", "ผาลาด": "Sala Pha Lat", "แผ่นดินทอง": "Phaen Din Thong", "ไผ่ใหญ่": "Phai Yai", "พญาไท": "Phaya Thai", "พรหมพิราม": "Phrom Phiram", "พรุพี": "Phru Phi", "พรุใหญ่": "Phru Yai", "พระจอมเกล้า": "Phra Chom Klao", "พระปรง": "Phra Prong", "พระพุทธฉาย": "Phra Phutthachai", "พระแก้ว": "Phra Kaeo", "พลวง": "Ban Phluang", "พลูตาหลวง": "Ban Phlu Ta Luang", "พลี": "Saphli", "พะเยา": "Phayao", "พังงา": "Phang Nga", "พัทลุง": "Phatthalung", "พัทยา": "Pattaya", "พัทยาใต้": "Pattaya Tai", "พานทอง": "Phan Thong", "พิจิตร": "Phichit", "พิชัย": "Phichai", "พิบูลมังสาหาร": "Phibun Mangsahan", "พิษณุโลก": "Phitsanulok", "พุพงษ์": "Ban Phu Phong", "เพชรบุรี": "Phetchaburi", "เพชรบูรณ์": "Phetchabun", "โพนทอง": "Phon Thong", "โพรงมะเดื่อ": "Phrong Maduea", "โพรงอากาศ": "Phrong Akat", "โพธาราม": "Photharam", "โพธิ์": "Ban Pho", "ไพร": "Phrai", "ฟัก": "Nong Fak", "ภูเขา": "Phu Khao", "ภูเก็ต": "Phuket", "มวกเหล็ก": "Muak Lek", "มวกเหล็กใหม่": "New Muak Lek", "มหาชัย": "Maha Chai", "มหาสารคาม": "Maha Sarakham", "มะกอก": "Noen Makok", "มะกอกใต้": "Ban Makok Tai", "มะค่า": "Ban Makha", "มะม่วงสองต้น": "Mamuang Song Ton", "มะลวน": "Maluan", "มะรือโบ": "Maruebo", "มักกะสัน": "Makkasan", "มาบกะเบา": "Map Kabao", "มาบอำมฤต": "Map Ammarit", "มาบตาพุด": "Map Ta Phut", "มาลัยแมน": "Malaiman", "มิ่งเมือง": "Ming Mueang", "มีด": "Wat Khuan Mit", "เมืองคง": "Mueang Khong", "เมืองที": "Mueang Thi", "เมืองพล": "Mueang Phon", "แม่กลอง": "Mae Klong", "แม่จาง": "Mae Chang", "แม่ใจ": "Mae Chai", "แม่น้ำ": "Mae Nam", "แม่น้ำ (โรงกลั่นน้ำมันบางจาก)": "Mae Nam (Bangchak Oil Refinery)", "แม่พวก": "Mae Phuak", "แม่เมาะ": "Mae Mo", "แม่ริม": "Mae Rim", "แม่สอด": "Mae Sot", "แม่สาย": "Mae Sai", "แม่ทะ": "Mae Tha", "แม่เทียบ": "Mae Thiap", "แม่ฮ่องสอน": "Mae Hong Son", "ไม้แก่น": "Mai Kaen", "ยมราช": "Yommarat", "ยะลา": "Yala", "ยาง": "Ban Yang", "ยางตลาด": "Yang Talat", "ยางยวน": "Yang Yuan", "ยางประสาท": "Yang Prasat", "ยานนาวา": "Yan Nawa", "ยี่สิบเอ็ด": "Khlong Yi Sip Et", "ยุโป": "Ban Yupo", "โยทะกา": "Yothaka", "รังสิต": "Rangsit", "ร่อนพิบูลย์": "Ron Phibun", "ร้อยเอ็ด": "Roi Et", "ระนอง": "Ranong", "ระยอง": "Rayong", "ราชบุรี": "Ratchaburi", "ราชปรารภ": "Ratchaprarop", "รามัน": "Raman", "รามาธิบดี": "Ramathibodi Hospital", "รางโพธิ์": "Rang Pho", "รางสะแก": "Rang Sakae", "ไร่เกล็ดดาว": "Rai Klet Dao", "ไร่อ้อย": "Rai Oi", "โรงเรียนจันเสน": "Rongrian Chansen", "โรงเรียนนายร้อยพระจุลจอมเกล้า": "Chulachomklao Royal Military Academy", "โรงเรียนการบิน": "Flying School", "โรงพยาบาลรามาธิบดี": "Ramathibodi Hospital", "ลพบุรี": "Lop Buri", "ลพบุรีราเมศวร์": "Lop Buri Ramet", "ละแม": "Lamae", "ลำชี": "Lam Chi", "ลำดวน": "Lamduan", "ลำนารายณ์": "Lam Narai", "ลำปาง": "Nakhon Lampang", "ลำปลายมาศ": "Lam Plai Mat", "ลำพูน": "Lamphun", "ลำภูรา": "Lamphu Ra", "ลาดกระบัง": "Lat Krabang", "ลาดใหญ่": "Lat Yai", "ลาโละ": "Lalo", "ลานบุญ": "Soi Wat Lan Bun", "ลุ่มสุ่ม": "Lumsum", "ลูกแก": "Luk Kae", "เลย": "Loei", "วังกะพี้": "Wang Kapi", "วังกะอาม": "Wang Ka-am", "วังกรด": "Wang Krot", "วังกร่าง": "Wang Krang", "วังด้วน": "Wang Duan", "วังตะเคียน": "Wang Takhian", "วังเย็น": "Wang Yen", "วังใหญ่": "Wang Yai", "วังสิงห์": "Wang Sing", "วังโพ": "Wang Pho", "วัดไทร": "Wat Sai", "วัดสิงห์": "Wat Sing", "วัดสุวรรณ": "Wat Suwan", "วัดช้างให้": "Wat Chang Hai", "วัฒนานคร": "Watthana Nakhon", "วารินชำราบ": "Warin Chamrap", "วิหารแดง": "Wihan Daeng", "วิสัย": "Wisai", "ศรีสะเกษ": "Si Sa Ket", "ศรีราชา": "Si Racha Junction", "ศรีสำราญ": "Si Samran", "ศีขรภูมิ": "Sikhoraphum", "ศาลายา": "Salaya", "ศาลาธรรมสพน์": "Sala Thammasop", "ศาลาผาลาด": "Sala Pha Lat", "ศาลาแม่ทา": "Sala Mae Tha", "ศาลาลำดวน": "Sala Lamduan", "ศิลาอาสน์": "Sila At", "สระแก้ว": "Sa Kaeo", "สระบุรี": "Saraburi", "สระโกสินารายณ์": "Sa Kosinarai", "สวรรคโลก": "Sawankhalok", "สวี": "Sawi", "สัตหีบ": "Sattahip", "สามกระทาย": "Sam Krathai", "สามแยก": "Sam Yaek", "สามร้อยยอด": "Sam Roi Yot", "สามเสน": "Sam Sen", "สำราญ": "Samran", "สีคิ้ว": "Sikhio", "สีดา": "Sida", "สุขุมวิท 71": "Sukhumvit 71", "สุโขทัย": "Sukhothai", "สุไหงโก-ลก": "Su-ngai Kolok", "สุไหงปาดี": "Su-ngai Padi", "สุพรรณบุรี": "Suphan Buri", "สุราษฎร์ธานี": "Surat Thani", "สุรินทร์": "Surin", "สุรนารายณ์": "Suranarai", "สูงเนิน": "Sung Noen", "เสือ": "Ban Nong Suea", "เสือเต้น": "Kaeng Suea Ten", "แสงแดด": "Saeng Daet", "แสน": "Sam Saen", "ห้วยขวาง": "Huai Khwang", "ห้วยขยุง": "Huai Khayung", "ห้วยเกตุ": "Huai Ket", "ห้วยเกิ้ง": "Huai Koeng", "ห้วยแก้ว": "Huai Kaeo", "ห้วยโจด": "Huai Chot", "ห้วยเดื่อ": "Huai Duea", "ห้วยทับทัน": "Huai Thap Than", "ห้วยแถลง": "Huai Thalaeng", "ห้วยปริก": "Huai Prik", "ห้วยแม่ต้า": "Huai Mae Ta", "ห้วยยายจิ๋ว": "Huai Yai Chio", "ห้วยยอด": "Huai Yot", "ห้วยราช": "Huai Rat", "ห้วยรากไม้": "Huai Rak Mai", "ห้วยไร่": "Huai Rai", "ห้วยเรียน": "Huai Rian", "ห้วยสัก": "Huai Sak", "ห้วยสามพาด": "Huai Sam Phat", "หนองคาย": "Nong Khai", "หนองคาง": "Nong Khang", "หนองขอนกว้าง": "Nong Khon Kwang", "หนองขาม": "Ban Nong Kham", "หนองไข่น้ำ": "Nong Khai Nam", "หนองจอก": "Nong Chok", "หนองจิก": "Nong Chik", "หนองฉิม": "Nong Chim", "หนองแซง": "Nong Saeng", "หนองตะไก้": "Nong Takai", "หนองเต่า": "Nong Tao", "หนองเต็ง": "Nong Teng", "หนองตม": "Nong Tom", "หนองบัว": "Nong Bua", "หนองบัวลาย": "Nong Bua Lai", "หนองปลาไหล": "Nong Pla Lai", "หนองปลาดุก": "Nong Pladuk Junction", "หนองปรือโป่ง": "Ban Nong Prue Pong", "หนองปากโลง": "Nong Pak Long", "หนองผักชี": "Nong Phak Chi", "หนองโพ": "Nong Pho", "หนองพลวง": "Nong Phluang", "หนองพยอม": "Non Phayom", "หนองมะเขือ": "Nong Makhuea", "หนองมงคล": "Nong Mongkhon", "หนองรี": "Nong Ri", "หนองเรียง": "Nong Riang", "หนองวัลย์เปรียง": "Nong Wan Priang", "หนองวัวเฒ่า": "Nong Wua Thao", "หนองศาลา": "Nong Sala", "หนองสัง": "Nong Sang", "หนองหิน": "Nong Hin", "หนองแก": "Nong Kae", "หนองโดน": "Nong Don", "หนองไม้เหลือง": "Nong Mai Lueang", "หนองหล่ม": "Nong Lom", "หน้าพระลาน": "Na Phra Lan", "หมอ": "Ban Mo", "หมี่": "Ban Mi", "หลักสี่": "Lak Si", "หลักหก": "Lak Hok", "หลังสวน": "Lang Suan", "หันคา": "Hankha", "หัวตะเข้": "Hua Takhe", "หัวดง": "Hua Dong", "หัวหิน": "Hua Hin", "หัวหมาก": "Hua Mak", "หัวหวาย": "Hua Wai", "หัวงิ้ว": "Hua Ngiu", "ห้างฉัตร": "Hang Chat", "หารกง": "Han Kong", "หารเทา": "Han Thao", "หินกอง": "Hin Kong", "หินซ้อน": "Hin Son", "หินลับ": "Hin Lap", "หินดาต": "Hin Dat", "หอไกร": "Ho Krai", "องครักษ์": "Ongkharak", "อรัญประเทศ": "Aranyaprathet", "อโศก": "Asok", "ออสเตรเลีย": "Australia", "อ้อมน้อย": "Om Noi", "อ่างทอง": "Ang Thong", "อุดรธานี": "Udon Thani", "อุตรดิตถ์": "Uttaradit", "อุบลราชธานี": "Ubon Ratchathani", "อุทุมพรพิสัย": "Uthumphon Phisai", "อุรุพงษ์": "Uruphong", "อู่ตะเภา": "U-Tapao", "ไอสะเตีย": "Ai Satia"
-    };
+    <script>
+        // --- DATABASE & DICTIONARIES ---
+        const trainTypeMap = { 'รถด่วนพิเศษ': 'Special Express', 'รถด่วน': 'Express', 'รถเร็ว': 'Rapid', 'รถธรรมดา': 'Ordinary', 'รถท้องถิ่น': 'Local', 'รถชานเมือง': 'Commuter', 'รถพิเศษโดยสาร': 'Special' };
+        const reasons = {
+            '1': { thai: "รถจักรขัดข้อง", english: "a locomotive failure" },
+            '2': { thai: "ตู้โดยสารขัดข้อง", english: "a carriage failure" },
+            '3': { thai: "ไม่สามารถใช้ความเร็วสูงสุดได้", english: "unable to run at maximum speed" },
+            '4': { thai: "ขบวนรถขัดข้อง", english: "a train malfunction" },
+            '5': { thai: "เครื่องปรับอากาศชำรุด", english: "an air conditioning failure" },
+            '6': { thai: "ออกจากต้นทางล่าช้า", english: "a delayed departure from its departure station" },
+            '7': { thai: "รอรถหมุนเวียน", english: "waiting for connecting rolling stock" },
+            '8': { thai: "ชนยานพาหนะ", english: "a collision with a vehicle" },
+            '9': { thai: "ชนสัตว์", english: "a collision with an animal" },
+            '10': { thai: "อุบัติเหตุเกี่ยวกับบุคคล", english: "an incident involving a person" },
+            '11': { thai: "ดินสไลด์", english: "a landslide on the track" },
+            '12': { thai: "น้ำท่วม", english: "flooding on the track" },
+            '13': { thai: "รอเปิดทาง", english: "waiting for track clearance" },
+            '14': { thai: "มีสิ่งกีดขวางในทาง", english: "an obstruction on the track" },
+            '15': { thai: "ระบบอาณัติสัญญาณขัดข้อง", english: "a signaling system failure" },
+            '16': { thai: "ขบวนรถตกราง", english: "a train derailment" },
+            '17': { thai: "รอเคลียร์เส้นทาง", english: "waiting for the line to be cleared" },
+            '18': { thai: "ปรับเปลี่ยนตู้โดยสาร", english: "a carriage change" },
+            '19': { thai: "ไม่มีตู้ให้บริการ", english: "a carriage is unavailable" },
+            '20': { thai: "ล่าช้า", english: "is delayed" }
+        };
+        const subReason6Map = {
+            'carriage_failure': { thai: "ตู้โดยสารขัดข้อง", english: "a carriage failure" },
+            'tour_extension': { thai: "ขยายโปรแกรมการท่องเที่ยว", english: "an extension of a tour program" },
+            'locomotive_failure': { thai: "รถจักรขัดข้อง", english: "a locomotive failure" },
+            'waiting_rolling_stock': { thai: "รอขบวนรถหมุนเวียน", english: "waiting for connecting rolling stock" },
+            'signaling_failure': { thai: "ระบบอาณัติสัญญาณขัดข้อง", english: "a signaling system failure" },
+            'immigration_clearance': { thai: "รอผ่านพิธีการตรวจคนเข้าเมือง", english: "immigration clearance procedures" }
+        };
+        const subReason20Map = {
+            'construction': { thai: "เนื่องจากผ่านเขตก่อสร้าง", english: "due to passing through a construction zone" },
+            'refueling': { thai: "เนื่องจากเติมน้ำ/เชื้อเพลิง", english: "due to refueling/water refilling" },
+            'waiting_pass': { thai: "เนื่องจากรอหลีกขบวนรถ", english: "due to waiting for another train to pass" }
+        };
+        const actions = {
+            thai: { "fixing": "ขณะนี้เจ้าหน้าที่กำลังดำเนินการแก้ไข", "waiting_rescue": "ขณะนี้กำลังรอรถจักรมาทำการช่วยเหลือ", "waiting_inspection": "ขณะนี้รอเจ้าหน้าที่เข้าตรวจสอบความปลอดภัย", "clearing": "ขณะนี้กำลังดำเนินการเคลียร์พื้นที่" },
+            english: { "fixing": "Crews are currently working to resolve the issue", "waiting_rescue": "A rescue locomotive is being arranged", "waiting_inspection": "We are awaiting a safety inspection", "clearing": "The area is currently being cleared" }
+        };
+        const instructions = {
+            thai: { 'wait': "โปรดรอรับฟังการประกาศครั้งต่อไป", 'alternative': "กำลังจัดเตรียมการขนส่งทางเลือกสำหรับผู้โดยสาร", 'refund': "ผู้โดยสารสามารถติดต่อขอรับคืนเงินค่าตั๋วโดยสารได้ที่สถานีรถไฟทั่วประเทศ", 'upgrade_pets': "สำหรับผู้โดยสารที่จองล่วงหน้า ไม่มีการเก็บค่าบริการเพิ่มเติม กรณีผู้โดยสารเดินทางพร้อมสัตว์เลี้ยงโปรดติดต่อเจ้าหน้าที่สถานี ก่อนขึ้นขบวนรถ" },
+            english: { 'wait': "Please wait for further announcements", 'alternative': "Alternative transportation is being arranged", 'refund': "Passengers can request a ticket refund at any station nationwide", 'upgrade_pets': "For passengers with advance bookings, no additional fees will be charged. Additionally, passengers traveling with pets are requested to contact station staff before boarding" }
+        };
+        const carriageChangeMap = {
+            'fan_to_ac': { thai: "เปลี่ยนจากรถพัดลมเป็นปรับอากาศ", english: "changing from a fan car to an air-conditioned car" },
+            'ac_to_fan': { thai: "เปลี่ยนจากรถปรับอากาศเป็นรถพัดลม", english: "changing from an air-conditioned car to a fan car" },
+            'class_upgrade': { thai: "เปลี่ยนจากรถชั้น 3 เป็นรถชั้น 2", english: "upgrading from a 3rd class to a 2nd class car" },
+            'fan_sleeper_to_ac_sleeper': { thai: "เปลี่ยนจากรถนอนพัดลมเป็นรถนอนปรับอากาศ", english: "changing from a fan sleeper to an air-conditioned sleeper" },
+            'ac_sleeper_to_fan_sleeper': { thai: "เปลี่ยนจากรถนอนปรับอากาศเป็นรถนอนพัดลม", english: "changing from an air-conditioned sleeper to a fan sleeper" }
+        };
+        const unavailableCarriageMap = {
+            "ตู้นอนปรับอากาศ ชั้น1": "1st Class Air-conditioned Sleeper", "ตู้นอนปรับอากาศ ชั้น2": "2nd Class Air-conditioned Sleeper",
+            "ตู้นอนพัดลมชั้น2": "2nd Class Fan Sleeper", "ตู้โดยสาร ชั้น2": "2nd Class Coach", "ตู้โดยสาร ชั้น3": "3rd Class Coach", "ตู้เสบียง": "Dining Car"
+        };
+        const stationTranslation = { "กบินทร์เก่า": "Kabin Kao", "กบินทร์บุรี": "Kabin Buri", "กะแดะ": "Kadae", "กะปาง": "Kapang", "กันตัง": "Kantang", "กันทรารมย์": "Kanthararom", "กุยบุรี": "Kui Buri", "กุดจิก": "Kut Chik", "กุมภวาปี": "Kumphawapi", "เกาะแขบ": "Ko Saba", "เกาะมหามงคล": "Ko Maha Mongkhon", "เกาะสะบ้า": "Ko Saba", "แก่งคอย": "Kaeng Khoi Junction", "แก่งหลวง": "Kaeng Luang", "แก่งเสือเต้น": "Kaeng Suea Ten", "กรุงเทพ(หัวลำโพง)": "Bangkok", "กรุงเทพอภิวัฒน์": "Krung Thep Aphiwat", "กระสัง": "Krasang", "กระเบียด": "Krabiat", "กลอย": "Ban Kloi", "กลางดง": "Klang Dong", "กลับ": "Ban Klap", "กล้วย": "Ban Kluai", "กวาว": "Ban Kok Kwao", "กาญจนบุรี": "Kanchanaburi", "กำแพงแสน": "Kamphaeng Saen", "กิเลน": "Tha Kilen", "กุย": "Khlong Kui", "เกาะ": "Ban Ko", "เกาะรัง": "Ban Ko Rang", "เกาะใหญ่": "Ban Ko Yai", "เก่า": "Ban Kao", "แก้ง": "Ban Kaeng", "แกรนด์ คาแนล": "Grand Canal", "ไกร": "Ho Krai", "ขอนแก่น": "Khon Kaen", "ขอนหาด": "Ban Khon Hat", "ขวาง": "Huai Khwang", "ขวัญ": "Bang Khwan", "ขุนตาน": "Khun Tan", "ขุนวิเศษ": "Don Khun Wiset", "ไข่น้ำ": "Nong Khai Nam", "เขาชัยสน": "Khao Chaison", "เขาไชยราช": "Khao Chaiyarat", "เขาชุมทอง": "Khao Chum Thong Junction", "เขาเต่า": "Khao Tao", "เขาทะโมน": "Khao Thamon", "เขาทอง": "Khao Thong", "เขาพระบาท": "Khao Phra Bat", "เขาพลึง": "Khao Phlueng", "เขาพลู": "Khao Phlu", "เขาปีบ": "Khao Pip", "เขาปูน": "Khao Pun", "เขาย้อย": "Khao Yoi", "เขายายกะตา": "Khao Yai Ka Ta", "เขาหลง": "Khao Luang", "เขาสวนกวาง": "Khao Suan Kwang", "เขาสวนทุเรียน": "Khao Suan Thurian", "เขาสูง": "Khao Sung", "เขาหินดาด": "Khao Hin Dat", "เขตเมือง": "Khet Mueang", "แขวงกลั่น": "Khlong Khwaeng Klan", "คันธุลี": "Khanthuli", "คั่นกระได": "Khan Kradai", "คำกลิ้ง": "Kham Kling", "คีรีรัฐนิคม": "Khiri Rat Nikhom", "คลองแขวงกลั่น": "Khlong Khwaeng Klan", "คลองจันดี": "Khlong Chan Di", "คลองจัง": "Khlong Chang", "คลองจาก": "Khlong Chak", "คลองตัน": "Khlong Tan", "คลองตาคต": "Khlong Ta Khot", "คลองทราย": "Khlong Sai", "คลองบางตาล": "Khlong Bang Tan", "คลองบางพระ": "Khlong Bang Phra", "คลองปลากด": "Khlong Pla Kot", "คลองปราบ": "Khlong Prap", "คลองปู": "Wat Khlong Pu", "คลองพุทรา": "Khlong Phutsa", "คลองไผ่": "Khlong Phai", "คลองมหาสวัสดิ์": "Khlong Maha Sawat", "คลองมะพลับ": "Khlong Maphlap", "คลองมวน": "Khlong Muan", "คลองยา": "Khlong Ya", "คลองยาง": "Khlong Yang", "คลองยัน": "Khlong Yan", "คลองยี่สิบเอ็ด": "Khlong Yi Sip Et", "คลองรังสิต": "Khlong Rangsit", "คลองละมุง": "Khlong Lamung", "คลองหลวงแพ่ง": "Khlong Luang Phaeng", "คลองวังช้าง": "Khlong Wang Chang", "คลองสิบเก้า": "Khlong Sip Kao Junction", "คลองสูญ": "Khlong Sun", "คลองหนึ่ง": "Khlong Nueng", "คลองอุดมชลจร": "Khlong Udom Chonlachon", "คลองแงะ": "Khlong Ngae", "ควนเมา": "Khuan Mao", "ควนเนียง": "Khuan Niang", "ควนพระ": "Khuan Phra", "ควนหนองคว้า": "Khuan Nong Khwa", "ควนหินมุ้ย": "Khuan Hin Mui", "ควนเคี่ยม": "Khuan Khiam", "คอกควาย": "Khok Khwai", "คอกม้า": "Ban Khok Ma", "คอม": "Ban Pong Kom", "คอนแวนต์": "Assumption Convent School", "แค": "Tha Khae", "แควน้อย": "Khwae Noi", "โคกกระเทียม": "Khok Kathiam", "โคกกรวด": "Khok Kruat", "โคกคลี": "Khok Khli", "โคกคราม": "Khok Khram", "โคกตาหอม": "Khok Ta Hom", "โคกทราย": "Khok Sai", "โคกมะกอก": "Khok Makok", "โคกสลุง": "Khok Salung", "โคกสยา": "Khok Saya", "โคน": "Ban Khon", "งิ้ว": "Hua Ngiu", "งิ้วราย": "Wat Ngiu Rai", "จันเสน": "Chansen", "จันทึก": "Chanthuek", "จักราช": "Chakkarat", "จัตุรัส": "Chatturat", "จอมทอง": "Chom Thong", "จะนะ": "Chana", "จัง": "Khlong Chang", "จันดี": "Khlong Chan Di", "ฉะเชิงเทรา": "Chachoengsao Junction", "ฉวาง": "Chawang", "ฉิมพลี": "Ban Chimphli", "ฉัตร": "Hang Chat", "ชนบท": "Chonnabot", "ชลบุรี": "Chon Buri", "ช่องแค": "Chong Khae", "ช่องแคบ": "Chongkhaep", "ช่องเขา": "Chong Khao", "ช่องสำราญ": "Chong Samran", "ชะอำ": "Cha-am", "ชะอวด": "Cha-uat", "ชะมวง": "Chamuang", "ชัยบุรี": "Chai Buri", "ไชยา": "Chaiya", "ชีผ้าขาว": "Ban Chi Phakhao", "ชุมพร": "Chumphon", "ชุมแสง": "Chum Saeng", "ชุมทางเขาชุมทอง": "Khao Chum Thong Junction", "ชุมทางแก่งคอย": "Kaeng Khoi Junction", "ชุมทางฉะเชิงเทรา": "Chachoengsao Junction", "ชุมทางตลิ่งชัน": "Taling Chan Junction", "ชุมทางถนนจิระ": "Thanon Chira Junction", "ชุมทางทุ่งสง": "Thung Song Junction", "ชุมทางบ้านทุ่งโพธิ์": "Ban Thung Pho Junction", "ชุมทางบ้านภาชี": "Ban Phachi Junction", "ชุมทางบัวใหญ่": "Bua Yai Junction", "ชุมทางบางซื่อ": "Bang Sue Grand Station", "ชุมทางศรีราชา": "Si Racha Junction", "ชุมทางหนองปลาดุก": "Nong Pladuk Junction", "ชุมทางหาดใหญ่": "Hat Yai Junction", "เชียงราก": "Chiang Rak", "เชียงรากน้อย": "Chiang Rak Noi", "เชียงใหม่": "Chiang Mai", "แชร์": "Ban Phru Krachaeng", "ไชยราช": "Khao Chaiyarat", "ซับม่วง": "Sap Muang", "ซอยวัดลานบุญ": "Soi Wat Lan Bun", "ญาณสังวราราม": "Yanasangwararam", "ดอนขุนวิเศษ": "Don Khun Wiset", "ดอนจิก": "Don Chik", "ดอนทราย": "Don Sai", "ดอนทอง": "Don Thong", "ดอนนาง": "Don Ya Nang", "ดอนมูล": "Don Mun", "ดอนเมือง": "Don Mueang", "ดอนรัก": "Ban Don Rak", "ดอนเรียบ": "Ban Don Riap", "ดอนสีนนท์": "Don Si Non", "ดอนหญ้านาง": "Don Ya Nang", "ด่านพรมแดนบ้านคลองลึก": "Ban Khlong Luek Border", "ด่าน": "Ban Dan", "ดารา": "Ban Dara Junction", "ดินลาน": "Ban Din Lan", "เด่นชัย": "Den Chai", "เดื่อ": "Huai Duea", "ดงบัง": "Ban Dong Bang", "ดงตะขบ": "Dong Takhop", "ดงมะกุ": "Dong Maku", "ดวด": "Ban Duat", "ตลาดน้ำ 4 ภาค": "Talat Nam Si Phak", "ตลาดใหม่ดอนเมือง": "Talat Mai Don Mueang", "ตลาดหนองคาย": "Talat Nong Khai", "ตลาดพลู": "Talat Phlu", "ตลาดลำนารายณ์": "Talat Lam Narai", "ตะกอ": "Ban Tako", "ตะโก": "Pak Tako", "ตะขบ": "Dong Takhop", "ตะเคียน": "Wang Takhian", "ตันหยงมัส": "Tanyong Mat", "ตาเกษม": "Tha Kasem", "ตาคลี": "Ban Takhli", "ตาเซะ": "Ta Se", "ตานี": "Pattani (Khok Pho)", "ตาเนิน": "Ban Ta Noen", "ตาแปด": "Ta Paet", "ตาเสือ": "Tha Ta Suea", "ตำบล": "Tambon", "ตูม": "Ban Tum", "เต็งหนาม": "Ban Teng Nam", "เต่า": "Nong Tao", "โตนด": "Laem Tanot", "โต๊ะเด็ง": "To Deng", "ใต้": "Pattaya Tai", "ไตร": "Wat Sai", "ตรัง": "Trang", "ตรอน": "Tron", "ตลิ่งชัน": "Taling Chan Junction", "ตะกั่วป่า": "Takua Pa", "ถ้ำกระแซ": "Tham Krasae Bridge", "ทับกฤช": "Thap Krit", "ทับช้าง": "Ban Thap Chang", "ทับทัน": "Huai Thap Than", "ทับสะแก": "Thap Sakae", "ทับกวาง": "Thap Kwang", "ทลุง": "Phatthalung", "ทวาย": "Dawei", "ทอง": "Phaen Din Thong", "ทะเลหว้า": "Thale Wa", "ทุ่งคา": "Thung Kha", "ทุ่งค่าย": "Ban Thung Khai", "ทุ่งช้าง": "Thung Chang", "ทุ่งทอง": "Thung Thong", "ทุ่งบัว": "Thung Bua", "ทุ่งประดู่": "Thung Pradu", "ทุ่งมะพร้าว": "Thung Maphrao", "ทุ่งมะเม่า": "Thung Mamao", "ทุ่งสองห้อง": "Thung Song Hong", "ทุ่งสีทอง": "Thung Si Thong", "ทุ่งหลวง": "Ban Thung Luang", "ทุ่งหล่อ": "Ban Thung Lo", "ทุ่งอิฐ": "Thung It", "ทุ่งโพธิ์": "Ban Thung Pho Junction", "ทุ่งสง": "Thung Song Junction", "ท่าเกษม": "Tha Kasem", "ท่าข้าม": "Tha Kham", "ท่าแฉลบ": "Tha Chalaep", "ท่าช้าง": "Tha Chang", "ท่าชนะ": "Tha Chana", "ท่าชมภู": "Tha Chomphu", "ท่าฉลอม": "Tha Chalom", "ท่าฉาง": "Tha Chang", "ท่าตาเสือ": "Tha Ta Suea", "ท่าทอง": "Tha Thong", "ท่านุ่น": "Tha Nun", "ท่าพระ": "Tha Phra", "ท่าม่วง": "Tha Muang", "ท่ายาง": "Tha Yang", "ท่าเรือ": "Tha Ruea", "ท่าเรือน้อย": "Tha Ruea Noi", "ท่าศาลา": "Tha Sala", "ท่าสัก": "Tha Sak", "ท่าเสา": "Tha Sao", "ท่าฬ่อ": "Tha Lo", "ท่าอิฐ": "Tha It", "ธนบุรี": "Thon Buri", "ธรรมศาสตร์": "Thammasat University (Rangsit)", "ธัญบุรี": "Thanyaburi", "นครชัยศรี": "Nakhon Chai Si", "นครชุมน์": "Nakhon Chum", "นครปฐม": "Nakhon Pathom", "นครราชสีมา": "Nakhon Ratchasima", "นครลำปาง": "Nakhon Lampang", "นครศรีธรรมราช": "Nakhon Si Thammarat", "นครสวรรค์": "Nakhon Sawan", "นพวงศ์": "Nopphawong", "นวนคร": "Nawa Nakhon", "นวล": "Nuan", "น้อง": "Nong", "นาบอน": "Na Bon", "นาปรือ": "Na Prue", "นาป้อ": "Na Po", "นาผักขวง": "Na Phak Khuang", "นาสาร": "Na San", "นาทา": "Na Tha", "นาทุ่ง": "Na Thung", "นาม่วง": "Na Muang", "นาหว้า": "Na Wa", "นาแห้ว": "Na Haeo", "น้ำตก": "Nam Tok", "น้ำตกไทรโยคน้อย": "Sai Yok Noi Waterfall", "น้ำพอง": "Nam Phong", "นิคม": "Ban Nikhom", "นิคมรถไฟ กม.11": "Nikhom Rotfai KM.11", "เนินมะกอก": "Noen Makok", "เนินสวัสดิ์": "Noen Sawat", "เนียม": "Ban Niam", "ในเมือง": "Nai Mueang", "บ่อนอก": "Bo Nok", "บ่อตะคร้อ": "Bo Takhro", "บ่อแฮ้ว": "Bo Haeo", "บ่อกรัง": "Bo Krang", "บางกระทุ่ม": "Bang Krathum", "บางกระบูน": "Bang Krabun", "บางกล่ำ": "Bang Klam", "บางแก้ว": "Bang Kaeo", "บางขวัญ": "Bang Khwan", "บางเขน": "Bang Khen", "บางจาก": "Bang Chak", "บางซ่อน": "Bang Son", "บางตาล": "Khlong Bang Tan", "บางไทร": "Bang Sai", "บางน้ำจืด": "Bang Nam Chuet", "บางน้ำเปรี้ยว": "Bang Nam Priao", "บางบอน": "Bang Bon", "บางบำหru": "Bang Bamru", "บางปะอิน": "Bang Pa-in", "บางปาก": "Bang Pak", "บางปู": "Bang Pu", "บางพลี": "Bang Phli", "บางพระ": "Bang Phra", "บางโพ": "Bang Pho", "บางมูนาก": "Bang Mun Nak", "บางระมาด": "Bang Ramat", "บางสะพานน้อย": "Bang Saphan Noi", "บางสะพานใหญ่": "Bang Saphan Yai", "บางสีคต": "Bang Si Khot", "บางอ้อ": "Bang O", "บ้านกกกว้าว": "Ban Kok Kwao", "บ้านกลับ": "Ban Klap", "บ้านกลอย": "Ban Kloi", "บ้านกล้วย": "Ban Kluai", "บ้านกะลัน": "Ban Kalan", "บ้านกรูด": "Ban Krut", "บ้านเกาะ": "Ban Ko", "บ้านเกาะรัง": "Ban Ko Rang", "บ้านเกาะใหญ่": "Ban Ko Yai", "บ้านเก่า": "Ban Kao", "บ้านแก้ง": "Ban Kaeng", "บ้านขอม": "Ban Khom", "บ้านขอนหาด": "Ban Khon Hat", "บ้านขนาย": "Ban Khanai", "บ้านค่ายไทย": "Ban Khai Thai", "บ้านคอกม้า": "Ban Khok Ma", "บ้านคูบัว": "Ban Khu Bua", "บ้านแคน": "Ban Khaen", "บ้านโคกกระเบื้อง": "Ban Khok Krabueang", "บ้านโคน": "Ban Khon", "บ้านงิ้ว": "Ban Ngiu", "บ้านจงโก": "Ban Chong Ko", "บ้านฉาง": "Ban Chang", "บ้านฉิมพลี": "Ban Chimphli", "บ้านช่องใต้": "Ban Chong Tai", "บ้านชีผ้าขาว": "Ban Chi Phakhao", "บ้านซับม่วง": "Ban Sap Muang", "บ้านด่าน": "Ban Dan", "บ้านดงบัง": "Ban Dong Bang", "บ้านดงพลอง": "Ban Dong Phlong", "บ้านดอนกลาง": "Ban Don Klang", "บ้านดอนรัก": "Ban Don Rak", "บ้านดอนเรียบ": "Ban Don Riap", "บ้านดวด": "Ban Duat", "บ้านตาคลี": "Ban Takhli", "บ้านตาเนิน": "Ban Ta Noen", "บ้านตูล": "Ban Tun", "บ้านเต็งหนาม": "Ban Teng Nam", "บ้านใต้": "Ban Tai", "บ้านทรายทอง": "Ban Sai Thong", "บ้านทับช้าง": "Ban Thap Chang", "บ้านท่าช้าง": "Ban Tha Chang", "บ้านทุ่งค่าย": "Ban Thung Khai", "บ้านทุ่งโพธิ์": "Ban Thung Pho Junction", "บ้านทุ่งหลวง": "Ban Thung Luang", "บ้านธาตุ": "Ban That", "บ้านนา": "Ban Na", "บ้านนาขวาง": "Ban Na Khwang", "บ้านนาโคก": "Ban Na Khok", "บ้านนิคม": "Ban Nikhom", "บ้านเนียม": "Ban Niam", "บ้านบ่อ": "Ban Bo", "บ้านบึง": "Ban Bueng", "บ้านปิน": "Ban Pin", "บ้านป๊อกแป๊ก": "Ban Pokpaek", "บ้านโป่ง": "Ban Pong", "บ้านโป่งคอม": "Ban Pong Kom", "บ้านโป่งเสี้ยว": "Ban Pong Siao", "บ้านป่าไก่": "Ban Pa Kai", "บ้านป่าหวาย": "Ban Pa Wai", "บ้านปากจาบ": "Ban Pak Chap", "บ้านปากพลี": "Ban Pak Phli", "บ้านปาแต": "Ban Pa Tae", "บ้านผือ": "Ban Phue", "บ้านไผ่": "Ban Phai", "บ้านไผ่ใหญ่": "Phai Yai", "บ้านพรุกระแชง": "Ban Phru Krachaeng", "บ้านพลวง": "Ban Phluang", "บ้านพลูตาหลวง": "Ban Phlu Ta Luang", "บ้านพุพงษ์": "Ban Phu Phong", "บ้านโพ": "Ban Pho", "บ้านมะค่า": "Ban Makha", "บ้านมะขามล้ม": "Ban Makham Lom", "บ้านมะกอกใต้": "Ban Makok Tai", "บ้านใหม่": "Ban Mai", "บ้านใหม่สำโรง": "Ban Mai Samrong", "บ้านยาง": "Ban Yang", "บ้านยุโป": "Ban Yupo", "บ้านไร่": "Ban Rai", "บ้านสร้าง": "Ban Sang", "บ้านส้อง": "Ban Song", "บ้านสะโลว์บูกิตยือแร": "Ban Salo Bukit Yuerae", "บ้านสระครก": "Ban Sa Khrok", "บ้านสุนทรา": "Ban Sunthra", "บ้านหมอ": "Ban Mo", "บ้านหมี่": "Ban Mi", "บ้านเหลื่อม": "Ban Lueam", "บ้านแหลม": "Ban Laem", "บ้านแฮด": "Ban Haet", "บำเหน็จณรงค์": "Bamnet Narong", "บึงบอระเพ็ด": "Bueng Boraphet", "บึงพระ": "Bueng Phra", "บูกิต": "Bukit", "บุใหญ่": "Bu Yai", "บุรีรัมย์": "Buri Ram", "เบซาร์": "Padang Besar", "เบญจมบพิตร": "Wat Benchamabophit", "บึงกาฬ": "Bueng Kan", "ปากช่อง": "Pak Chong", "ปากท่อ": "Pak Tho", "ปากน้ำ": "Pak Nam", "ปากน้ำโพ": "Pak Nam Pho", "ปากปาน": "Pak Pan", "ปากแพรก": "Pak Phraek", "ปากตะโก": "Pak Tako", "ปากคลอง": "Pak Khlong", "ปางป๋วย": "Pang Puai", "ปางม่วง": "Pang Muang", "ปางอโศก": "Pang Asok", "ปางต้นผึ้ง": "Pang Ton Phueng", "ปัตตานี (โคกโพธิ์)": "Pattani (Khok Pho)", "ปาดังเบซาร์": "Padang Besar", "ป่าไร่": "Pa Rai", "ป่าไผ่": "Pa Phai", "เปร็ง": "Preng", "โป่ง": "Ban Pong", "แปดริ้ว": "Paet Riu", "ผาคัน": "Pha Khan", "ผาคอ": "Pha Kho", "ผาเสด็จ": "Pha Sadet", "ผาลาด": "Sala Pha Lat", "แผ่นดินทอง": "Phaen Din Thong", "ไผ่ใหญ่": "Phai Yai", "พญาไท": "Phaya Thai", "พรหมพิราม": "Phrom Phiram", "พรุพี": "Phru Phi", "พรุใหญ่": "Phru Yai", "พระจอมเกล้า": "Phra Chom Klao", "พระปรง": "Phra Prong", "พระพุทธฉาย": "Phra Phutthachai", "พระแก้ว": "Phra Kaeo", "พลวง": "Ban Phluang", "พลูตาหลวง": "Ban Phlu Ta Luang", "พลี": "Saphli", "พะเยา": "Phayao", "พังงา": "Phang Nga", "พัทลุง": "Phatthalung", "พัทยา": "Pattaya", "พัทยาใต้": "Pattaya Tai", "พานทอง": "Phan Thong", "พิจิตร": "Phichit", "พิชัย": "Phichai", "พิบูลมังสาหาร": "Phibun Mangsahan", "พิษณุโลก": "Phitsanulok", "พุพงษ์": "Ban Phu Phong", "เพชรบุรี": "Phetchaburi", "เพชรบูรณ์": "Phetchabun", "โพนทอง": "Phon Thong", "โพรงมะเดื่อ": "Phrong Maduea", "โพรงอากาศ": "Phrong Akat", "โพธาราม": "Photharam", "โพธิ์": "Ban Pho", "ไพร": "Phrai", "ฟัก": "Nong Fak", "ภูเขา": "Phu Khao", "ภูเก็ต": "Phuket", "มวกเหล็ก": "Muak Lek", "มวกเหล็กใหม่": "New Muak Lek", "มหาชัย": "Maha Chai", "มหาสารคาม": "Maha Sarakham", "มะกอก": "Noen Makok", "มะกอกใต้": "Ban Makok Tai", "มะค่า": "Ban Makha", "มะม่วงสองต้น": "Mamuang Song Ton", "มะลวน": "Maluan", "มะรือโบ": "Maruebo", "มักกะสัน": "Makkasan", "มาบกะเบา": "Map Kabao", "มาบอำมฤต": "Map Ammarit", "มาบตาพุด": "Map Ta Phut", "มาลัยแมน": "Malaiman", "มิ่งเมือง": "Ming Mueang", "มีด": "Wat Khuan Mit", "เมืองคง": "Mueang Khong", "เมืองที": "Mueang Thi", "เมืองพล": "Mueang Phon", "แม่กลอง": "Mae Klong", "แม่จาง": "Mae Chang", "แม่ใจ": "Mae Chai", "แม่น้ำ": "Mae Nam", "แม่น้ำ (โรงกลั่นน้ำมันบางจาก)": "Mae Nam (Bangchak Oil Refinery)", "แม่พวก": "Mae Phuak", "แม่เมาะ": "Mae Mo", "แม่ริม": "Mae Rim", "แม่สอด": "Mae Sot", "แม่สาย": "Mae Sai", "แม่ทะ": "Mae Tha", "แม่เทียบ": "Mae Thiap", "แม่ฮ่องสอน": "Mae Hong Son", "ไม้แก่น": "Mai Kaen", "ยมราช": "Yommarat", "ยะลา": "Yala", "ยาง": "Ban Yang", "ยางตลาด": "Yang Talat", "ยางยวน": "Yang Yuan", "ยางประสาท": "Yang Prasat", "ยานนาวา": "Yan Nawa", "ยี่สิบเอ็ด": "Khlong Yi Sip Et", "ยุโป": "Ban Yupo", "โยทะกา": "Yothaka", "รังสิต": "Rangsit", "ร่อนพิบูลย์": "Ron Phibun", "ร้อยเอ็ด": "Roi Et", "ระนอง": "Ranong", "ระยอง": "Rayong", "ราชบุรี": "Ratchaburi", "ราชปรารภ": "Ratchaprarop", "รามัน": "Raman", "รามาธิบดี": "Ramathibodi Hospital", "รางโพธิ์": "Rang Pho", "รางสะแก": "Rang Sakae", "ไร่เกล็ดดาว": "Rai Klet Dao", "ไร่อ้อย": "Rai Oi", "โรงเรียนจันเสน": "Rongrian Chansen", "โรงเรียนนายร้อยพระจุลจอมเกล้า": "Chulachomklao Royal Military Academy", "โรงเรียนการบิน": "Flying School", "โรงพยาบาลรามาธิบดี": "Ramathibodi Hospital", "ลพบุรี": "Lop Buri", "ลพบุรีราเมศวร์": "Lop Buri Ramet", "ละแม": "Lamae", "ลำชี": "Lam Chi", "ลำดวน": "Lamduan", "ลำนารายณ์": "Lam Narai", "ลำปาง": "Nakhon Lampang", "ลำปลายมาศ": "Lam Plai Mat", "ลำพูน": "Lamphun", "ลำภูรา": "Lamphu Ra", "ลาดกระบัง": "Lat Krabang", "ลาดใหญ่": "Lat Yai", "ลาโละ": "Lalo", "ลานบุญ": "Soi Wat Lan Bun", "ลุ่มสุ่ม": "Lumsum", "ลูกแก": "Luk Kae", "เลย": "Loei", "วังกะพี้": "Wang Kapi", "วังกะอาม": "Wang Ka-am", "วังกรด": "Wang Krot", "วังกร่าง": "Wang Krang", "วังด้วน": "Wang Duan", "วังตะเคียน": "Wang Takhian", "วังเย็น": "Wang Yen", "วังใหญ่": "Wang Yai", "วังสิงห์": "Wang Sing", "วังโพ": "Wang Pho", "วัดไทร": "Wat Sai", "วัดสิงห์": "Wat Sing", "วัดสุวรรณ": "Wat Suwan", "วัดช้างให้": "Wat Chang Hai", "วัฒนานคร": "Watthana Nakhon", "วารินชำราบ": "Warin Chamrap", "วิหารแดง": "Wihan Daeng", "วิสัย": "Wisai", "ศรีสะเกษ": "Si Sa Ket", "ศรีราชา": "Si Racha Junction", "ศรีสำราญ": "Si Samran", "ศีขรภูมิ": "Sikhoraphum", "ศาลายา": "Salaya", "ศาลาธรรมสพน์": "Sala Thammasop", "ศาลาผาลาด": "Sala Pha Lat", "ศาลาแม่ทา": "Sala Mae Tha", "ศาลาลำดวน": "Sala Lamduan", "ศิลาอาสน์": "Sila At", "สระแก้ว": "Sa Kaeo", "สระบุรี": "Saraburi", "สระโกสินารายณ์": "Sa Kosinarai", "สวรรคโลก": "Sawankhalok", "สวี": "Sawi", "สัตหีบ": "Sattahip", "สามกระทาย": "Sam Krathai", "สามแยก": "Sam Yaek", "สามร้อยยอด": "Sam Roi Yot", "สามเสน": "Sam Sen", "สำราญ": "Samran", "สีคิ้ว": "Sikhio", "สีดา": "Sida", "สุขุมวิท 71": "Sukhumvit 71", "สุโขทัย": "Sukhothai", "สุไหงโก-ลก": "Su-ngai Kolok", "สุไหงปาดี": "Su-ngai Padi", "สุพรรณบุรี": "Suphan Buri", "สุราษฎร์ธานี": "Surat Thani", "สุรินทร์": "Surin", "สุรนารายณ์": "Suranarai", "สูงเนิน": "Sung Noen", "เสือ": "Ban Nong Suea", "เสือเต้น": "Kaeng Suea Ten", "แสงแดด": "Saeng Daet", "แสน": "Sam Saen", "ห้วยขวาง": "Huai Khwang", "ห้วยขยุง": "Huai Khayung", "ห้วยเกตุ": "Huai Ket", "ห้วยเกิ้ง": "Huai Koeng", "ห้วยแก้ว": "Huai Kaeo", "ห้วยโจด": "Huai Chot", "ห้วยเดื่อ": "Huai Duea", "ห้วยทับทัน": "Huai Thap Than", "ห้วยแถลง": "Huai Thalaeng", "ห้วยปริก": "Huai Prik", "ห้วยแม่ต้า": "Huai Mae Ta", "ห้วยยายจิ๋ว": "Huai Yai Chio", "ห้วยยอด": "Huai Yot", "ห้วยราช": "Huai Rat", "ห้วยรากไม้": "Huai Rak Mai", "ห้วยไร่": "Huai Rai", "ห้วยเรียน": "Huai Rian", "ห้วยสัก": "Huai Sak", "ห้วยสามพาด": "Huai Sam Phat", "หนองคาย": "Nong Khai", "หนองคาง": "Nong Khang", "หนองขอนกว้าง": "Nong Khon Kwang", "หนองขาม": "Ban Nong Kham", "หนองไข่น้ำ": "Nong Khai Nam", "หนองจอก": "Nong Chok", "หนองจิก": "Nong Chik", "หนองฉิม": "Nong Chim", "หนองแซง": "Nong Saeng", "หนองตะไก้": "Nong Takai", "หนองเต่า": "Nong Tao", "หนองเต็ง": "Nong Teng", "หนองตม": "Nong Tom", "หนองบัว": "Nong Bua", "หนองบัวลาย": "Nong Bua Lai", "หนองปลาไหล": "Nong Pla Lai", "หนองปลาดุก": "Nong Pladuk Junction", "หนองปรือโป่ง": "Ban Nong Prue Pong", "หนองปากโลง": "Nong Pak Long", "หนองผักชี": "Nong Phak Chi", "หนองโพ": "Nong Pho", "หนองพลวง": "Nong Phluang", "หนองพยอม": "Non Phayom", "หนองมะเขือ": "Nong Makhuea", "หนองมงคล": "Nong Mongkhon", "หนองรี": "Nong Ri", "หนองเรียง": "Nong Riang", "หนองวัลย์เปรียง": "Nong Wan Priang", "หนองวัวเฒ่า": "Nong Wua Thao", "หนองศาลา": "Nong Sala", "หนองสัง": "Nong Sang", "หนองหิน": "Nong Hin", "หนองแก": "Nong Kae", "หนองโดน": "Nong Don", "หนองไม้เหลือง": "Nong Mai Lueang", "หนองหล่ม": "Nong Lom", "หน้าพระลาน": "Na Phra Lan", "หมอ": "Ban Mo", "หมี่": "Ban Mi", "หลักสี่": "Lak Si", "หลักหก": "Lak Hok", "หลังสวน": "Lang Suan", "หันคา": "Hankha", "หัวตะเข้": "Hua Takhe", "หัวดง": "Hua Dong", "หัวหิน": "Hua Hin", "หัวหมาก": "Hua Mak", "หัวหวาย": "Hua Wai", "หัวงิ้ว": "Hua Ngiu", "ห้างฉัตร": "Hang Chat", "หารกง": "Han Kong", "หารเทา": "Han Thao", "หินกอง": "Hin Kong", "หินซ้อน": "Hin Son", "หินลับ": "Hin Lap", "หินดาต": "Hin Dat", "หอไกร": "Ho Krai",
+            "องครักษ์": "Ongkharak",
+            "อยุธยา": "Ayutthaya",
+            "อรัญประเทศ": "Aranyaprathet",
+            "อโศก": "Asok",
+            "อ้อมน้อย": "Om Noi",
+            "อ่างทอง": "Ang Thong",
+            "อุดรธานี": "Udon Thani",
+            "อุตรดิตถ์": "Uttaradit",
+            "อุบลราชธานี": "Ubon Ratchathani",
+            "อุทุมพรพิสัย": "Uthumphon Phisai",
+            "อุรุพงษ์": "Uruphong",
+            "อู่ตะเภา": "U-Tapao",
+            "ไอสะเตีย": "Ai Satia"
+        };
 
-    // --- DOM ELEMENTS ---
-    const form = document.getElementById('announcementForm');
-    const allFormElements = Array.from(form.elements);
-    const outputArea = document.getElementById('outputArea');
+        // --- DOM ELEMENTS ---
+        const form = document.getElementById('announcementForm');
+        const allFormElements = Array.from(form.elements);
+        const outputArea = document.getElementById('outputArea');
 
-    // --- HELPER FUNCTIONS ---
-    function translate(thaiName) { return stationTranslation[thaiName] || thaiName; }
-
-    function populateDatalist(elementId, items) {
-        const datalist = document.getElementById(elementId);
-        if (!datalist) return;
-        datalist.innerHTML = ''; // Clear existing options
-        items.forEach(item => {
-            const option = document.createElement('option');
-            option.value = item;
-            datalist.appendChild(option);
-        });
-    }
-
-    function toggleElement(elementId, show) {
-        const element = document.getElementById(elementId);
-        if (element) {
-            element.classList.toggle('hidden', !show);
-        }
-    }
-
-    function showToast(message) {
-        const toast = document.getElementById('toast');
-        const toastMessage = document.getElementById('toast-message');
-        toastMessage.textContent = message;
-        toast.classList.remove('opacity-0');
-        setTimeout(() => {
-            toast.classList.add('opacity-0');
-        }, 2500);
-    }
-    
-    function copyToClipboard(elementId, buttonElement) {
-        const textToCopy = document.getElementById(elementId).textContent;
-        const textArea = document.createElement('textarea');
-        textArea.style.position = 'fixed';
-        textArea.style.top = '-9999px';
-        textArea.value = textToCopy;
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-        try {
-            document.execCommand('copy');
-            const originalText = buttonElement.innerHTML;
-            buttonElement.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg><span>คัดลอกแล้ว</span>`;
-            showToast('คัดลอกข้อความแล้ว!');
-            setTimeout(() => { buttonElement.innerHTML = originalText; }, 2000);
-        } catch (err) { console.error('Could not copy text: ', err); }
-        document.body.removeChild(textArea);
-    }
-
-    function translateNotes(notes) {
-        // This function can be expanded with more translation rules
-        return notes.replace(/ผู้โดยสาร/g, 'Passengers'); 
-    }
-
-    // --- THEME MANAGEMENT ---
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
-    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
-
-    function applyTheme(theme) {
-        if (theme === 'dark') {
-            document.documentElement.classList.add('dark');
-            themeToggleLightIcon.classList.remove('hidden');
-            themeToggleDarkIcon.classList.add('hidden');
-        } else {
-            document.documentElement.classList.remove('dark');
-            themeToggleDarkIcon.classList.remove('hidden');
-            themeToggleLightIcon.classList.add('hidden');
-        }
-    }
-
-    // --- TEMPLATE MANAGEMENT ---
-    const templateSelect = document.getElementById('templateSelect');
-    const templateModal = document.getElementById('templateModal');
-    let templateToDelete = null;
-    
-    function getTemplates() {
-        return JSON.parse(localStorage.getItem('announcementTemplates')) || [];
-    }
-
-    function saveTemplates(templates) {
-        localStorage.setItem('announcementTemplates', JSON.stringify(templates));
-    }
-
-    function populateTemplatesDropdown() {
-        const templates = getTemplates();
-        templateSelect.innerHTML = '<option value="">-- เลือกเทมเพลต --</option>';
-        templates.forEach(template => {
-            const option = document.createElement('option');
-            option.value = template.name;
-            option.textContent = template.name;
-            templateSelect.appendChild(option);
-        });
-    }
-
-    function handleSaveTemplate() {
-        const templateNameInput = document.getElementById('templateName');
-        const name = templateNameInput.value.trim();
-        if (!name) {
-            showToast('กรุณาใส่ชื่อเทมเพลต');
-            return;
+        // --- HELPER FUNCTIONS ---
+        function translate(thaiName) {
+            return stationTranslation[thaiName] || thaiName;
         }
 
-        const templates = getTemplates();
-        const existingIndex = templates.findIndex(t => t.name === name);
+        function populateDatalist(elementId, items) {
+            const datalist = document.getElementById(elementId);
+            if (!datalist) return;
+            datalist.innerHTML = ''; // Clear existing options
+            items.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item;
+                datalist.appendChild(option);
+            });
+        }
 
-        const formData = {};
-        allFormElements.forEach(el => {
-            if (el.id) {
-                formData[el.id] = el.type === 'checkbox' ? el.checked : el.value;
+        function toggleElement(elementId, show) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.classList.toggle('hidden', !show);
             }
-        });
-        
-        if (existingIndex > -1) {
-            templates[existingIndex].data = formData;
-        } else {
-            templates.push({ name, data: formData });
         }
 
-        saveTemplates(templates);
-        populateTemplatesDropdown();
-        templateSelect.value = name;
-        templateModal.classList.add('opacity-0', 'hidden');
-        showToast(`บันทึกเทมเพลต '${name}' แล้ว`);
-    }
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            toastMessage.textContent = message;
+            toast.classList.remove('opacity-0');
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+            }, 2500);
+        }
 
-    // --- UI LOGIC ---
-    function updateConditionalFields() {
-        const reason = document.getElementById('reason').value;
-        toggleElement('carriageNumberWrapper', ['2', '5'].includes(reason));
-        toggleElement('carriageChangeWrapper', reason === '18');
-        toggleElement('unavailableCarriageWrapper', reason === '19');
-    }
-
-    function updateLocationFields() {
-        const type = document.getElementById('locationType').value;
-        toggleElement('locationAtStationWrapper', type === 'at_station');
-        toggleElement('locationBetweenWrapper', type === 'between_stations');
-    }
-
-    // --- CORE LOGIC ---
-    function generateAnnouncement() {
-        
-        // 1. Gather Data from Form
-        const formData = {};
-        allFormElements.forEach(el => {
-            if (el.id) {
-                formData[el.id] = el.type === 'checkbox' ? el.checked : el.value.trim();
+        function copyToClipboard(elementId, buttonElement) {
+            const textToCopy = document.getElementById(elementId).textContent;
+            const textArea = document.createElement('textarea');
+            textArea.style.position = 'fixed';
+            textArea.style.top = '-9999px';
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                const originalText = buttonElement.innerHTML;
+                buttonElement.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg><span>คัดลอกแล้ว</span>`;
+                showToast('คัดลอกข้อความแล้ว!');
+                setTimeout(() => {
+                    buttonElement.innerHTML = originalText;
+                }, 2000);
+            } catch (err) {
+                console.error('Could not copy text: ', err);
             }
-        });
-        
-        if (!formData.reason) return;
+            document.body.removeChild(textArea);
+        }
 
-        outputArea.classList.remove('hidden');
+        function translateNotes(notes) {
+            // This function can be expanded with more translation rules
+            return notes.replace(/ผู้โดยสาร/g, 'Passengers');
+        }
 
-        let thaiText, englishText, thaiTickerText, englishTickerText;
+        // --- THEME MANAGEMENT ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
 
-        const trainIdThai = formData.trainNumberInput && formData.origin && formData.destination
-            ? `ขบวน${formData.trainType}ที่ ${formData.trainNumberInput} (${formData.origin} - ${formData.destination})`
-            : (formData.trainNumberInput ? `ขบวน${formData.trainType}ที่ ${formData.trainNumberInput}` : 'ขบวนรถ');
-        
-        const trainIdEn = formData.trainNumberInput && formData.origin && formData.destination
-            ? `${trainTypeMap[formData.trainType]} Train No. ${formData.trainNumberInput} (${translate(formData.origin)} - ${translate(formData.destination)})`
-            : (formData.trainNumberInput ? `${trainTypeMap[formData.trainType]} Train No. ${formData.trainNumberInput}` : 'The train');
-
-
-        if (formData.reason === '3') {
-            thaiText = `${trainIdThai} ไม่สามารถใช้ความเร็วสูงสุดได้ ส่งผลให้ขบวนรถเกิดการล่าช้าสะสม ขออภัยในความไม่สะดวก`;
-            englishText = `Notice: ${trainIdEn} is unable to run at maximum speed, causing accumulated delays. We apologize for the inconvenience.`;
-            
-            thaiTickerText = `${trainIdThai} ไม่สามารถใช้ความเร็วสูงสุดได้ ทำให้ล่าช้าสะสม ขออภัยในความไม่สะดวก`;
-            englishTickerText = `${trainIdEn} unable to run at maximum speed, causing accumulated delays. We apologize for the inconvenience.`;
-        } else {
-            // Standard procedure for all other reasons
-            const thaiParts = {};
-            thaiParts.trainId = trainIdThai;
-
-            if (formData.locationType === 'at_station' && formData.locationStation) {
-                thaiParts.location = `ที่สถานี ${formData.locationStation}`;
-            } else if (formData.locationType === 'between_stations' && formData.locationBetween1 && formData.locationBetween2) {
-                thaiParts.location = `ระหว่างสถานี ${formData.locationBetween1} - ${formData.locationBetween2}`;
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+                themeToggleLightIcon.classList.remove('hidden');
+                themeToggleDarkIcon.classList.add('hidden');
+            } else {
+                document.documentElement.classList.remove('dark');
+                themeToggleDarkIcon.classList.remove('hidden');
+                themeToggleLightIcon.classList.add('hidden');
             }
+        }
 
-            let reasonStrThai = reasons[formData.reason].thai;
+        // --- TEMPLATE MANAGEMENT ---
+        const templateSelect = document.getElementById('templateSelect');
+        const templateModal = document.getElementById('templateModal');
+        let templateToDelete = null;
+
+        function getTemplates() {
+            return JSON.parse(localStorage.getItem('announcementTemplates')) || [];
+        }
+
+        function saveTemplates(templates) {
+            localStorage.setItem('announcementTemplates', JSON.stringify(templates));
+        }
+
+        function populateTemplatesDropdown() {
+            const templates = getTemplates();
+            templateSelect.innerHTML = '<option value="">-- เลือกเทมเพลต --</option>';
+            templates.forEach(template => {
+                const option = document.createElement('option');
+                option.value = template.name;
+                option.textContent = template.name;
+                templateSelect.appendChild(option);
+            });
+        }
+
+        function handleSaveTemplate() {
+            const templateNameInput = document.getElementById('templateName');
+            const name = templateNameInput.value.trim();
+            if (!name) {
+                showToast('กรุณาใส่ชื่อเทมเพลต');
+                return;
+            }
+            const templates = getTemplates();
+            const existingIndex = templates.findIndex(t => t.name === name);
+            const formData = {};
+            allFormElements.forEach(el => {
+                if (el.id) {
+                    formData[el.id] = el.type === 'checkbox' ? el.checked : el.value;
+                }
+            });
+            if (existingIndex > -1) {
+                templates[existingIndex].data = formData;
+            } else {
+                templates.push({
+                    name,
+                    data: formData
+                });
+            }
+            saveTemplates(templates);
+            populateTemplatesDropdown();
+            templateSelect.value = name;
+            templateModal.classList.add('opacity-0', 'hidden');
+            showToast(`บันทึกเทมเพลต '${name}' แล้ว`);
+        }
+        
+        // --- UI LOGIC ---
+        function updateConditionalFields() {
+            const reason = document.getElementById('reason').value;
+            toggleElement('carriageNumberWrapper', ['2', '5'].includes(reason));
+            toggleElement('carriageChangeWrapper', reason === '18');
+            toggleElement('unavailableCarriageWrapper', reason === '19');
+            toggleElement('subReason6Wrapper', reason === '6');
+            toggleElement('subReason20Wrapper', reason === '20');
+        }
+
+        function updateLocationFields() {
+            const type = document.getElementById('locationType').value;
+            toggleElement('locationAtStationWrapper', type === 'at_station');
+            toggleElement('locationBetweenWrapper', type === 'between_stations');
+        }
+
+        // --- CORE LOGIC ---
+        function generateAnnouncement() {
+            // 1. Gather Data from Form
+            const formData = {};
+            allFormElements.forEach(el => {
+                if (el.id) {
+                    formData[el.id] = el.type === 'checkbox' ? el.checked : el.value.trim();
+                }
+            });
+            if (!formData.reason)
+                return;
+            outputArea.classList.remove('hidden');
+            let thaiText, englishText, thaiTickerText, englishTickerText;
+            const trainIdThai = formData.trainNumberInput && formData.origin && formData.destination ? `ขบวน${formData.trainType}ที่ ${formData.trainNumberInput} (${formData.origin} - ${formData.destination})` : (formData.trainNumberInput ? `ขบวน${formData.trainType}ที่ ${formData.trainNumberInput}` : 'ขบวนรถ');
+            const trainIdEn = formData.trainNumberInput && formData.origin && formData.destination ? `${trainTypeMap[formData.trainType]} Train No. ${formData.trainNumberInput} (${translate(formData.origin)} - ${translate(formData.destination)})` : (formData.trainNumberInput ? `${trainTypeMap[formData.trainType]} Train No. ${formData.trainNumberInput}` : 'The train');
+            if (formData.reason === '3') {
+                thaiText = `${trainIdThai} ไม่สามารถใช้ความเร็วสูงสุดได้ ส่งผลให้ขบวนรถเกิดการล่าช้าสะสม ขออภัยในความไม่สะดวก`;
+                englishText = `Notice: ${trainIdEn} is unable to run at maximum speed, causing accumulated delays. We apologize for the inconvenience.`;
+                thaiTickerText = `${trainIdThai} ไม่สามารถใช้ความเร็วสูงสุดได้ ทำให้ล่าช้าสะสม ขออภัยในความไม่สะดวก`;
+                englishTickerText = `${trainIdEn} unable to run at maximum speed, causing accumulated delays. We apologize for the inconvenience.`;
+            } else {
+                // Standard procedure for all other reasons
+                const thaiParts = {};
+                thaiParts.trainId = trainIdThai;
+                if (formData.locationType === 'at_station' && formData.locationStation) {
+                    thaiParts.location = `ที่สถานี ${formData.locationStation}`;
+                } else if (formData.locationType === 'between_stations' && formData.locationBetween1 && formData.locationBetween2) {
+                    thaiParts.location = `ระหว่างสถานี ${formData.locationBetween1} - ${formData.locationBetween2}`;
+                }
+                let reasonStrThai = reasons[formData.reason].thai;
+            if (formData.reason === '6' && formData.subReason6) {
+                reasonStrThai += ` เนื่องจาก ${subReason6Map[formData.subReason6].thai}`;
+            }
+            if (formData.reason === '20' && formData.subReason20) {
+                reasonStrThai += ` ${subReason20Map[formData.subReason20].thai}`;
+            }
             if (formData.reason === '18') {
                 thaiParts.mainClause = `${carriageChangeMap[formData.carriageChangeType].thai}${thaiParts.location ? ' ' + thaiParts.location : ''}`;
-            } else if (formData.reason === '19' && formData.unavailableDate) {
-                const date = new Date(formData.unavailableDate);
-                const formattedDate = date.toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' });
-                thaiParts.mainClause = `ในวันที่ ${formattedDate} ${formData.unavailableCarriageType} ไม่มีให้บริการ`;
-            } else {
-                if (formData.carriageNumber) reasonStrThai += ` (${formData.carriageNumber})`;
-                let prefix = (['6', '7', '13', '17'].includes(formData.reason)) ? '' : 'เกิดเหตุ';
-                thaiParts.mainClause = `${prefix}${reasonStrThai}${thaiParts.location ? ' ' + thaiParts.location : ''}`;
-            }
-            
-            if (formData.actionTaken) {
-                thaiParts.action = actions.thai[formData.actionTaken];
-            }
-
-            if (formData.delayTime) {
-                thaiParts.impact = `ซึ่งจะทำให้ขบวนรถล่าช้าประมาณ ${formData.delayTime}`;
-            } else if (!['6', '18', '19'].includes(formData.reason)) {
-                thaiParts.impact = 'ซึ่งจะทำให้ขบวนรถล่าช้า';
-            }
-
-            if (formData.instruction && formData.instruction !== 'none') {
-                thaiParts.instruction = instructions.thai[formData.instruction];
-            }
-            thaiParts.notes = formData.notes;
-
-            if (formData.otherTrainsAffected) {
-                if (formData.affectedTrains) {
-                    thaiParts.affected = `อาจส่งผลกระทบต่อขบวนรถอื่น รวมถึงขบวนที่ ${formData.affectedTrains}`;
+                } else if (formData.reason === '19' && formData.unavailableDate) {
+                    const date = new Date(formData.unavailableDate);
+                    const formattedDate = date.toLocaleDateString('th-TH', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric'
+                    });
+                    thaiParts.mainClause = `ในวันที่ ${formattedDate} ${formData.unavailableCarriageType} ไม่มีให้บริการ`;
                 } else {
-                    thaiParts.affected = "อาจส่งผลกระทบต่อขบวนรถอื่น";
+                    if (formData.carriageNumber)
+                        reasonStrThai += ` (${formData.carriageNumber})`;
+                    let prefix = (['6', '7', '13', '17', '20'].includes(formData.reason)) ? '' : 'เกิดเหตุ';
+                    thaiParts.mainClause = `${prefix}${reasonStrThai}${thaiParts.location ? ' ' + thaiParts.location : ''}`;
+                }
+                if (formData.actionTaken) {
+                    thaiParts.action = actions.thai[formData.actionTaken];
+                }
+                if (formData.delayTime) {
+                    thaiParts.impact = `ซึ่งจะทำให้ขบวนรถล่าช้าประมาณ ${formData.delayTime}`;
+                } else if (!['6', '18', '19', '20'].includes(formData.reason)) {
+                    thaiParts.impact = 'ซึ่งจะทำให้ขบวนรถล่าช้า';
+                }
+                if (formData.instruction && formData.instruction !== 'none') {
+                    thaiParts.instruction = instructions.thai[formData.instruction];
+                }
+                thaiParts.notes = formData.notes;
+                if (formData.otherTrainsAffected) {
+                    if (formData.affectedTrains) {
+                        thaiParts.affected = `อาจส่งผลกระทบต่อขบวนรถอื่น รวมถึงขบวนที่ ${formData.affectedTrains}`;
+                    } else {
+                        thaiParts.affected = "อาจส่งผลกระทบต่อขบวนรถอื่น";
+                    }
+                }
+                const englishParts = {};
+                englishParts.trainId = trainIdEn;
+                if (formData.locationType === 'at_station' && formData.locationStation) {
+                    englishParts.location = `at ${translate(formData.locationStation)} station`;
+                } else if (formData.locationType === 'between_stations' && formData.locationBetween1 && formData.locationBetween2) {
+                    englishParts.location = `between ${translate(formData.locationBetween1)} and ${translate(formData.locationBetween2)} stations`;
+                }
+                let reasonStrEn = reasons[formData.reason].english;
+                 if (formData.reason === '6' && formData.subReason6) {
+                    reasonStrEn += ` due to ${subReason6Map[formData.subReason6].english}`;
+                }
+                 if (formData.reason === '20' && formData.subReason20) {
+                    reasonStrEn += ` ${subReason20Map[formData.subReason20].english}`;
+                }
+                if (formData.reason === '18') {
+                    englishParts.mainClause = `${trainIdEn} will have ${carriageChangeMap[formData.carriageChangeType].english}`;
+                } else if (formData.reason === '19' && formData.unavailableDate) {
+                    const date = new Date(formData.unavailableDate);
+                    const formattedDateEn = date.toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric'
+                    });
+                    englishParts.mainClause = `On ${formattedDateEn}, the ${unavailableCarriageMap[formData.unavailableCarriageType]} will be unavailable`;
+                } else {
+                    if (formData.carriageNumber)
+                        reasonStrEn += ` (Car No. ${formData.carriageNumber.replace('คันที่', '').trim()})`;
+                    let verb = (['6', '7', '13', '17', '20'].includes(formData.reason)) ? '' : 'is experiencing a disruption due to';
+                    englishParts.mainClause = `${trainIdEn} ${reasons[formData.reason].english} ${verb} ${englishParts.location ? ' ' + englishParts.location : ''}`;
+                    if(formData.reason === '6' || formData.reason === '20'){
+                         englishParts.mainClause = `${trainIdEn} ${reasons[formData.reason].english} ${reasonStrEn.replace(reasons[formData.reason].english, '')}`;
+                    } else {
+                        englishParts.mainClause = `${trainIdEn} is experiencing a disruption due to ${reasonStrEn}${englishParts.location ? ' ' + englishParts.location : ''}`;
+                    }
+
+                }
+                if (formData.actionTaken) {
+                    englishParts.action = actions.english[formData.actionTaken];
+                }
+                if (formData.delayTime) {
+                    const delayTimeEn = formData.delayTime.replace('นาที', 'minutes').replace('ชั่วโมง', 'hours');
+                    englishParts.impact = `A delay of approximately ${delayTimeEn} is expected`;
+                } else if (!['6', '18', '19', '20'].includes(formData.reason)) {
+                    englishParts.impact = "This will cause a delay";
+                }
+                if (formData.instruction && formData.instruction !== 'none') {
+                    englishParts.instruction = instructions.english[formData.instruction];
+                }
+                englishParts.notes = formData.notes ? translateNotes(formData.notes) : '';
+                if (formData.otherTrainsAffected) {
+                    if (formData.affectedTrains) {
+                        englishParts.affected = `This incident may affect other trains on this route, including train(s) No. ${formData.affectedTrains}`;
+                    } else {
+                        englishParts.affected = "This incident may affect other trains on this route";
+                    }
+                }
+                const partOrder = ['mainClause', 'action', 'impact', 'instruction', 'notes', 'affected'];
+                const finalThaiParts = partOrder.map(p => thaiParts[p]).filter(Boolean);
+                const finalEnglishParts = partOrder.map(p => englishParts[p]).filter(Boolean);
+                thaiText = `${trainIdThai} ${finalThaiParts.join(' ')} ขออภัยในความไม่สะดวก`;
+                englishText = `Notice: ${finalEnglishParts.join('. ')}. We apologize for the inconvenience.`;
+                let tickerReasonThai = reasons[formData.reason].thai;
+                let tickerReasonEn = reasons[formData.reason].english;
+                 if (formData.reason === '6' && formData.subReason6) {
+                    tickerReasonThai += ` เนื่องจาก ${subReason6Map[formData.subReason6].thai}`;
+                    tickerReasonEn += ` due to ${subReason6Map[formData.subReason6].english}`;
+                }
+                 if (formData.reason === '20' && formData.subReason20) {
+                    tickerReasonThai += ` ${subReason20Map[formData.subReason20].thai}`;
+                    tickerReasonEn += ` ${subReason20Map[formData.subReason20].english}`;
+                }
+                if (formData.reason === '18') {
+                    tickerReasonThai = carriageChangeMap[formData.carriageChangeType].thai;
+                    tickerReasonEn = `a ${carriageChangeMap[formData.carriageChangeType].english}`;
+                } else if (formData.reason === '19') {
+                    tickerReasonThai = `${formData.unavailableCarriageType} ไม่มีให้บริการ`;
+                    tickerReasonEn = `${unavailableCarriageMap[formData.unavailableCarriageType]} unavailable`;
+                }
+                if (formData.trainNumberInput) {
+                    const delayMessageThai = !['18', '19', '20'].includes(formData.reason) ? 'ทำให้ขบวนรถล่าช้า' : '';
+                    const verbEnglish = !['18', '19', '20'].includes(formData.reason) ? 'delayed due to' : 'has';
+                    thaiTickerText = `${trainIdThai} ${tickerReasonThai} ${thaiParts.location || ''} ${delayMessageThai}. ขออภัยในความไม่สะดวก`;
+                    englishTickerText = `${trainIdEn} ${verbEnglish} ${tickerReasonEn} ${englishParts.location || ''}. We apologize for the inconvenience.`;
+                } else {
+                    thaiTickerText = `แจ้งเหตุการณ์: ${tickerReasonThai} ${thaiParts.location || ''} อาจส่งผลให้การเดินรถล่าช้า. ขออภัยในความไม่สะดวก`;
+                    englishTickerText = `Notice: Disruption due to ${tickerReasonEn} ${englishParts.location || ''}. Delays may occur. We apologize for the inconvenience.`;
                 }
             }
-            
-            const englishParts = {};
-            englishParts.trainId = trainIdEn;
+            // 5. Display results
+            document.getElementById('thaiOutput').textContent = thaiText.replace(/\s+/g, ' ');
+            document.getElementById('englishOutput').textContent = englishText.replace(/\. \./g, '.').replace(/\s+/g, ' ');
+            document.getElementById('thaiTickerOutput').textContent = thaiTickerText.replace(/\s+/g, ' ');
+            document.getElementById('englishTickerOutput').textContent = englishTickerText.replace(/\s+/g, ' ');
 
-            if (formData.locationType === 'at_station' && formData.locationStation) {
-                englishParts.location = `at ${translate(formData.locationStation)} station`;
-            } else if (formData.locationType === 'between_stations' && formData.locationBetween1 && formData.locationBetween2) {
-                englishParts.location = `between ${translate(formData.locationBetween1)} and ${translate(formData.locationBetween2)} stations`;
-            }
-            
-            let reasonStrEn = reasons[formData.reason].english;
-            if (formData.reason === '18') {
-                englishParts.mainClause = `will have ${carriageChangeMap[formData.carriageChangeType].english}`;
-            } else if (formData.reason === '19' && formData.unavailableDate) {
-                const date = new Date(formData.unavailableDate);
-                const formattedDateEn = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-                englishParts.mainClause = `On ${formattedDateEn}, the ${unavailableCarriageMap[formData.unavailableCarriageType]} will be unavailable`;
-            } else {
-                if (formData.carriageNumber) reasonStrEn += ` (Car No. ${formData.carriageNumber.replace('คันที่', '').trim()})`;
-                let verb = (['6', '7', '13', '17'].includes(formData.reason)) ? 'is' : 'is experiencing a disruption due to';
-                englishParts.mainClause = `${verb} ${reasonStrEn}${englishParts.location ? ' ' + englishParts.location : ''}`;
-            }
+        }
         
-            if (formData.actionTaken) {
-                englishParts.action = actions.english[formData.actionTaken];
-            }
+        // --- GEMINI API INTEGRATION ---
+        async function generateAIAdvice() {
+            const adviceContainer = document.getElementById('aiAdviceContainer');
+            const adviceButton = document.getElementById('generateAdviceBtn');
             
-            if (formData.delayTime) {
-                const delayTimeEn = formData.delayTime.replace('นาที', 'minutes').replace('ชั่วโมง', 'hours');
-                englishParts.impact = `A delay of approximately ${delayTimeEn} is expected`;
-            } else if (!['6', '18', '19'].includes(formData.reason)) {
-                englishParts.impact = "This will cause a delay";
-            }
-            
-            if (formData.instruction && formData.instruction !== 'none') {
-                englishParts.instruction = instructions.english[formData.instruction];
-            }
-            englishParts.notes = formData.notes ? translateNotes(formData.notes) : '';
+            // 1. Show loading state
+            adviceContainer.innerHTML = `<p class="text-slate-500 dark:text-slate-400 text-sm">✨ กำลังสร้างคำแนะนำด้วย AI...</p>`;
+            adviceButton.disabled = true;
 
-            if (formData.otherTrainsAffected) {
-                if (formData.affectedTrains) {
-                    englishParts.affected = `This incident may affect other trains on this route, including train(s) No. ${formData.affectedTrains}`;
-                } else {
-                    englishParts.affected = "This incident may affect other trains on this route";
+            // 2. Gather data from form for the prompt
+            const formData = {};
+            allFormElements.forEach(el => {
+                if (el.id) {
+                    formData[el.id] = el.type === 'checkbox' ? el.checked : el.value.trim();
                 }
+            });
+
+            const trainId = formData.trainNumberInput ? `${formData.trainType} Train No. ${formData.trainNumberInput}` : 'The train';
+            let reasonText = reasons[formData.reason]?.english || 'a delay';
+            if (formData.reason === '6' && formData.subReason6) {
+                reasonText += ` due to ${subReason6Map[formData.subReason6].english}`;
+            }
+            if (formData.reason === '20' && formData.subReason20) {
+                reasonText += ` ${subReason20Map[formData.subReason20].english}`;
             }
 
-            const partOrder = ['trainId', 'mainClause', 'action', 'impact', 'instruction', 'notes', 'affected'];
-            const finalThaiParts = partOrder.map(p => thaiParts[p]).filter(Boolean);
-            const finalEnglishParts = partOrder.map(p => englishParts[p]).filter(Boolean);
+            let locationText = 'on the route';
+            if (formData.locationType === 'at_station' && formData.locationStation) {
+                locationText = `at ${translate(formData.locationStation)} station`;
+            } else if (formData.locationType === 'between_stations' && formData.locationBetween1 && formData.locationBetween2) {
+                locationText = `between ${translate(formData.locationBetween1)} and ${translate(formData.locationBetween2)} stations`;
+            }
+            const delayTime = formData.delayTime || 'unspecified';
 
-            thaiText = `${finalThaiParts.join(' ')} ขออภัยในความไม่สะดวก`;
-            englishText = `Notice: ${finalEnglishParts.join('. ')}. We apologize for the inconvenience.`;
+            // 3. Construct the prompt
+            const prompt = `
+                You are a helpful and empathetic assistant for a national railway company.
+                Your task is to provide practical and reassuring advice to passengers affected by a train disruption.
 
-            let tickerReasonThai = reasons[formData.reason].thai;
-            let tickerReasonEn = reasons[formData.reason].english;
+                Here are the details of the incident:
+                - Train: ${trainId}
+                - Incident: ${reasonText}
+                - Location: ${locationText}
+                - Expected Delay: ${delayTime}
 
-            if (formData.reason === '18') { tickerReasonThai = carriageChangeMap[formData.carriageChangeType].thai; tickerReasonEn = `a ${carriageChangeMap[formData.carriageChangeType].english}`; } 
-            else if (formData.reason === '19') { tickerReasonThai = `${formData.unavailableCarriageType} ไม่มีให้บริการ`; tickerReasonEn = `${unavailableCarriageMap[formData.unavailableCarriageType]} unavailable`; }
+                Based on this information, generate a short list (3-4 bullet points, starting with a hyphen '-') of helpful suggestions for the passengers in Thai.
+                - The tone should be calm, reassuring, and professional.
+                - If the delay is long (e.g., over an hour), suggest finding refreshments or restrooms if possible.
+                - If the incident is at a station, mention that they can ask staff for help.
+                - If it's a technical issue, reassure them that safety is a top priority.
+                - Keep the advice concise and easy to understand.
+                - Respond ONLY with the bulleted list in Thai, without any introductory or concluding sentences.
+            `;
             
-            if (formData.trainNumberInput) {
-                const delayMessageThai = !['18', '19'].includes(formData.reason) ? 'ทำให้ขบวนรถล่าช้า' : '';
-                const verbEnglish = !['18', '19'].includes(formData.reason) ? 'delayed due to' : 'has';
-                thaiTickerText = `${trainIdThai} ${tickerReasonThai} ${thaiParts.location || ''} ${delayMessageThai}. ขออภัยในความไม่สะดวก`;
-                englishTickerText = `${trainIdEn} ${verbEnglish} ${tickerReasonEn} ${englishParts.location || ''}. We apologize for the inconvenience.`;
-            } else {
-                thaiTickerText = `แจ้งเหตุการณ์: ${tickerReasonThai} ${thaiParts.location || ''} อาจส่งผลให้การเดินรถล่าช้า. ขออภัยในความไม่สะดวก`;
-                englishTickerText = `Notice: Disruption due to ${tickerReasonEn} ${englishParts.location || ''}. Delays may occur. We apologize for the inconvenience.`;
+            // 4. Call the Gemini API with exponential backoff
+            try {
+                const apiKey = ""; // Leave as-is for Canvas
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+                
+                let response;
+                let retries = 3;
+                let delay = 1000;
+
+                while (retries > 0) {
+                    response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: prompt }] }],
+                        }),
+                    });
+
+                    if (response.ok) {
+                        break; // Success
+                    } else if (response.status === 429 || response.status >= 500) {
+                        // Retry on rate limiting or server errors
+                        retries--;
+                        if (retries === 0) {
+                            throw new Error(`API request failed after multiple retries with status: ${response.status}`);
+                        }
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        delay *= 2; // Exponential backoff
+                    } else {
+                        // Don't retry for other client-side errors
+                        throw new Error(`API request failed with status: ${response.status}`);
+                    }
+                }
+                
+                const result = await response.json();
+                const adviceText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                
+                if (adviceText) {
+                    // Format as HTML list
+                    const adviceItems = adviceText.split('-').filter(item => item.trim() !== '');
+                    const adviceHtml = '<ul>' + adviceItems.map(item => `<li class="mb-2 text-sm text-slate-700 dark:text-slate-300">✨ ${item.trim()}</li>`).join('') + '</ul>';
+                    adviceContainer.innerHTML = adviceHtml;
+                } else {
+                    throw new Error("No content received from AI.");
+                }
+
+            } catch (error) {
+                console.error('Gemini API Error:', error);
+                adviceContainer.innerHTML = `<p class="text-red-500 text-sm">ขออภัย, ไม่สามารถสร้างคำแนะนำได้ในขณะนี้</p>`;
+            } finally {
+                adviceButton.disabled = false;
             }
         }
         
-        // 5. Display results
-        document.getElementById('thaiOutput').textContent = thaiText.replace(/\s+/g, ' ');
-        document.getElementById('englishOutput').textContent = englishText.replace(/\. \./g, '.').replace(/\s+/g, ' ');
-        document.getElementById('thaiTickerOutput').textContent = thaiTickerText.replace(/\s+/g, ' ');
-        document.getElementById('englishTickerOutput').textContent = englishTickerText.replace(/\s+/g, ' ');
-    }
-
-    // --- INITIALIZATION & EVENT LISTENERS ---
-    function initialize() {
-        // Theme
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        applyTheme(savedTheme);
-        themeToggleBtn.addEventListener('click', () => {
-            const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            localStorage.setItem('theme', newTheme);
-            applyTheme(newTheme);
-        });
-
-        // Datalists
-        populateDatalist('trainNumbersList', Array.from({length: 1000}, (_, i) => i + 1));
-        populateDatalist('stationList', Object.keys(stationTranslation));
-        
-        // Templates
-        populateTemplatesDropdown();
-        document.getElementById('saveTemplateBtn').addEventListener('click', () => {
-            templateModal.classList.remove('hidden');
-            setTimeout(() => templateModal.classList.remove('opacity-0'), 10);
-            document.getElementById('templateName').focus();
-        });
-        document.getElementById('cancelSaveTemplate').addEventListener('click', () => templateModal.classList.add('opacity-0', 'hidden'));
-        document.getElementById('confirmSaveTemplate').addEventListener('click', handleSaveTemplate);
-        
-        document.getElementById('loadTemplateBtn').addEventListener('click', () => {
-            const name = templateSelect.value;
-            const template = getTemplates().find(t => t.name === name);
-            if (template) {
-                allFormElements.forEach(el => {
-                    if (el.id && template.data.hasOwnProperty(el.id)) {
-                        if(el.type === 'checkbox') {
-                            el.checked = template.data[el.id];
-                        } else {
-                            el.value = template.data[el.id];
+        // --- INITIALIZATION & EVENT LISTENERS ---
+        function initialize() {
+            // Theme
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            applyTheme(savedTheme);
+            themeToggleBtn.addEventListener('click', () => {
+                const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                localStorage.setItem('theme', newTheme);
+                applyTheme(newTheme);
+            });
+            // Datalists
+            populateDatalist('trainNumbersList', Array.from({ length: 1000 }, (_, i) => i + 1));
+            populateDatalist('stationList', Object.keys(stationTranslation));
+            // Templates
+            populateTemplatesDropdown();
+            document.getElementById('saveTemplateBtn').addEventListener('click', () => {
+                templateModal.classList.remove('hidden');
+                setTimeout(() => templateModal.classList.remove('opacity-0'), 10);
+                document.getElementById('templateName').focus();
+            });
+            document.getElementById('cancelSaveTemplate').addEventListener('click', () => templateModal.classList.add('opacity-0', 'hidden'));
+            document.getElementById('confirmSaveTemplate').addEventListener('click', handleSaveTemplate);
+            document.getElementById('loadTemplateBtn').addEventListener('click', () => {
+                const name = templateSelect.value;
+                const template = getTemplates().find(t => t.name === name);
+                if (template) {
+                    allFormElements.forEach(el => {
+                        if (el.id && template.data.hasOwnProperty(el.id)) {
+                            if (el.type === 'checkbox') {
+                                el.checked = template.data[el.id];
+                            } else {
+                                el.value = template.data[el.id];
+                            }
+                            if (el.tagName === 'SELECT' || el.type === 'checkbox') {
+                                el.dispatchEvent(new Event('change', { bubbles: true }));
+                            }
                         }
-                        if (el.tagName === 'SELECT' || el.type === 'checkbox') {
-                             el.dispatchEvent(new Event('change', { bubbles: true }));
-                        }
-                    }
-                });
-                showToast(`โหลดเทมเพลต '${name}' แล้ว`);
-                generateAnnouncement();
-            } else {
-                showToast('กรุณาเลือกเทมเพลตที่ต้องการโหลด');
-            }
-        });
-
-        document.getElementById('deleteTemplateBtn').addEventListener('click', () => {
-             const name = templateSelect.value;
-             if(name) {
-                templateToDelete = name;
-                document.getElementById('templateNameToDelete').textContent = name;
+                    });
+                    showToast(`โหลดเทมเพลต '${name}' แล้ว`);
+                    generateAnnouncement();
+                } else {
+                    showToast('กรุณาเลือกเทมเพลตที่ต้องการโหลด');
+                }
+            });
+            document.getElementById('deleteTemplateBtn').addEventListener('click', () => {
+                const name = templateSelect.value;
+                if (name) {
+                    templateToDelete = name;
+                    document.getElementById('templateNameToDelete').textContent = name;
+                    const deleteModal = document.getElementById('deleteConfirmModal');
+                    deleteModal.classList.remove('hidden');
+                    setTimeout(() => deleteModal.classList.remove('opacity-0'), 10);
+                } else {
+                    showToast('กรุณาเลือกเทมเพลตที่ต้องการลบ');
+                }
+            });
+            document.getElementById('cancelDeleteBtn').addEventListener('click', () => {
                 const deleteModal = document.getElementById('deleteConfirmModal');
-                deleteModal.classList.remove('hidden');
-                setTimeout(() => deleteModal.classList.remove('opacity-0'), 10);
-             } else {
-                 showToast('กรุณาเลือกเทมเพลตที่ต้องการลบ');
-             }
-        });
-        
-        document.getElementById('cancelDeleteBtn').addEventListener('click', () => {
-            const deleteModal = document.getElementById('deleteConfirmModal');
-            deleteModal.classList.add('opacity-0');
-            setTimeout(() => deleteModal.classList.add('hidden'), 300); 
-        });
+                deleteModal.classList.add('opacity-0');
+                setTimeout(() => deleteModal.classList.add('hidden'), 300);
+            });
+            document.getElementById('confirmDeleteBtn').addEventListener('click', () => {
+                if (templateToDelete) {
+                    let templates = getTemplates();
+                    templates = templates.filter(t => t.name !== templateToDelete);
+                    saveTemplates(templates);
+                    populateTemplatesDropdown();
+                    showToast(`ลบเทมเพลต '${templateToDelete}' แล้ว`);
+                    templateToDelete = null;
+                }
+                const deleteModal = document.getElementById('deleteConfirmModal');
+                deleteModal.classList.add('opacity-0');
+                setTimeout(() => deleteModal.classList.add('hidden'), 300);
+            });
 
-        document.getElementById('confirmDeleteBtn').addEventListener('click', () => {
-            if (templateToDelete) {
-                let templates = getTemplates();
-                templates = templates.filter(t => t.name !== templateToDelete);
-                saveTemplates(templates);
-                populateTemplatesDropdown();
-                showToast(`ลบเทมเพลต '${templateToDelete}' แล้ว`);
-                templateToDelete = null; 
-            }
-            const deleteModal = document.getElementById('deleteConfirmModal');
-            deleteModal.classList.add('opacity-0');
-            setTimeout(() => deleteModal.classList.add('hidden'), 300);
-        });
+            // Gemini API Button
+            document.getElementById('generateAdviceBtn').addEventListener('click', generateAIAdvice);
 
-
-        // Form Logic
-        document.getElementById('reason').addEventListener('change', updateConditionalFields);
-        document.getElementById('locationType').addEventListener('change', updateLocationFields);
-        document.getElementById('otherTrainsAffected').addEventListener('change', (e) => {
-            toggleElement('affectedTrainsWrapper', e.target.checked);
-        });
-
-        document.getElementById('clearFormBtn').addEventListener('click', () => {
-            form.reset();
+            // Form Logic
+            document.getElementById('reason').addEventListener('change', updateConditionalFields);
+            document.getElementById('locationType').addEventListener('change', updateLocationFields);
+            document.getElementById('otherTrainsAffected').addEventListener('change', (e) => {
+                toggleElement('affectedTrainsWrapper', e.target.checked);
+            });
+            document.getElementById('clearFormBtn').addEventListener('click', () => {
+                form.reset();
+                updateConditionalFields();
+                updateLocationFields();
+                toggleElement('affectedTrainsWrapper', false);
+                document.getElementById('unavailableDate').value = new Date().toISOString().split('T')[0];
+                document.getElementById('locationType').value = 'not_specified';
+                outputArea.classList.add('hidden');
+            });
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                generateAnnouncement();
+                outputArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+            // Initial setup for conditional fields
             updateConditionalFields();
             updateLocationFields();
-            toggleElement('affectedTrainsWrapper', false);
             document.getElementById('unavailableDate').value = new Date().toISOString().split('T')[0];
-            document.getElementById('locationType').value = 'not_specified';
-            outputArea.classList.add('hidden');
-        });
-
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            generateAnnouncement();
-            outputArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-
-        // Initial setup for conditional fields
-        updateConditionalFields();
-        updateLocationFields();
-        document.getElementById('unavailableDate').value = new Date().toISOString().split('T')[0];
-    }
-    
-
-    // Run on page load
-    document.addEventListener('DOMContentLoaded', initialize);
-</script>
+        }
+        // Run on page load
+        document.addEventListener('DOMContentLoaded', initialize);
+    </script>
 </body>
+
 </html>
+
 
