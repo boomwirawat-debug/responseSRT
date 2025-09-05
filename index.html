@@ -473,7 +473,7 @@
             '3': { thai: "ไม่สามารถใช้ความเร็วสูงสุดได้", english: "unable to run at maximum speed" },
             '4': { thai: "ขบวนรถขัดข้อง", english: "a train malfunction" },
             '5': { thai: "เครื่องปรับอากาศชำรุด", english: "an air conditioning failure" },
-            '6': { thai: "ออกจากต้นทางล่าช้า", english: "a delayed departure from its departure station" },
+            '6': { thai: "ออกจากต้นทางล่าช้า", english: "is delayed" },
             '7': { thai: "รอรถหมุนเวียน", english: "waiting for connecting rolling stock" },
             '8': { thai: "ชนยานพาหนะ", english: "a collision with a vehicle" },
             '9': { thai: "ชนสัตว์", english: "a collision with an animal" },
@@ -794,10 +794,10 @@
                     englishParts.mainClause = `On ${formattedDateEn}, the ${unavailableCarriageMap[formData.unavailableCarriageType]} will be unavailable`;
                 } else if (formData.reason === '6') {
                     const subReasonText = subReason6Map[formData.subReason6] ? `due to ${subReason6Map[formData.subReason6].english}` : '';
-                    englishParts.mainClause = `${trainIdEn} departed late from its origin ${subReasonText}`.trim();
+                    englishParts.mainClause = `${trainIdEn} ${reasons[formData.reason].english} ${subReasonText}`.trim();
                 } else if (formData.reason === '20') {
                     const subReasonText = subReason20Map[formData.subReason20] ? `due to ${subReason20Map[formData.subReason20].english}` : '';
-                    englishParts.mainClause = `${trainIdEn} is delayed ${subReasonText}`.trim();
+                    englishParts.mainClause = `${trainIdEn} ${reasons[formData.reason].english} ${subReasonText}`.trim();
                 } else {
                     let reasonStrEn = reasons[formData.reason].english;
                     if (formData.carriageNumber) {
@@ -864,7 +864,7 @@
             }
             // 5. Display results
             document.getElementById('thaiOutput').textContent = thaiText.replace(/\s+/g, ' ');
-            document.getElementById('englishOutput').textContent = englishText.replace(/\. \./g, '.').replace(/\s+/g, ' ');
+            document.getElementById('englishOutput').textContent = englishText.replace(/\. \./g, '.').replace(/\s+/g, ' ').replace(/ \./g, '.');
             document.getElementById('thaiTickerOutput').textContent = thaiTickerText.replace(/\s+/g, ' ');
             document.getElementById('englishTickerOutput').textContent = englishTickerText.replace(/\s+/g, ' ');
 
@@ -880,50 +880,23 @@
             adviceButton.disabled = true;
 
             // 2. Gather data from form for the prompt
-            const formData = {};
-            allFormElements.forEach(el => {
-                if (el.id) {
-                    formData[el.id] = el.type === 'checkbox' ? el.checked : el.value.trim();
-                }
-            });
-
-            const trainId = formData.trainNumberInput ? `${formData.trainType} Train No. ${formData.trainNumberInput}` : 'The train';
-            let reasonText = reasons[formData.reason]?.english || 'a delay';
-            if (formData.reason === '6' && formData.subReason6) {
-                reasonText += ` due to ${subReason6Map[formData.subReason6].english}`;
-            }
-            if (formData.reason === '20' && formData.subReason20) {
-                reasonText += ` ${subReason20Map[formData.subReason20].english}`;
-            }
-
-            let locationText = 'on the route';
-            if (formData.locationType === 'at_station' && formData.locationStation) {
-                locationText = `at ${translate(formData.locationStation)} station`;
-            } else if (formData.locationType === 'between_stations' && formData.locationBetween1 && formData.locationBetween2) {
-                locationText = `between ${translate(formData.locationBetween1)} and ${translate(formData.locationBetween2)} stations`;
-            }
-            const delayTime = formData.delayTime || 'unspecified';
-            const departureTime = formData.departureTime || 'not specified';
-
+            const fullThaiAnnouncement = document.getElementById('thaiOutput').textContent;
+            
             // 3. Construct the prompt
             const prompt = `
-                You are a helpful and empathetic assistant for a national railway company.
-                Your task is to provide practical and reassuring advice to passengers affected by a train disruption.
+                คุณคือผู้ช่วยที่เป็นประโยชน์และเห็นอกเห็นใจของการรถไฟแห่งประเทศไทย
+                หน้าที่ของคุณคือการให้คำแนะนำที่ใช้ได้จริงและสร้างความมั่นใจให้กับผู้โดยสารที่ได้รับผลกระทบจากเหตุขัดข้องของรถไฟ
 
-                Here are the details of the incident:
-                - Train: ${trainId}
-                - Incident: ${reasonText}
-                - Location: ${locationText}
-                - Expected Delay: ${delayTime}
-                - Estimated Departure Time: ${departureTime}
+                นี่คือข้อความประกาศอย่างเป็นทางการ:
+                "${fullThaiAnnouncement}"
 
-                Based on this information, generate a short list (3-4 bullet points, starting with a hyphen '-') of helpful suggestions for the passengers in Thai.
-                - The tone should be calm, reassuring, and professional.
-                - If the delay is long (e.g., over an hour), suggest finding refreshments or restrooms if possible.
-                - If the incident is at a station, mention that they can ask staff for help.
-                - If it's a technical issue, reassure them that safety is a top priority.
-                - Keep the advice concise and easy to understand.
-                - Respond ONLY with the bulleted list in Thai, without any introductory or concluding sentences.
+                จากประกาศนี้ โปรดสร้างรายการคำแนะนำสั้นๆ (3-4 ข้อ โดยขึ้นต้นด้วยขีดกลาง '-') ที่เป็นประโยชน์สำหรับผู้โดยสารเป็นภาษาไทย
+                - น้ำเสียงควรสงบ สร้างความมั่นใจ และเป็นมืออาชีพ
+                - หากความล่าช้าเป็นเวลานาน (เช่น มากกว่าหนึ่งชั่วโมง) ให้แนะนำการหาเครื่องดื่มหรือห้องน้ำหากเป็นไปได้
+                - หากเหตุการณ์เกิดขึ้นที่สถานี ให้แจ้งว่าสามารถสอบถามข้อมูลเพิ่มเติมจากเจ้าหน้าที่ได้
+                - หากเป็นปัญหาทางเทคนิค ให้สร้างความมั่นใจว่าความปลอดภัยเป็นสิ่งสำคัญสูงสุด
+                - ทำให้คำแนะนำกระชับและเข้าใจง่าย
+                - ตอบกลับเป็นรายการสัญลักษณ์แสดงหัวข้อย่อย (bullet points) เท่านั้น โดยไม่มีประโยคเกริ่นนำหรือสรุป
             `;
             
             // 4. Call the Gemini API with exponential backoff
@@ -976,7 +949,11 @@
 
             } catch (error) {
                 console.error('Gemini API Error:', error);
-                adviceContainer.innerHTML = `<p class="text-red-500 text-sm">ขออภัย, ไม่สามารถสร้างคำแนะนำได้ในขณะนี้</p>`;
+                let errorMessage = 'ขออภัย, ไม่สามารถสร้างคำแนะนำได้ในขณะนี้';
+                 if (error.message.includes('400')) {
+                    errorMessage += ' (Bad Request). โปรดตรวจสอบว่าได้ใส่ API Key ที่ถูกต้องแล้ว';
+                }
+                adviceContainer.innerHTML = `<p class="text-red-500 text-sm">${errorMessage}</p>`;
             } finally {
                 adviceButton.disabled = false;
             }
