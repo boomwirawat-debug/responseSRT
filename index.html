@@ -764,13 +764,7 @@
                 } else if (formData.locationType === 'between_stations' && formData.locationBetween1 && formData.locationBetween2) {
                     englishParts.location = `between ${translate(formData.locationBetween1)} and ${translate(formData.locationBetween2)} stations`;
                 }
-                let reasonStrEn = reasons[formData.reason].english;
-                 if (formData.reason === '6' && formData.subReason6) {
-                    reasonStrEn += ` due to ${subReason6Map[formData.subReason6].english}`;
-                }
-                 if (formData.reason === '20' && formData.subReason20) {
-                    reasonStrEn += ` ${subReason20Map[formData.subReason20].english}`;
-                }
+                
                 if (formData.reason === '18') {
                     englishParts.mainClause = `${trainIdEn} will have ${carriageChangeMap[formData.carriageChangeType].english}`;
                 } else if (formData.reason === '19' && formData.unavailableDate) {
@@ -781,18 +775,21 @@
                         year: 'numeric'
                     });
                     englishParts.mainClause = `On ${formattedDateEn}, the ${unavailableCarriageMap[formData.unavailableCarriageType]} will be unavailable`;
+                } else if (formData.reason === '6') {
+                    const subReasonText = subReason6Map[formData.subReason6] ? `due to ${subReason6Map[formData.subReason6].english}` : '';
+                    englishParts.mainClause = `${trainIdEn} departed late from its origin ${subReasonText}`.trim();
+                } else if (formData.reason === '20') {
+                    const subReasonText = subReason20Map[formData.subReason20] ? `due to ${subReason20Map[formData.subReason20].english}` : '';
+                    englishParts.mainClause = `${trainIdEn} is delayed ${subReasonText}`.trim();
                 } else {
-                    if (formData.carriageNumber)
+                    let reasonStrEn = reasons[formData.reason].english;
+                    if (formData.carriageNumber) {
                         reasonStrEn += ` (Car No. ${formData.carriageNumber.replace('คันที่', '').trim()})`;
-                    let verb = (['6', '7', '13', '17', '20'].includes(formData.reason)) ? '' : 'is experiencing a disruption due to';
-                    englishParts.mainClause = `${trainIdEn} ${reasons[formData.reason].english} ${verb} ${englishParts.location ? ' ' + englishParts.location : ''}`;
-                    if(formData.reason === '6' || formData.reason === '20'){
-                         englishParts.mainClause = `${trainIdEn} ${reasons[formData.reason].english} ${reasonStrEn.replace(reasons[formData.reason].english, '')}`;
-                    } else {
-                        englishParts.mainClause = `${trainIdEn} is experiencing a disruption due to ${reasonStrEn}${englishParts.location ? ' ' + englishParts.location : ''}`;
                     }
-
+                    let verb = (['7', '13', '17'].includes(formData.reason)) ? 'is' : 'is experiencing a disruption due to';
+                    englishParts.mainClause = `${trainIdEn} ${verb} ${reasonStrEn}${englishParts.location ? ' ' + englishParts.location : ''}`;
                 }
+
                 if (formData.actionTaken) {
                     englishParts.action = actions.english[formData.actionTaken];
                 }
@@ -909,7 +906,7 @@
             
             // 4. Call the Gemini API with exponential backoff
             try {
-                const apiKey = ""; // Leave as-is for Canvas
+                const apiKey = "AIzaSyDE2LeDCT3DxsJ--o9c9yvYJ61kq7YrH9w"; // <--- ใส่ API Key ของคุณที่นี่
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
                 
                 let response;
@@ -948,7 +945,7 @@
                 
                 if (adviceText) {
                     // Format as HTML list
-                    const adviceItems = adviceText.split('-').filter(item => item.trim() !== '');
+                    const adviceItems = adviceText.split('\n').map(item => item.replace(/^- \s*/, '')).filter(item => item.trim() !== '');
                     const adviceHtml = '<ul>' + adviceItems.map(item => `<li class="mb-2 text-sm text-slate-700 dark:text-slate-300">✨ ${item.trim()}</li>`).join('') + '</ul>';
                     adviceContainer.innerHTML = adviceHtml;
                 } else {
