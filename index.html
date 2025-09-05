@@ -280,10 +280,14 @@
                             </svg>
                             <span>3. ข้อมูลสำหรับผู้โดยสาร</span>
                         </h2>
-                        <div class="grid grid-cols-1 gap-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label for="delayTime" class="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-2">เวลาที่คาดว่าจะล่าช้า (ถ้ามี)</label>
                                 <input type="text" id="delayTime" class="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-600 rounded-lg transition" placeholder="เช่น 30 นาที">
+                            </div>
+                            <div>
+                                <label for="departureTime" class="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-2">เวลาคาดว่าจะออก (ถ้ามี)</label>
+                                <input type="time" id="departureTime" class="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-600 rounded-lg transition">
                             </div>
                             <div class="col-span-full">
                                 <label for="instruction" class="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-2">คำแนะนำผู้โดยสาร</label>
@@ -599,6 +603,17 @@
             return notes.replace(/ผู้โดยสาร/g, 'Passengers');
         }
 
+        function formatTimeToAMPM(time) {
+            if (!time) return '';
+            let [hours, minutes] = time.split(':');
+            let hoursInt = parseInt(hours, 10);
+            const ampm = hoursInt >= 12 ? 'PM' : 'AM';
+            hoursInt = hoursInt % 12;
+            hoursInt = hoursInt ? hoursInt : 12; // the hour '0' should be '12'
+            return `${hoursInt}:${minutes} ${ampm}`;
+        }
+
+
         // --- THEME MANAGEMENT ---
         const themeToggleBtn = document.getElementById('theme-toggle');
         const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
@@ -709,7 +724,6 @@
             } else {
                 // Standard procedure for all other reasons
                 const thaiParts = {};
-                thaiParts.trainId = trainIdThai;
                 if (formData.locationType === 'at_station' && formData.locationStation) {
                     thaiParts.location = `ที่สถานี ${formData.locationStation}`;
                 } else if (formData.locationType === 'between_stations' && formData.locationBetween1 && formData.locationBetween2) {
@@ -746,6 +760,9 @@
                 } else if (!['6', '18', '19', '20'].includes(formData.reason)) {
                     thaiParts.impact = 'ซึ่งจะทำให้ขบวนรถล่าช้า';
                 }
+                 if (formData.departureTime) {
+                    thaiParts.departure = `คาดการณ์ออกเวลาประมาณ ${formData.departureTime} น.`;
+                }
                 if (formData.instruction && formData.instruction !== 'none') {
                     thaiParts.instruction = instructions.thai[formData.instruction];
                 }
@@ -758,7 +775,7 @@
                     }
                 }
                 const englishParts = {};
-                englishParts.trainId = trainIdEn;
+                
                 if (formData.locationType === 'at_station' && formData.locationStation) {
                     englishParts.location = `at ${translate(formData.locationStation)} station`;
                 } else if (formData.locationType === 'between_stations' && formData.locationBetween1 && formData.locationBetween2) {
@@ -799,6 +816,9 @@
                 } else if (!['6', '18', '19', '20'].includes(formData.reason)) {
                     englishParts.impact = "This will cause a delay";
                 }
+                if (formData.departureTime) {
+                    englishParts.departure = `The estimated departure time is approximately ${formatTimeToAMPM(formData.departureTime)}`;
+                }
                 if (formData.instruction && formData.instruction !== 'none') {
                     englishParts.instruction = instructions.english[formData.instruction];
                 }
@@ -810,7 +830,7 @@
                         englishParts.affected = "This incident may affect other trains on this route";
                     }
                 }
-                const partOrder = ['mainClause', 'action', 'impact', 'instruction', 'notes', 'affected'];
+                const partOrder = ['mainClause', 'action', 'impact', 'departure', 'instruction', 'notes', 'affected'];
                 const finalThaiParts = partOrder.map(p => thaiParts[p]).filter(Boolean);
                 const finalEnglishParts = partOrder.map(p => englishParts[p]).filter(Boolean);
                 thaiText = `${trainIdThai} ${finalThaiParts.join(' ')} ขออภัยในความไม่สะดวก`;
@@ -883,6 +903,7 @@
                 locationText = `between ${translate(formData.locationBetween1)} and ${translate(formData.locationBetween2)} stations`;
             }
             const delayTime = formData.delayTime || 'unspecified';
+            const departureTime = formData.departureTime || 'not specified';
 
             // 3. Construct the prompt
             const prompt = `
@@ -894,6 +915,7 @@
                 - Incident: ${reasonText}
                 - Location: ${locationText}
                 - Expected Delay: ${delayTime}
+                - Estimated Departure Time: ${departureTime}
 
                 Based on this information, generate a short list (3-4 bullet points, starting with a hyphen '-') of helpful suggestions for the passengers in Thai.
                 - The tone should be calm, reassuring, and professional.
@@ -906,7 +928,7 @@
             
             // 4. Call the Gemini API with exponential backoff
             try {
-                const apiKey = "AIzaSyDE2LeDCT3DxsJ--o9c9yvYJ61kq7YrH9w"; // <--- ใส่ API Key ของคุณที่นี่
+                const apiKey = "AIzaSyDE2LeDCT3DxsJ--o9c9yvYJ61kq7YrH9w"; // <--- Add your API Key here
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
                 
                 let response;
@@ -1070,5 +1092,4 @@
 </body>
 
 </html>
-
 
