@@ -202,7 +202,7 @@
                                     <option value="construction">1. ผ่านเขตก่อสร้าง</option>
                                     <option value="refueling">2. เติมน้ำ/เชื้อเพลิง</option>
                                     <option value="waiting_pass">3. รอหลีกขบวนรถ</option>
-                                    <option value="waiting_clearance">4. รอเปิดทาง</option>
+                                    <option value="waiting_clearance">4. รอทาง</option>
                                 </select>
                             </div>
                             <div id="carriageNumberWrapper" class="hidden">
@@ -343,7 +343,7 @@
             <div id="outputArea" class="lg:col-span-2 self-start sticky top-8 hidden">
                 <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sm:p-8">
                     <h2 class="text-xl font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 mb-6">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-500 lucide lucide-volume-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-volume-2">
                             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
                             <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
                             <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
@@ -593,7 +593,7 @@
                 english: "waiting for another train to pass"
             },
             'waiting_clearance': {
-                thai: "เนื่องจากรอเปิดทาง",
+                thai: "เนื่องจากรอทาง",
                 english: "waiting for the line to be cleared"
             }
         };
@@ -1624,11 +1624,11 @@
                     });
                     englishParts.mainClause = `On ${formattedDateEn}, the ${unavailableCarriageMap[formData.unavailableCarriageType]} will be unavailable`;
                 } else if (formData.reason === '6') {
-                    const subReasonText = subReason6Map[formData.subReason6] ? `due to ${subReason6Map[formData.subReason6].thai}` : '';
-                    englishParts.mainClause = `${trainIdEn} ${reasons[formData.reason].english} ${subReasonText}`.trim();
+                    const subReasonText = subReason6Map[formData.subReason6] ? `due to ${subReason6Map[formData.subReason6].english}` : '';
+                    englishParts.mainClause = `${trainIdEn} ${reasons[formData.reason].english}${englishParts.location ? ' ' + englishParts.location : ''}${subReasonText ? ' ' + subReasonText : ''}`.trim();
                 } else if (formData.reason === '20') {
                     const subReasonText = subReason20Map[formData.subReason20] ? `due to ${subReason20Map[formData.subReason20].english}` : '';
-                    englishParts.mainClause = `${trainIdEn} ${reasons[formData.reason].english} ${subReasonText}`.trim();
+                    englishParts.mainClause = `${trainIdEn} ${reasons[formData.reason].english}${englishParts.location ? ' ' + englishParts.location : ''}${subReasonText ? ' ' + subReasonText : ''}`.trim();
                 } else {
                     let reasonStrEn = reasons[formData.reason].english;
                     if (formData.carriageNumber) {
@@ -1674,7 +1674,7 @@
                 }
                 if (formData.reason === '20' && formData.subReason20) {
                     tickerReasonThai += ` ${subReason20Map[formData.subReason20].thai}`;
-                    tickerReasonEn += ` ${subReason20Map[formData.subReason20].english}`;
+                    tickerReasonEn += ` due to ${subReason20Map[formData.subReason20].english}`;
                 }
                 if (formData.reason === '18') {
                     tickerReasonThai = carriageChangeMap[formData.carriageChangeType].thai;
