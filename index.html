@@ -84,7 +84,7 @@
                 <!-- Template Section -->
                 <section class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sm:p-8">
                     <h2 class="text-xl font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 mb-6">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-500 lucide lucide-save">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-save">
                             <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
                             <polyline points="17 21 17 13 7 13 7 21" />
                             <polyline points="7 3 7 8 15 8" />
@@ -107,7 +107,7 @@
                     <!-- Section 1: Train Information -->
                     <section class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sm:p-8">
                         <h2 class="text-xl font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 mb-6">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-500 lucide lucide-train-track">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-train-track">
                                 <path d="M2 17 17 2" />
                                 <path d="m2 14 8 8" />
                                 <path d="m5 11 8 8" />
@@ -149,7 +149,7 @@
                     <!-- Section 2: Incident Details -->
                     <section class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sm:p-8">
                         <h2 class="text-xl font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 mb-6">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-500 lucide lucide-shield-alert">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-alert">
                                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                                 <path d="M12 8v4" />
                                 <path d="M12 16h.01" />
@@ -180,6 +180,7 @@
                                     <option value="18">18. ปรับเปลี่ยนตู้โดยสาร</option>
                                     <option value="19">19. ไม่มีตู้ให้บริการ</option>
                                     <option value="20">20. ล่าช้า</option>
+                                    <option value="21">21. ประกาศปิดเส้นทาง</option>
                                 </select>
                             </div>
                             <div id="subReason6Wrapper" class="hidden md:col-span-2">
@@ -202,9 +203,21 @@
                                     <option value="construction">1. ผ่านเขตก่อสร้าง</option>
                                     <option value="refueling">2. เติมน้ำ/เชื้อเพลิง</option>
                                     <option value="waiting_pass">3. รอหลีกขบวนรถ</option>
-                                    <option value="waiting_clearance">4. รอทาง</option>
+                                    <option value="waiting_track">4. รอทาง</option>
                                 </select>
                             </div>
+
+                            <!-- Modified fields for Route Closure (Reason 21) -->
+                            <div id="closureDetailsWrapper" class="hidden md:col-span-2 bg-red-50 dark:bg-red-900/20 p-4 rounded-lg border border-red-200 dark:border-red-800">
+                                <label for="subReason21" class="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-2">สาเหตุการปิดเส้นทาง</label>
+                                <select id="subReason21" class="w-full p-3 bg-white dark:bg-slate-700 dark:text-slate-300 border border-red-300 dark:border-red-600 rounded-lg transition">
+                                    <option value="flooding">1. น้ำท่วม</option>
+                                    <option value="derailment">2. ขบวนรถตกราง</option>
+                                    <option value="landslide">3. ดินสไลด์</option>
+                                </select>
+                            </div>
+                            <!-- End modified fields -->
+
                             <div id="carriageNumberWrapper" class="hidden">
                                 <label for="carriageNumber" class="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-2">หมายเลขตู้โดยสาร</label>
                                 <input type="text" id="carriageNumber" class="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-600 rounded-lg transition" placeholder="เช่น คันที่ 3">
@@ -273,7 +286,7 @@
                     <!-- Section 3: Passenger Information -->
                     <section class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sm:p-8">
                         <h2 class="text-xl font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 mb-6">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-500 lucide lucide-users">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users">
                                 <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
                                 <circle cx="9" cy="7" r="4" />
                                 <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
@@ -547,6 +560,10 @@
             '20': {
                 thai: "ล่าช้า",
                 english: "is delayed"
+            },
+            '21': {
+                thai: "ประกาศปิดเส้นทาง",
+                english: "Route Closure"
             }
         };
         const subReason6Map = {
@@ -592,11 +609,27 @@
                 thai: "เนื่องจากรอหลีกขบวนรถ",
                 english: "waiting for another train to pass"
             },
-            'waiting_clearance': {
+            'waiting_track': {
                 thai: "เนื่องจากรอทาง",
-                english: "waiting for the line to be cleared"
+                english: "waiting for the track"
             }
         };
+
+        const subReason21Map = {
+            'flooding': {
+                thai: "น้ำท่วม",
+                english: "flooding"
+            },
+            'derailment': {
+                thai: "ขบวนรถตกราง",
+                english: "a train derailment"
+            },
+            'landslide': {
+                thai: "ดินสไลด์",
+                english: "a landslide"
+            }
+        };
+        
         const actions = {
             thai: {
                 "fixing": "ขณะนี้เจ้าหน้าที่กำลังดำเนินการแก้ไข",
@@ -1072,230 +1105,24 @@
             "บ้านสุนทรา": "Ban Sunthra",
             "บ้านหมอ": "Ban Mo",
             "บ้านหมี่": "Ban Mi",
-            "บ้านเหลื่อม": "Ban Lueam",
-            "บ้านแหลม": "Ban Laem",
-            "บ้านแฮด": "Ban Haet",
-            "บำเหน็จณรงค์": "Bamnet Narong",
-            "บึงบอระเพ็ด": "Bueng Boraphet",
-            "บึงพระ": "Bueng Phra",
-            "บูกิต": "Bukit",
-            "บุใหญ่": "Bu Yai",
-            "บุรีรัมย์": "Buri Ram",
-            "เบซาร์": "Padang Besar",
-            "เบญจมบพิตร": "Wat Benchamabophit",
-            "บึงกาฬ": "Bueng Kan",
-            "ประจวบคีรีขันธ์": "Prachuap Khiri Khan",
-            "ปากช่อง": "Pak Chong",
-            "ปากท่อ": "Pak Tho",
-            "ปากน้ำ": "Pak Nam",
-            "ปากน้ำโพ": "Pak Nam Pho",
-            "ปากปาน": "Pak Pan",
-            "ปากแพรก": "Pak Phraek",
-            "ปากตะโก": "Pak Tako",
-            "ปากคลอง": "Pak Khlong",
-            "ปางป๋วย": "Pang Puai",
-            "ปางม่วง": "Pang Muang",
-            "ปางอโศก": "Pang Asok",
-            "ปางต้นผึ้ง": "Pang Ton Phueng",
-            "ปัตตานี (โคกโพธิ์)": "Pattani (Khok Pho)",
-            "ปาดังเบซาร์": "Padang Besar",
-            "ป่าไร่": "Pa Rai",
-            "ป่าไผ่": "Pa Phai",
-            "เปร็ง": "Preng",
-            "โป่ง": "Ban Pong",
-            "แปดริ้ว": "Paet Riu",
-            "ผาคัน": "Pha Khan",
-            "ผาคอ": "Pha Kho",
-            "ผาเสด็จ": "Pha Sadet",
-            "ผาลาด": "Sala Pha Lat",
-            "แผ่นดินทอง": "Phaen Din Thong",
-            "ไผ่ใหญ่": "Phai Yai",
-            "พญาไท": "Phaya Thai",
-            "พรหมพิราม": "Phrom Phiram",
-            "พรุพี": "Phru Phi",
-            "พรุใหญ่": "Phru Yai",
-            "พระจอมเกล้า": "Phra Chom Klao",
-            "พระปรง": "Phra Prong",
-            "พระพุทธฉาย": "Phra Phutthachai",
-            "พระแก้ว": "Phra Kaeo",
-            "พลวง": "Ban Phluang",
-            "พลูตาหลวง": "Ban Phlu Ta Luang",
-            "พลี": "Saphli",
-            "พะเยา": "Phayao",
-            "พังงา": "Phang Nga",
-            "พัทลุง": "Phatthalung",
-            "พัทยา": "Pattaya",
-            "พัทยาใต้": "Pattaya Tai",
-            "พานทอง": "Phan Thong",
-            "พิจิตร": "Phichit",
-            "พิชัย": "Phichai",
-            "พิบูลมังสาหาร": "Phibun Mangsahan",
-            "พิษณุโลก": "Phitsanulok",
-            "พุพงษ์": "Ban Phu Phong",
-            "เพชรบุรี": "Phetchaburi",
-            "เพชรบูรณ์": "Phetchabun",
-            "โพนทอง": "Phon Thong",
-            "โพรงมะเดื่อ": "Phrong Maduea",
-            "โพรงอากาศ": "Phrong Akat",
-            "โพธาราม": "Photharam",
-            "โพธิ์": "Ban Pho",
-            "ไพร": "Phrai",
-            "ฟัก": "Nong Fak",
-            "ภูเขา": "Phu Khao",
-            "ภูเก็ต": "Phuket",
-            "มวกเหล็ก": "Muak Lek",
-            "มวกเหล็กใหม่": "New Muak Lek",
-            "มหาชัย": "Maha Chai",
-            "มหาสาราม": "Maha Sarakham",
-            "มะกอก": "Noen Makok",
-            "มะกอกใต้": "Ban Makok Tai",
-            "มะค่า": "Ban Makha",
-            "มะม่วงสองต้น": "Mamuang Song Ton",
-            "มะลวน": "Maluan",
-            "มะรือโบ": "Maruebo",
-            "มักกะสัน": "Makkasan",
-            "มาบกะเบา": "Map Kabao",
-            "มาบอำมฤต": "Map Ammarit",
-            "มาบตาพุด": "Map Ta Phut",
-            "มาลัยแมน": "Malaiman",
-            "มิ่งเมือง": "Ming Mueang",
-            "มีด": "Wat Khuan Mit",
-            "เมืองคง": "Mueang Khong",
-            "เมืองที": "Mueang Thi",
-            "เมืองพล": "Mueang Phon",
-            "แม่กลอง": "Mae Klong",
-            "แม่จาง": "Mae Chang",
-            "แม่ใจ": "Mae Chai",
-            "แม่น้ำ": "Mae Nam",
-            "แม่น้ำ (โรงกลั่นน้ำมันบางจาก)": "Mae Nam (Bangchak Oil Refinery)",
-            "แม่พวก": "Mae Phuak",
-            "แม่เมาะ": "Mae Mo",
-            "แม่ริม": "Mae Rim",
-            "แม่สอด": "Mae Sot",
-            "แม่สาย": "Mae Sai",
-            "แม่ทะ": "Mae Tha",
-            "แม่เทียบ": "Mae Thiap",
-            "แม่ฮ่องสอน": "Mae Hong Son",
-            "ไม้แก่น": "Mai Kaen",
-            "ยมราช": "Yommarat",
-            "ยะลา": "Yala",
-            "ยาง": "Ban Yang",
-            "ยางตลาด": "Yang Talat",
-            "ยางยวน": "Yang Yuan",
-            "ยางประสาท": "Yang Prasat",
-            "ยานนาวา": "Yan Nawa",
-            "ยี่สิบเอ็ด": "Khlong Yi Sip Et",
-            "ยุโป": "Ban Yupo",
-            "โยทะกา": "Yothaka",
-            "รังสิต": "Rangsit",
-            "ร่อนพิบูลย์": "Ron Phibun",
-            "ร้อยเอ็ด": "Roi Et",
-            "ระนอง": "Ranong",
-            "ระยอง": "Rayong",
-            "ราชบุรี": "Ratchaburi",
-            "ราชปรารภ": "Ratchaprarop",
-            "รามัน": "Raman",
-            "รามาธิบดี": "Ramathibodi Hospital",
-            "รางโพธิ์": "Rang Pho",
-            "รางสะแก": "Rang Sakae",
-            "ไร่เกล็ดดาว": "Rai Klet Dao",
-            "ไร่อ้อย": "Rai Oi",
-            "โรงเรียนจันเสน": "Rongrian Chansen",
-            "โรงเรียนนายร้อยพระจุลจอมเกล้า": "Chulachomklao Royal Military Academy",
-            "โรงเรียนการบิน": "Flying School",
-            "โรงพยาบาลรามาธิบดี": "Ramathibodi Hospital",
-            "ลพบุรี": "Lop Buri",
-            "ลพบุรีราเมศวร์": "Lop Buri Ramet",
-            "ละแม": "Lamae",
-            "ลำชี": "Lam Chi",
-            "ลำดวน": "Lamduan",
-            "ลำนารายณ์": "Lam Narai",
-            "ลำปาง": "Nakhon Lampang",
-            "ลำปลายมาศ": "Lam Plai Mat",
-            "ลำพูน": "Lamphun",
-            "ลำภูรา": "Lamphu Ra",
-            "ลาดกระบัง": "Lat Krabang",
-            "ลาดใหญ่": "Lat Yai",
-            "ลาโละ": "Lalo",
-            "ลานบุญ": "Soi Wat Lan Bun",
-            "ลุ่มสุ่ม": "Lumsum",
-            "ลูกแก": "Luk Kae",
-            "เลย": "Loei",
-            "เวียงจันทน์(คำสะหวาด)": "Vientiane",
-            "วังกะพี้": "Wang Kapi",
-            "วังกะอาม": "Wang Ka-am",
-            "วังกรด": "Wang Krot",
-            "วังกร่าง": "Wang Krang",
-            "วังด้วน": "Wang Duan",
-            "วังตะเคียน": "Wang Takhian",
-            "วังเย็น": "Wang Yen",
-            "วังใหญ่": "Wang Yai",
-            "วังสิงห์": "Wang Sing",
-            "วังโพ": "Wang Pho",
-            "วัดไทร": "Wat Sai",
-            "วัดสิงห์": "Wat Sing",
-            "วัดสุวรรณ": "Wat Suwan",
-            "วัดช้างให้": "Wat Chang Hai",
-            "วัฒนานคร": "Watthana Nakhon",
-            "วารินชำราบ": "Warin Chamrap",
-            "วิหารแดง": "Wihan Daeng",
-            "วิสัย": "Wisai",
-            "ศรีสะเกษ": "Si Sa Ket",
-            "ศรีราชา": "Si Racha Junction",
-            "ศรีสำราญ": "Si Samran",
-            "ศีขรภูมิ": "Sikhoraphum",
-            "ศาลายา": "Salaya",
-            "ศาลาธรรมสพน์": "Sala Thammasop",
-            "ศาลาผาลาด": "Sala Pha Lat",
-            "ศาลาแม่ทา": "Sala Mae Tha",
-            "ศาลาลำดวน": "Sala Lamduan",
-            "ศิลาอาสน์": "Sila At",
-            "สระแก้ว": "Sa Kaeo",
-            "สระบุรี": "Saraburi",
-            "สระโกสินารายณ์": "Sa Kosinarai",
-            "สวรรคโลก": "Sawankhalok",
-            "สวนสนประดิพัทธ์": "Suan Son Pradiphat",
-            "สวี": "Sawi",
-            "สัตหีบ": "Sattahip",
-            "สามกระทาย": "Sam Krathai",
-            "สามแยก": "Sam Yaek",
-            "สามร้อยยอด": "Sam Roi Yot",
-            "สามเสน": "Sam Sen",
-            "สำราญ": "Samran",
-            "สีคิ้ว": "Sikhio",
-            "สีดา": "Sida",
-            "สุขุมวิท 71": "Sukhumvit 71",
-            "สุโขทัย": "Sukhothai",
-            "สุไหงโก-ลก": "Su-ngai Kolok",
-            "สุไหงปาดี": "Su-ngai Padi",
-            "สุพรรณบุรี": "Suphan Buri",
-            "สุราษฎร์ธานี": "Surat Thani",
-            "สุรินทร์": "Surin",
-            "สุรนารายณ์": "Suranarai",
-            "สูงเนิน": "Sung Noen",
-            "เสือ": "Ban Nong Suea",
-            "เสือเต้น": "Kaeng Suea Ten",
-            "แสงแดด": "Saeng Daet",
-            "แสน": "Sam Saen",
-            "ห้วยขวาง": "Huai Khwang",
-            "ห้วยขยุง": "Huai Khayung",
-            "ห้วยเกตุ": "Huai Ket",
-            "ห้วยเกิ้ง": "Huai Koeng",
-            "ห้วยแก้ว": "Huai Kaeo",
-            "ห้วยโจด": "Huai Chot",
-            "ห้วยเดื่อ": "Huai Duea",
-            "ห้วยทับทัน": "Huai Thap Than",
-            "ห้วยแถลง": "Huai Thalaeng",
-            "ห้วยปริก": "Huai Prik",
-            "ห้วยแม่ต้า": "Huai Mae Ta",
-            "ห้วยยายจิ๋ว": "Huai Yai Chio",
-            "ห้วยยอด": "Huai Yot",
-            "ห้วยราช": "Huai Rat",
-            "ห้วยรากไม้": "Huai Rak Mai",
-            "ห้วยไร่": "Huai Rai",
-            "ห้วยเรียน": "Huai Rian",
-            "ห้วยสัก": "Huai Sak",
-            "ห้วยสามพาด": "Huai Sam Phat",
+            "หลักสี่": "Lak Si",
+            "หลักหก": "Lak Hok",
+            "หลังสวน": "Lang Suan",
+            "หันคา": "Hankha",
+            "หัวตะเข้": "Hua Takhe",
+            "หัวดง": "Hua Dong",
+            "หัวหิน": "Hua Hin",
+            "หัวหมาก": "Hua Mak",
+            "หัวหวาย": "Hua Wai",
+            "หัวงิ้ว": "Hua Ngiu",
+            "ห้างฉัตร": "Hang Chat",
+            "หารกง": "Han Kong",
+            "หารเทา": "Han Thao",
+            "หินกอง": "Hin Kong",
+            "หินซ้อน": "Hin Son",
+            "หินลับ": "Hin Lap",
+            "หินดาต": "Hin Dat",
+            "หอไกร": "Ho Krai",
             "หนองคาย": "Nong Khai",
             "หนองคาง": "Nong Khang",
             "หนองขอนกว้าง": "Nong Khon Kwang",
@@ -1332,27 +1159,10 @@
             "หนองโดน": "Nong Don",
             "หนองไม้เหลือง": "Nong Mai Lueang",
             "หนองหล่ม": "Nong Lom",
+            "หนองวิวัฒน์": "Nong Wiwat",
             "หน้าพระลาน": "Na Phra Lan",
             "หมอ": "Ban Mo",
             "หมี่": "Ban Mi",
-            "หลักสี่": "Lak Si",
-            "หลักหก": "Lak Hok",
-            "หลังสวน": "Lang Suan",
-            "หันคา": "Hankha",
-            "หัวตะเข้": "Hua Takhe",
-            "หัวดง": "Hua Dong",
-            "หัวหิน": "Hua Hin",
-            "หัวหมาก": "Hua Mak",
-            "หัวหวาย": "Hua Wai",
-            "หัวงิ้ว": "Hua Ngiu",
-            "ห้างฉัตร": "Hang Chat",
-            "หารกง": "Han Kong",
-            "หารเทา": "Han Thao",
-            "หินกอง": "Hin Kong",
-            "หินซ้อน": "Hin Son",
-            "หินลับ": "Hin Lap",
-            "หินดาต": "Hin Dat",
-            "หอไกร": "Ho Krai",
             "องครักษ์": "Ongkharak",
             "อยุธยา": "Ayutthaya",
             "อรัญประเทศ": "Aranyaprathet",
@@ -1524,10 +1334,16 @@
             toggleElement('unavailableCarriageWrapper', reason === '19');
             toggleElement('subReason6Wrapper', reason === '6');
             toggleElement('subReason20Wrapper', reason === '20');
+            
+            // New logic for reason 21: Show sub-reason selector
+            toggleElement('closureDetailsWrapper', reason === '21');
+
+            // Do NOT hide location input fields if reason is 21, as they are now used.
         }
 
         function updateLocationFields() {
             const type = document.getElementById('locationType').value;
+            // The location inputs only toggle based on the 'locationType' dropdown
             toggleElement('locationAtStationWrapper', type === 'at_station');
             toggleElement('locationBetweenWrapper', type === 'between_stations');
         }
@@ -1545,28 +1361,66 @@
                 return;
             outputArea.classList.remove('hidden');
             let thaiText, englishText, thaiTickerText, englishTickerText;
+            
+            // --- Initialization FIX: Declare thaiParts and englishParts here ---
+            const thaiParts = {};
+            const englishParts = {};
+            // -------------------------------------------------------------------
+
             const trainIdThai = formData.trainNumberInput && formData.origin && formData.destination ? `ขบวน${formData.trainType}ที่ ${formData.trainNumberInput} (${formData.origin} - ${formData.destination})` : (formData.trainNumberInput ? `ขบวน${formData.trainType}ที่ ${formData.trainNumberInput}` : 'ขบวนรถ');
             const trainIdEn = formData.trainNumberInput && formData.origin && formData.destination ? `${trainTypeMap[formData.trainType]} Train No. ${formData.trainNumberInput} (${translate(formData.origin)} - ${translate(formData.destination)})` : (formData.trainNumberInput ? `${trainTypeMap[formData.trainType]} Train No. ${formData.trainNumberInput}` : 'The train');
-            if (formData.reason === '3') {
+            
+            // --- Standard Location Setup ---
+            if (formData.locationType === 'at_station' && formData.locationStation) {
+                thaiParts.location = `ที่สถานี ${formData.locationStation}`;
+                englishParts.location = `at ${translate(formData.locationStation)} Station`;
+            } else if (formData.locationType === 'between_stations' && formData.locationBetween1 && formData.locationBetween2) {
+                thaiParts.location = `ระหว่างสถานี ${formData.locationBetween1} - ${formData.locationBetween2}`;
+                englishParts.location = `between ${translate(formData.locationBetween1)} and ${translate(formData.locationBetween2)} stations`;
+            } else {
+                thaiParts.location = '';
+                englishParts.location = '';
+            }
+            
+            if (formData.reason === '21') {
+                // Special Closure Announcement using Sub-reason and Standard Location
+                const subReasonKey = formData.subReason21 || 'flooding'; // Default to flooding
+                const subReasonThai = subReason21Map[subReasonKey].thai;
+                const subReasonEn = subReason21Map[subReasonKey].english;
+                
+                // Thai Message: ประกาศปิดเส้นทาง: จากเหตุ [สาเหตุรอง] [สถานที่เกิดเหตุ] ขณะนี้...
+                thaiText = `ประกาศปิดเส้นทาง: จากเหตุ${subReasonThai} ${thaiParts.location ? thaiParts.location : ''} ขณะนี้อยู่ระหว่างการประเมินสถานการณ์ หากมีข้อมูลเพิ่มเติมจะแจ้งให้ทราบอีกครั้ง ขออภัยในความไม่สะดวก`;
+                
+                // English Message: ANNOUNCEMENT ROUTE CLOSURE: The line is temporarily closed due to [Sub-Reason] [Location]. Assessment in progress...
+                englishText = `Announcement Route Closure: The line is temporarily closed due to ${subReasonEn} ${englishParts.location ? englishParts.location : ''}. Assessment is in progress. Further updates will be announced. We apologize for the inconvenience.`;
+                
+                // Ticker Message
+                thaiTickerText = `แจ้งปิดเส้นทาง: เกิดเหตุ${subReasonThai} ${thaiParts.location ? thaiParts.location : ''}. อยู่ระหว่างประเมินสถานการณ์ ขออภัยในความไม่สะดวก`;
+                englishTickerText = `ANNOUNCEMENT ROUTE CLOSED: Disruption due to ${subReasonEn} ${englishParts.location ? englishParts.location : ''}. Assessment in progress. We apologize for the inconvenience.`;
+                
+            } else if (formData.reason === '3') {
                 thaiText = `${trainIdThai} ไม่สามารถใช้ความเร็วสูงสุดได้ ส่งผลให้ขบวนรถเกิดการล่าช้าสะสม ขออภัยในความไม่สะดวก`;
                 englishText = `Notice: ${trainIdEn} is unable to run at maximum speed, causing accumulated delays. We apologize for the inconvenience.`;
                 thaiTickerText = `${trainIdThai} ไม่สามารถใช้ความเร็วสูงสุดได้ ทำให้ล่าช้าสะสม ขออภัยในความไม่สะดวก`;
                 englishTickerText = `${trainIdEn} unable to run at maximum speed, causing accumulated delays. We apologize for the inconvenience.`;
             } else {
-                // Standard procedure for all other reasons
-                const thaiParts = {};
-                if (formData.locationType === 'at_station' && formData.locationStation) {
-                    thaiParts.location = `ที่สถานี ${formData.locationStation}`;
-                } else if (formData.locationType === 'between_stations' && formData.locationBetween1 && formData.locationBetween2) {
-                    thaiParts.location = `ระหว่างสถานี ${formData.locationBetween1} - ${formData.locationBetween2}`;
-                }
+                // Standard procedure for all other reasons (1, 2, 4, 5, 6, 7-20 excluding 21)
+                
                 let reasonStrThai = reasons[formData.reason].thai;
+                let reasonStrEn = reasons[formData.reason].english;
+                
+                // Sub reasons for 6 and 20 (Full text)
+                let subReasonTextThai = '';
+                let subReasonTextEn = '';
                 if (formData.reason === '6' && formData.subReason6) {
-                    reasonStrThai += ` เนื่องจาก ${subReason6Map[formData.subReason6].thai}`;
+                    subReasonTextThai = ` เนื่องจาก ${subReason6Map[formData.subReason6].thai}`;
+                    subReasonTextEn = ` due to ${subReason6Map[formData.subReason6].english}`;
                 }
                 if (formData.reason === '20' && formData.subReason20) {
-                    reasonStrThai += ` ${subReason20Map[formData.subReason20].thai}`;
+                    subReasonTextThai = ` ${subReason20Map[formData.subReason20].thai}`;
+                    subReasonTextEn = ` due to ${subReason20Map[formData.subReason20].english}`;
                 }
+
                 if (formData.reason === '18') {
                     thaiParts.mainClause = `${carriageChangeMap[formData.carriageChangeType].thai}${thaiParts.location ? ' ' + thaiParts.location : ''}`;
                 } else if (formData.reason === '19' && formData.unavailableDate) {
@@ -1578,11 +1432,15 @@
                     });
                     thaiParts.mainClause = `ในวันที่ ${formattedDate} ${formData.unavailableCarriageType} ไม่มีให้บริการ`;
                 } else {
+                    // All other reasons (1, 2, 4, 5, 7-17, 20)
                     if (formData.carriageNumber)
                         reasonStrThai += ` (${formData.carriageNumber})`;
+                        
                     let prefix = (['6', '7', '13', '17', '20'].includes(formData.reason)) ? '' : 'เกิดเหตุ';
-                    thaiParts.mainClause = `${prefix}${reasonStrThai}${thaiParts.location ? ' ' + thaiParts.location : ''}`;
+                    
+                    thaiParts.mainClause = `${prefix}${reasonStrThai}${thaiParts.location ? ' ' + thaiParts.location : ''}${subReasonTextThai}`;
                 }
+                
                 if (formData.actionTaken) {
                     thaiParts.action = actions.thai[formData.actionTaken];
                 }
@@ -1605,16 +1463,11 @@
                         thaiParts.affected = "อาจส่งผลกระทบต่อขบวนรถอื่น";
                     }
                 }
-                const englishParts = {};
-
-                if (formData.locationType === 'at_station' && formData.locationStation) {
-                    englishParts.location = `at ${translate(formData.locationStation)} station`;
-                } else if (formData.locationType === 'between_stations' && formData.locationBetween1 && formData.locationBetween2) {
-                    englishParts.location = `between ${translate(formData.locationBetween1)} and ${translate(formData.locationBetween2)} stations`;
-                }
-
+                
+                // --- English Construction (Standard) ---
+                
                 if (formData.reason === '18') {
-                    englishParts.mainClause = `${trainIdEn} will have ${carriageChangeMap[formData.carriageChangeType].english}`;
+                     englishParts.mainClause = `${trainIdEn} will have ${carriageChangeMap[formData.carriageChangeType].english}`;
                 } else if (formData.reason === '19' && formData.unavailableDate) {
                     const date = new Date(formData.unavailableDate);
                     const formattedDateEn = date.toLocaleDateString('en-US', {
@@ -1623,21 +1476,20 @@
                         year: 'numeric'
                     });
                     englishParts.mainClause = `On ${formattedDateEn}, the ${unavailableCarriageMap[formData.unavailableCarriageType]} will be unavailable`;
-                } else if (formData.reason === '6') {
-                    const subReasonText = subReason6Map[formData.subReason6] ? `due to ${subReason6Map[formData.subReason6].english}` : '';
-                    englishParts.mainClause = `${trainIdEn} ${reasons[formData.reason].english}${englishParts.location ? ' ' + englishParts.location : ''}${subReasonText ? ' ' + subReasonText : ''}`.trim();
-                } else if (formData.reason === '20') {
-                    const subReasonText = subReason20Map[formData.subReason20] ? `due to ${subReason20Map[formData.subReason20].english}` : '';
-                    englishParts.mainClause = `${trainIdEn} ${reasons[formData.reason].english}${englishParts.location ? ' ' + englishParts.location : ''}${subReasonText ? ' ' + subReasonText : ''}`.trim();
                 } else {
-                    let reasonStrEn = reasons[formData.reason].english;
+                    let verb = (['7', '13', '17'].includes(formData.reason)) ? 'is' : 'is experiencing a disruption due to';
                     if (formData.carriageNumber) {
                         reasonStrEn += ` (Car No. ${formData.carriageNumber.replace('คันที่', '').trim()})`;
                     }
-                    let verb = (['7', '13', '17'].includes(formData.reason)) ? 'is' : 'is experiencing a disruption due to';
-                    englishParts.mainClause = `${trainIdEn} ${verb} ${reasonStrEn}${englishParts.location ? ' ' + englishParts.location : ''}`;
+                    
+                    const isDelayReason = ['6', '20'].includes(formData.reason);
+                    if (isDelayReason) {
+                        englishParts.mainClause = `${trainIdEn} ${reasons[formData.reason].english}${englishParts.location ? ' ' + englishParts.location : ''}${subReasonTextEn ? ' ' + subReasonTextEn : ''}`.trim();
+                    } else {
+                         englishParts.mainClause = `${trainIdEn} ${verb} ${reasonStrEn}${englishParts.location ? ' ' + englishParts.location : ''}`;
+                    }
                 }
-
+                
                 if (formData.actionTaken) {
                     englishParts.action = actions.english[formData.actionTaken];
                 }
@@ -1661,13 +1513,18 @@
                         englishParts.affected = "This incident may affect other trains on this route";
                     }
                 }
+                
                 const partOrder = ['mainClause', 'action', 'impact', 'departure', 'instruction', 'notes', 'affected'];
                 const finalThaiParts = partOrder.map(p => thaiParts[p]).filter(Boolean);
                 const finalEnglishParts = partOrder.map(p => englishParts[p]).filter(Boolean);
+                
                 thaiText = `${trainIdThai} ${finalThaiParts.join(' ')} ขออภัยในความไม่สะดวก`;
                 englishText = `Notice: ${finalEnglishParts.join('. ')}. We apologize for the inconvenience.`;
+                
+                // --- Ticker Construction ---
                 let tickerReasonThai = reasons[formData.reason].thai;
                 let tickerReasonEn = reasons[formData.reason].english;
+                
                 if (formData.reason === '6' && formData.subReason6) {
                     tickerReasonThai += ` เนื่องจาก ${subReason6Map[formData.subReason6].thai}`;
                     tickerReasonEn += ` due to ${subReason6Map[formData.subReason6].english}`;
@@ -1683,10 +1540,15 @@
                     tickerReasonThai = `${formData.unavailableCarriageType} ไม่มีให้บริการ`;
                     tickerReasonEn = `${unavailableCarriageMap[formData.unavailableCarriageType]} unavailable`;
                 }
+
                 if (formData.trainNumberInput) {
-                    const delayMessageThai = !['18', '19', '20'].includes(formData.reason) ? 'ทำให้ขบวนรถล่าช้า' : '';
-                    const verbEnglish = !['18', '19', '20'].includes(formData.reason) ? 'delayed due to' : 'has';
-                    thaiTickerText = `${trainIdThai} ${tickerReasonThai} ${thaiParts.location || ''} ${delayMessageThai}. ขออภัยในความไม่สะดวก`;
+                    const delayMessageThai = !['18', '19', '20', '6'].includes(formData.reason) ? 'ทำให้ขบวนรถล่าช้า' : '';
+                    const verbEnglish = !['18', '19', '20', '6'].includes(formData.reason) ? 'delayed due to' : 'has';
+                    
+                    // FIX: Ensure location is shown in ticker if selected (for non-closure events)
+                    const tickerLocation = (formData.locationType !== 'not_specified' && formData.locationType !== '') ? thaiParts.location : '';
+
+                    thaiTickerText = `${trainIdThai} ${tickerReasonThai} ${tickerLocation} ${delayMessageThai}. ขออภัยในความไม่สะดวก`;
                     englishTickerText = `${trainIdEn} ${verbEnglish} ${tickerReasonEn} ${englishParts.location || ''}. We apologize for the inconvenience.`;
                 } else {
                     thaiTickerText = `แจ้งเหตุการณ์: ${tickerReasonThai} ${thaiParts.location || ''} อาจส่งผลให้การเดินรถล่าช้า. ขออภัยในความไม่สะดวก`;
