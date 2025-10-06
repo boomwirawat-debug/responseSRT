@@ -204,6 +204,7 @@
                                     <option value="refueling">2. เติมน้ำ/เชื้อเพลิง</option>
                                     <option value="waiting_pass">3. รอหลีกขบวนรถ</option>
                                     <option value="waiting_track">4. รอทาง</option>
+                                    <option value="switching_maneuver">5. สับเปลี่ยนรถ</option>
                                 </select>
                             </div>
 
@@ -591,7 +592,7 @@
                 thai: "รอผ่านพิธีการตรวจคนเข้าเมือง",
                 english: "immigration clearance procedures"
             },
-            'train_malfunction': {
+            'train_manfunction': {
                 thai: "ขบวนรถขัดข้อง",
                 english: "a train malfunction"
             }
@@ -612,6 +613,10 @@
             'waiting_track': {
                 thai: "เนื่องจากรอทาง",
                 english: "waiting for the track"
+            },
+            'switching_maneuver': {
+                thai: "เนื่องจากสับเปลี่ยนรถ",
+                english: "due to switching maneuver"
             }
         };
 
@@ -990,12 +995,12 @@
             "บ้านแต้":"Ban Tae",
             "บ้านต้นโดน":"Ban Ton Don",
             "บ้านตูล":"Ban Tun",
-            "บ้านเต็งหนาม":"Ban Teng Nam",
+            "บ้านเต็งหนาม":"Teng Nam",
             "บ้านทรายทอง":"Ban Sai Thong",
             "บ้านทับช้าง":"Ban Thap Chang",
-            "บ้านทุ่งค่าย":"Ban Thung Khai",
+            "บ้านทุ่งค่าย":"Thung Khai",
             "บ้านทุ่งหลวง":"Ban Thung Luang",
-            "บ้านท่าช้าง":"Ban Tha Chang",
+            "บ้านท่าช้าง":"Tha Chang",
             "บ้านถ่อน":"Ban Thon",
             "บ้านนิคม":"Ban Nikhom",
             "บ้านบ่อ":"Ban Bo",
@@ -1566,7 +1571,7 @@
                 }
                 if (formData.reason === '20' && formData.subReason20) {
                     subReasonTextThai = ` ${subReason20Map[formData.subReason20].thai}`;
-                    subReasonTextEn = ` due to ${subReason20Map[formData.subReason20].english}`;
+                    subReasonTextEn = ` ${subReason20Map[formData.subReason20].english}`;
                 }
 
                 if (formData.reason === '18') {
@@ -1679,7 +1684,7 @@
                 }
                 if (formData.reason === '20' && formData.subReason20) {
                     tickerReasonThai += ` ${subReason20Map[formData.subReason20].thai}`;
-                    tickerReasonEn += ` due to ${subReason20Map[formData.subReason20].english}`;
+                    tickerReasonEn += ` ${subReason20Map[formData.subReason20].english}`;
                 }
                 if (formData.reason === '18') {
                     tickerReasonThai = carriageChangeMap[formData.carriageChangeType].thai;
@@ -1742,7 +1747,7 @@
 
             // 4. Call the Gemini API with exponential backoff
             try {
-                const apiKey = "AIzaSyDE2LeDCT3DxsJ--o9c9yvYJ61kq7YrH9w"; // <--- Add your API Key here
+                const apiKey = ""; // <--- Add your API Key here
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
 
                 let response;
