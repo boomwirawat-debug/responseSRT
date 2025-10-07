@@ -193,7 +193,7 @@
                                     <option value="waiting_rolling_stock">4. รอขบวนรถหมุนเวียน</option>
                                     <option value="signaling_failure">5. ระบบอาณัติสัญญาณขัดข้อง</option>
                                     <option value="immigration_clearance">6. รอผ่านพิธีการตรวจคนเข้าเมือง</option>
-                                    <option value="train_malfunction">7. ขบวนรถขัดข้อง</option>
+                                    <option value="train_manfunction">7. ขบวนรถขัดข้อง</option>
                                 </select>
                             </div>
                             <div id="subReason20Wrapper" class="hidden md:col-span-2">
@@ -1010,6 +1010,7 @@
             "บ้านโป่งเสี้ยว":"Ban Pong Siao",
             "บ้านป๊อกแป๊ก":"Ban Pokpaek",
             "บ้านป่าไก่":"Ban Pa Kai",
+            "บ้านป่าหวาย":"Ban Pa Wai",
             "บ้านปากจาบ":"Ban Pak Chap",
             "บ้านปากพลี":"Ban Pak Phli",
             "บ้านปิน":"Ban Pin",
@@ -1041,7 +1042,7 @@
             "บ้านหนองปรือโป่ง":"Ban Nong Prue Pong",
             "บ้านหนองเสือ":"Ban Nong Suea",
             "บ้านหมอ":"Ban Mo",
-            "บ้านหัน":"Ban Han",
+            "บ้านหัน":"Han",
             "บ้านหินโคน":"Ban Hin Khon",
             "บ้านห้วยขวาง":"Ban Huai Khwang",
             "บ้านห้วยแตน":"Ban Huai Taen",
@@ -1316,7 +1317,6 @@
             "ห้วยสัก":"Huai Sak",
             "ห้วยสามพาด":"Huai Sam Phat",
             "ห้วยเสียว":"Huai Siao",
-            "ห้วยแถลง":"Huai Thalaeng",
             "ห้างฉัตร":"Hang Chat",
             "หว้ากอ":"Wa Ko",
             "องครักษ์":"Ongkharak",
@@ -1566,13 +1566,21 @@
                 // Sub reasons for 6 and 20 (Full text)
                 let subReasonTextThai = '';
                 let subReasonTextEn = '';
+                // FIX: Check if subReason is present before trying to access properties
                 if (formData.reason === '6' && formData.subReason6) {
-                    subReasonTextThai = ` เนื่องจาก ${subReason6Map[formData.subReason6].thai}`;
-                    subReasonTextEn = ` due to ${subReason6Map[formData.subReason6].english}`;
+                    const subReason = subReason6Map[formData.subReason6];
+                    if (subReason) {
+                        subReasonTextThai = ` เนื่องจาก ${subReason.thai}`;
+                        subReasonTextEn = ` due to ${subReason.english}`;
+                    }
                 }
+                // FIX: Check if subReason is present before trying to access properties
                 if (formData.reason === '20' && formData.subReason20) {
-                    subReasonTextThai = ` ${subReason20Map[formData.subReason20].thai}`;
-                    subReasonTextEn = ` ${subReason20Map[formData.subReason20].english}`;
+                    const subReason = subReason20Map[formData.subReason20];
+                    if (subReason) {
+                        subReasonTextThai = ` ${subReason.thai}`;
+                        subReasonTextEn = ` ${subReason.english}`;
+                    }
                 }
 
                 if (formData.reason === '18') {
@@ -1680,12 +1688,18 @@
                 let tickerReasonEn = reasons[formData.reason].english;
                 
                 if (formData.reason === '6' && formData.subReason6) {
-                    tickerReasonThai += ` เนื่องจาก ${subReason6Map[formData.subReason6].thai}`;
-                    tickerReasonEn += ` due to ${subReason6Map[formData.subReason6].english}`;
+                    const subReason = subReason6Map[formData.subReason6];
+                    if (subReason) {
+                        tickerReasonThai += ` เนื่องจาก ${subReason.thai}`;
+                        tickerReasonEn += ` due to ${subReason.english}`;
+                    }
                 }
                 if (formData.reason === '20' && formData.subReason20) {
-                    tickerReasonThai += ` ${subReason20Map[formData.subReason20].thai}`;
-                    tickerReasonEn += ` ${subReason20Map[formData.subReason20].english}`;
+                    const subReason = subReason20Map[formData.subReason20];
+                    if (subReason) {
+                        tickerReasonThai += ` ${subReason.thai}`;
+                        tickerReasonEn += ` ${subReason.english}`;
+                    }
                 }
                 if (formData.reason === '18') {
                     tickerReasonThai = carriageChangeMap[formData.carriageChangeType].thai;
@@ -1748,7 +1762,7 @@
 
             // 4. Call the Gemini API with exponential backoff
             try {
-                const apiKey = "AIzaSyDE2LeDCT3DxsJ--o9c9yvYJ61kq7YrH9w"; // <--- Add your API Key here
+                const apiKey = "AIzaSyDE2LeDCT3DxsJ--o9c9yvYJ61kq7YrH9w"; // <--- Add your API Key here 
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
 
                 let response;
