@@ -205,6 +205,7 @@
                                     <option value="waiting_pass">3. รอหลีกขบวนรถ</option>
                                     <option value="waiting_track">4. รอทาง</option>
                                     <option value="switching_maneuver">5. สับเปลี่ยนรถ</option>
+                                    <option value="traffic_congestion">6. ติดการจราจรทางถนน</option>
                                 </select>
                             </div>
 
@@ -617,6 +618,10 @@
             'switching_maneuver': {
                 thai: "เนื่องจากสับเปลี่ยนรถ",
                 english: "due to switching maneuver"
+            },
+            'traffic_congestion': {
+                thai: "เนื่องจากติดการจราจรทางถนน",
+                english: "due to crowded car traffic"
             }
         };
 
@@ -695,6 +700,7 @@
         };
         const stationTranslation = {
             "กรุงเทพอภิวัฒน์":"Krung Thep Aphiwat",
+            "กรุงเทพ":"Bangkok",
             "กบินทร์เก่า":"Kabin Kao",
             "กบินทร์บุรี":"Kabin Buri",
             "กะปาง":"Kapang",
@@ -712,7 +718,6 @@
             "แก่งคอย":"Kaeng Khoi",
             "แก่งหลวง":"Kaeng Luang",
             "แก่งเสือเต้น":"Kaeng Suea Ten",
-            "กรุงเทพ":"Bangkok",
             "กระสัง":"Krasang",
             "กระเบียด":"Krabiat",
             "กลางดง":"Klang Dong",
@@ -961,7 +966,7 @@
             "บ้านขนาย":"Ban Khanai",
             "บ้านขาม":"Ban Kham",
             "บ้านคล้อ":"Ban Khlo",
-            "บ้านคอกม้า":"Ban Khok Ma",
+            "บ้านคอกม้า":"Khok Ma",
             "บ้านค่ายไทย":"Ban Khai Thai",
             "บ้านแฮด":"Ban Haet",
             "บ้านแหลม":"Ban Laem",
@@ -997,13 +1002,13 @@
             "บ้านตูล":"Ban Tun",
             "บ้านเต็งหนาม":"Teng Nam",
             "บ้านทรายทอง":"Ban Sai Thong",
-            "บ้านทับช้าง":"Ban Thap Chang",
+            "บ้านทับช้าง":"Thap Chang",
             "บ้านทุ่งค่าย":"Thung Khai",
             "บ้านทุ่งหลวง":"Ban Thung Luang",
             "บ้านท่าช้าง":"Tha Chang",
             "บ้านถ่อน":"Ban Thon",
             "บ้านนิคม":"Ban Nikhom",
-            "บ้านบ่อ":"Ban Bo",
+            "บ้านบ่อ":"Bo",
             "บ้านบุ่ง":"Ban Bung",
             "บ้านโป่ง":"Ban Pong",
             "บ้านโป่งคอม":"Ban Pong Khom",
@@ -1037,7 +1042,7 @@
             "บ้านโสกัง":"Ban Sok Rang",
             "บ้านหนองกันงา":"Ban Nong Kan Nga",
             "บ้านหนองขาม":"Ban Nong Kham",
-            "บ้านหนองตาด":"Ban Nong Tat",
+            "บ้านหนองตาด":"Nong Tat",
             "บ้านหนองบัว":"Ban Nong Bua",
             "บ้านหนองปรือโป่ง":"Ban Nong Prue Pong",
             "บ้านหนองเสือ":"Ban Nong Suea",
@@ -1049,6 +1054,7 @@
             "บ้านเหลื่อม":"Ban Luam",
             "บ้านใหม่":"Ban Mai",
             "บ้านใหม่สำโรง":"Ban Mai Samrong",
+            "หนองวิวัฒน์":"Nong Wiwat",
             "บำเหน็จณรงค์":"Bamnet Narong",
             "บึงพระ":"Bueng Phra",
             "บึงบอระเพ็ด":"Bueng Boraphet",
@@ -1193,14 +1199,14 @@
             "วัดควนเผยอ":"Wat Khuan Phayoe",
             "วัดควนมีด":"Wat Khuan Mit",
             "วัดงิ้วราย":"Wat Ngio Rai",
-            "เวียงจันทน์(คำสะหวาด)":"Khamsavath",
+            "วัดช้างให้":"Wat Chang Hai",
             "วัดสิงห์":"Wat Sing",
             "วัดสุวรรณ":"Wat Suwan",
             "วัฒนานคร":"Watthana Nakhon",
             "วิหารแดง":"Wihan Daeng",
             "วิสัย":"Wisai",
             "วงเวียนใหญ่":"Wongwian Yai",
-            "วุฒากาศ":"WutthaKat",
+            "เวียงจันทน์(คำสะหวาด)":"Khamsavath",
             "วุฒากาศ":"WutthaKat",
             "ศรีสำราญ":"Si Samran",
             "ศรีสะเกษ":"Si Sa Ket",
@@ -1257,7 +1263,7 @@
             "หนองน้ำขุ่น":"Nong Nam Khun",
             "หนองน้ำขาว":"Nong Nam Khao",
             "หนองบัวเงิน":"Nong Bua Ngoen",
-            "หนองบuaลาย":"Nong Bua Lai",
+            "หนองบัวลาย":"Nong Bua Lai",
             "หนองปลาไหล":"Nong Pla Lai",
             "หนองพลวง":"Nong Phluang",
             "หนองผักชี":"Nong Phak Chi",
@@ -1567,7 +1573,7 @@
                 // Sub reasons for 6 and 20 (Full text)
                 let subReasonTextThai = '';
                 let subReasonTextEn = '';
-                // FIX: Check if subReason is present before trying to access properties
+                // FIX: Check if subReason is present and exists in map before trying to access properties
                 if (formData.reason === '6' && formData.subReason6) {
                     const subReason = subReason6Map[formData.subReason6];
                     if (subReason) {
@@ -1575,7 +1581,7 @@
                         subReasonTextEn = ` due to ${subReason.english}`;
                     }
                 }
-                // FIX: Check if subReason is present before trying to access properties
+                // FIX: Check if subReason is present and exists in map before trying to access properties
                 if (formData.reason === '20' && formData.subReason20) {
                     const subReason = subReason20Map[formData.subReason20];
                     if (subReason) {
@@ -1763,7 +1769,7 @@
 
             // 4. Call the Gemini API with exponential backoff
             try {
-                const apiKey = "AIzaSyDE2LeDCT3DxsJ--o9c9yvYJ61kq7YrH9w"; // <--- Add your API Key here 
+                const apiKey = "AIzaSyDE2LeDCT3DxsJ--o9c9yvYJ61kq7YrH9w"; 
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
 
                 let response;
