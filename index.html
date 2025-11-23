@@ -128,6 +128,7 @@
                                     <option value="รถท้องถิ่น">รถท้องถิ่น</option>
                                     <option value="รถชานเมือง">รถชานเมือง</option>
                                     <option value="รถพิเศษโดยสาร">รถพิเศษโดยสาร</option>
+                                    <option value="รถสินค้าห่อวัตถุด่วน">รถสินค้าห่อวัตถุด่วน</option>
                                 </select>
                             </div>
                             <div>
@@ -182,7 +183,7 @@
                                     <option value="19">19. ไม่มีตู้ให้บริการ</option>
                                     <option value="20">20. ล่าช้า</option>
                                     <option value="21">21. ประกาศปิดเส้นทาง</option>
-                                    <option value="22">22. ล่าช้าสะสม</option> <!-- เพิ่มสาเหตุ 22 -->
+                                    <option value="22">22. ล่าช้าสะสม</option>
                                 </select>
                             </div>
                             <div id="subReason6Wrapper" class="hidden md:col-span-2">
@@ -208,6 +209,7 @@
                                     <option value="waiting_track">4. รอทาง</option>
                                     <option value="switching_maneuver">5. สับเปลี่ยนรถ</option>
                                     <option value="traffic_congestion">6. ติดการจราจรทางถนน</option>
+                                    <option value="parcel_handling">7. ขึ้น-ลง สินค้าห่อวัตถุ</option>
                                 </select>
                             </div>
 
@@ -264,6 +266,7 @@
                             <div id="locationAtStationWrapper" class="hidden">
                                 <label for="locationStation" class="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-2">ชื่อสถานี</label>
                                 <input type="text" id="locationStation" list="stationList" class="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-600 rounded-lg transition" placeholder="เช่น ชะอวด">
+                                <datalist id="stationList"></datalist>
                             </div>
                             <div id="locationBetweenWrapper" class="hidden grid grid-cols-2 gap-4 md:col-span-2">
                                 <div>
@@ -287,7 +290,8 @@
                             </div>
                         </div>
                     </section>
-                    <!-- Section 3: Passenger Information -->
+
+                    <!-- Section 3: Passenger Information (RESTORED) -->
                     <section class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sm:p-8">
                         <h2 class="text-xl font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 mb-6">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users">
@@ -333,6 +337,23 @@
                             </div>
                         </div>
                     </section>
+
+                    <!-- Section 4: Free Text Announcement (NEW) -->
+                    <section class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sm:p-8">
+                        <h2 class="text-xl font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil-line"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/><path d="m15 5 3 3"/></svg>
+                            <span>4. ประกาศอิสระ (Free Text)</span>
+                        </h2>
+                        <div class="space-y-4">
+                            <label for="freeTextThai" class="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-2">ข้อความประกาศ (ภาษาไทย)</label>
+                            <textarea id="freeTextThai" rows="3" class="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-600 rounded-lg transition" placeholder="พิมพ์ข้อความประกาศที่ต้องการ..."></textarea>
+                            <button type="button" id="generateFreeTextBtn" class="w-full flex items-center justify-center gap-2 bg-teal-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-all duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-languages"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+                                สร้างประกาศอิสระ & แปลภาษา
+                            </button>
+                        </div>
+                    </section>
+                    
                     <!-- Action Buttons -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <button type="submit" class="w-full flex items-center justify-center gap-2 bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300">
@@ -396,6 +417,21 @@
                             </div>
                             <p id="englishOutput" class="text-sky-900 dark:text-sky-300 whitespace-pre-wrap text-sm leading-relaxed font-mono"></p>
                         </div>
+                        
+                        <!-- NEW Combined Output -->
+                        <div class="bg-indigo-50 dark:bg-indigo-900/20 p-4 rounded-lg border border-indigo-200 dark:border-indigo-800">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="text-sm font-semibold text-indigo-800 dark:text-indigo-300">ข้อความประกาศ (แบบรวม)</h4>
+                                <button type="button" onclick="copyToClipboard('combinedOutput', this)" class="bg-white dark:bg-slate-700 text-slate-500 dark:text-slate-300 px-3 py-1 rounded-md text-sm hover:bg-slate-100 dark:hover:bg-slate-600 hover:text-slate-700 border border-slate-300 dark:border-slate-500 transition-all flex items-center gap-1.5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy">
+                                        <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                                        <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                                    </svg>
+                                    <span>คัดลอก</span>
+                                </button>
+                            </div>
+                            <p id="combinedOutput" class="text-indigo-900 dark:text-indigo-300 whitespace-pre-wrap text-sm leading-relaxed"></p>
+                        </div>
                     </div>
                     <!-- Ticker Announcement -->
                     <div class="space-y-6 mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
@@ -427,6 +463,45 @@
                             <p id="englishTickerOutput" class="text-amber-900 dark:text-amber-300 whitespace-pre-wrap font-semibold text-sm font-mono"></p>
                         </div>
                     </div>
+                    
+                    <!-- NEW TTS Feature -->
+                    <div id="ttsSection" class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
+                        <h3 class="text-base font-semibold text-slate-600 dark:text-slate-400 mb-4">✨ เสียงประกาศ (Text-to-Speech)</h3>
+                        <button id="generateTTSBtn" type="button" class="w-full flex items-center justify-center gap-2 bg-pink-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-megaphone"><path d="m3 11 1.4-2.7c.3-.6.9-1.2 1.6-1.5L22 2V6l-7 3"/><path d="M7 16a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/><path d="M11 7c0-2.3-2.6-4.5-5.5-4.5S0 4.7 0 7"/><path d="M10 18c0 1.2-.6 2.3-1.4 3.1"/></svg>
+                            สร้างเสียงประกาศ (TTS)
+                        </button>
+                        <audio id="audioPlayer" class="w-full mt-4 hidden" controls></audio>
+                        <p id="ttsStatus" class="text-center text-sm mt-2 text-slate-500 dark:text-slate-400"></p>
+                    </div>
+                    <!-- End TTS Feature -->
+
+                    <!-- NEW Staff Briefing Summary Feature -->
+                    <div id="staffBriefingSection" class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
+                        <h3 class="text-base font-semibold text-slate-600 dark:text-slate-400 mb-4">✨ สรุปสถานการณ์สำหรับเจ้าหน้าที่ (Staff Briefing)</h3>
+                        <button id="generateStaffBriefingBtn" type="button" class="w-full flex items-center justify-center gap-2 bg-red-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard-list"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg>
+                            สร้างรายงานสรุป
+                        </button>
+                        <div id="staffBriefingContainer" class="mt-4 p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 min-h-[5rem]">
+                            <p class="text-sm text-red-800 dark:text-red-300">ข้อมูลสรุปสำหรับการปฏิบัติงานภายในจะแสดงที่นี่</p>
+                        </div>
+                    </div>
+                    <!-- End Staff Briefing Summary Feature -->
+                    
+                    <!-- NEW International Notes Translation Feature -->
+                    <div id="internationalNotesSection" class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
+                        <h3 class="text-base font-semibold text-slate-600 dark:text-slate-400 mb-4">✨ แปลบันทึกเพิ่มเติม (Int'l Notes)</h3>
+                        <button id="translateNotesBtn" type="button" class="w-full flex items-center justify-center gap-2 bg-slate-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-400 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-globe"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                            แปลบันทึก (Translate Notes)
+                        </button>
+                        <div id="internationalNotesContainer" class="mt-4 p-4 rounded-lg bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 min-h-[5rem]">
+                            <p class="text-sm text-slate-700 dark:text-slate-300">คำแปลบันทึกเพิ่มเติม (Operational Notes) จะแสดงที่นี่</p>
+                        </div>
+                    </div>
+                    <!-- End International Notes Translation Feature -->
+
                     <!-- AI Powered Advice Section -->
                     <div id="aiAdviceSection" class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
                         <h3 class="text-base font-semibold text-slate-600 dark:text-slate-400 mb-4">✨ คำแนะนำสำหรับผู้โดยสาร (AI)</h3>
@@ -483,226 +558,72 @@
 
     <script>
         // --- DATABASE & DICTIONARIES ---
-        const trainTypeMap = { 'รถด่วนพิเศษ': 'Special Express', 'รถด่วน': 'Express', 'รถเร็ว': 'Rapid', 'รถธรรมดา': 'Ordinary', 'รถท้องถิ่น': 'Local', 'รถชานเมือง': 'Commuter', 'รถพิเศษโดยสาร': 'Special' };
+        const trainTypeMap = { 'รถด่วนพิเศษ': 'Special Express', 'รถด่วน': 'Express', 'รถเร็ว': 'Rapid', 'รถธรรมดา': 'Ordinary', 'รถท้องถิ่น': 'Local', 'รถชานเมือง': 'Commuter', 'รถพิเศษโดยสาร': 'Special', 'รถสินค้าห่อวัตถุด่วน': 'Express Parcel Freight' };
         const reasons = {
-            '1': {
-                thai: "รถจักรขัดข้อง",
-                english: "a locomotive failure"
-            },
-            '2': {
-                thai: "ตู้โดยสารขัดข้อง",
-                english: "a carriage failure"
-            },
-            '3': {
-                thai: "ไม่สามารถใช้ความเร็วสูงสุดได้",
-                english: "unable to run at maximum speed"
-            },
-            '4': {
-                thai: "ขบวนรถขัดข้อง",
-                english: "a train malfunction"
-            },
-            '5': {
-                thai: "เครื่องปรับอากาศชำรุด",
-                english: "an air conditioning failure"
-            },
-            '6': {
-                thai: "ออกจากต้นทางล่าช้า",
-                english: "departed late from its origin"
-            },
-            '7': {
-                thai: "รอรถหมุนเวียน",
-                english: "waiting for connecting rolling stock"
-            },
-            '8': {
-                thai: "ชนยานพาหนะ",
-                english: "a collision with a vehicle"
-            },
-            '9': {
-                thai: "ชนสัตว์",
-                english: "a collision with an animal"
-            },
-            '10': {
-                thai: "อุบัติเหตุเกี่ยวกับบุคคล",
-                english: "an incident involving a person"
-            },
-            '11': {
-                thai: "ดินสไลด์",
-                english: "a landslide on the track"
-            },
-            '12': {
-                thai: "น้ำท่วม",
-                english: "flooding on the track"
-            },
-            '13': {
-                thai: "รอเปิดทาง",
-                english: "waiting for track clearance"
-            },
-            '14': {
-                thai: "มีสิ่งกีดขวางในทาง",
-                english: "an obstruction on the track"
-            },
-            '15': {
-                thai: "ระบบอาณัติสัญญาณขัดข้อง",
-                english: "a signaling system failure"
-            },
-            '16': {
-                thai: "ขบวนรถตกราง",
-                english: "a train derailment"
-            },
-            '17': {
-                thai: "รอเคลียร์เส้นทาง",
-                english: "waiting for the line to be cleared"
-            },
-            '18': {
-                thai: "ปรับเปลี่ยนตู้โดยสาร",
-                english: "a carriage change"
-            },
-            '19': {
-                thai: "ไม่มีตู้ให้บริการ",
-                english: "a carriage is unavailable"
-            },
-            '20': {
-                thai: "ล่าช้า",
-                english: "is delayed"
-            },
-            '21': {
-                thai: "ประกาศปิดเส้นทาง",
-                english: "Route Closure"
-            },
-            '22': {
-                thai: "ล่าช้าสะสม",
-                english: "accumulated delays"
-            } // เพิ่มสาเหตุ 22
+            '1': { thai: "รถจักรขัดข้อง", english: "a locomotive failure" },
+            '2': { thai: "ตู้โดยสารขัดข้อง", english: "a carriage failure" },
+            '3': { thai: "ไม่สามารถใช้ความเร็วสูงสุดได้", english: "unable to run at maximum speed" },
+            '4': { thai: "ขบวนรถขัดข้อง", english: "a train malfunction" },
+            '5': { thai: "เครื่องปรับอากาศชำรุด", english: "an air conditioning failure" },
+            '6': { thai: "ออกจากต้นทางล่าช้า", english: "departed late from its origin" },
+            '7': { thai: "รอรถหมุนเวียน", english: "waiting for connecting rolling stock" },
+            '8': { thai: "ชนยานพาหนะ", english: "a collision with a vehicle" },
+            '9': { thai: "ชนสัตว์", english: "a collision with an animal" },
+            '10': { thai: "อุบัติเหตุเกี่ยวกับบุคคล", english: "an incident involving a person" },
+            '11': { thai: "ดินสไลด์", english: "a landslide on the track" },
+            '12': { thai: "น้ำท่วม", english: "flooding on the track" },
+            '13': { thai: "รอเปิดทาง", english: "waiting for track clearance" },
+            '14': { thai: "มีสิ่งกีดขวางในทาง", english: "an obstruction on the track" },
+            '15': { thai: "ระบบอาณัติสัญญาณขัดข้อง", english: "a signaling system failure" },
+            '16': { thai: "ขบวนรถตกราง", english: "a train derailment" },
+            '17': { thai: "รอเคลียร์เส้นทาง", english: "waiting for the line to be cleared" },
+            '18': { thai: "ปรับเปลี่ยนตู้โดยสาร", english: "a carriage change" },
+            '19': { thai: "ไม่มีตู้ให้บริการ", english: "a carriage is unavailable" },
+            '20': { thai: "ล่าช้า", english: "is delayed" },
+            '21': { thai: "ประกาศปิดเส้นทาง", english: "Route Closure" },
+            '22': { thai: "ล่าช้าสะสม", english: "accumulated delays" }
         };
         const subReason6Map = {
-            'carriage_failure': {
-                thai: "ตู้โดยสารขัดข้อง",
-                english: "a carriage failure"
-            },
-            'tour_extension': {
-                thai: "ขยายโปรแกรมการท่องเที่ยว",
-                english: "an extension of a tour program"
-            },
-            'locomotive_failure': {
-                thai: "รถจักรขัดข้อง",
-                english: "a locomotive failure"
-            },
-            'waiting_rolling_stock': {
-                thai: "รอขบวนรถหมุนเวียน",
-                english: "waiting for connecting rolling stock"
-            },
-            'signaling_failure': {
-                thai: "ระบบอาณัติสัญญาณขัดข้อง",
-                english: "a signaling system failure"
-            },
-            'immigration_clearance': {
-                thai: "รอผ่านพิธีการตรวจคนเข้าเมือง",
-                english: "immigration clearance procedures"
-            },
-            'train_manfunction': {
-                thai: "ขบวนรถขัดข้อง",
-                english: "a train malfunction"
-            }
+            'carriage_failure': { thai: "ตู้โดยสารขัดข้อง", english: "a carriage failure" },
+            'tour_extension': { thai: "ขยายโปรแกรมการท่องเที่ยว", english: "an extension of a tour program" },
+            'locomotive_failure': { thai: "รถจักรขัดข้อง", english: "a locomotive failure" },
+            'waiting_rolling_stock': { thai: "รอขบวนรถหมุนเวียน", english: "waiting for connecting rolling stock" },
+            'signaling_failure': { thai: "ระบบอาณัติสัญญาณขัดข้อง", english: "a signaling system failure" },
+            'immigration_clearance': { thai: "รอผ่านพิธีการตรวจคนเข้าเมือง", english: "immigration clearance procedures" },
+            'train_manfunction': { thai: "ขบวนรถขัดข้อง", english: "a train malfunction" }
         };
         const subReason20Map = {
-            'construction': {
-                thai: "เนื่องจากผ่านเขตก่อสร้าง",
-                english: "passing through a construction zone"
-            },
-            'refueling': {
-                thai: "เนื่องจากเติมน้ำ/เชื้อเพลิง",
-                english: "refueling/water refilling"
-            },
-            'waiting_pass': {
-                thai: "เนื่องจากรอหลีกขบวนรถ",
-                english: "waiting for another train to pass"
-            },
-            'waiting_track': {
-                thai: "เนื่องจากรอทาง",
-                english: "waiting for the track"
-            },
-            'switching_maneuver': {
-                thai: "เนื่องจากสับเปลี่ยนรถ",
-                english: "due to switching maneuver"
-            },
-            'traffic_congestion': {
-                thai: "เนื่องจากติดการจราจรทางถนน",
-                english: "due to crowded car traffic"
-            }
+            'construction': { thai: "เนื่องจากผ่านเขตก่อสร้าง", english: "passing through a construction zone" },
+            'refueling': { thai: "เนื่องจากเติมน้ำ/เชื้อเพลิง", english: "refueling/water refilling" },
+            'waiting_pass': { thai: "เนื่องจากรอหลีกขบวนรถ", english: "waiting for another train to pass" },
+            'waiting_track': { thai: "เนื่องจากรอทาง", english: "waiting for the track" },
+            'switching_maneuver': { thai: "เนื่องจากสับเปลี่ยนรถ", english: "due to switching maneuver" },
+            'traffic_congestion': { thai: "เนื่องจากติดการจราจรทางถนน", english: "due to crowded car traffic" },
+            'parcel_handling': { thai: "เนื่องจาก ขึ้น-ลง สินค้าห่อวัตถุ", english: "loading and unloading of parcels" }
         };
-
         const subReason21Map = {
-            'flooding': {
-                thai: "น้ำท่วม",
-                english: "flooding"
-            },
-            'derailment': {
-                thai: "ขบวนรถตกราง",
-                english: "a train derailment"
-            },
-            'landslide': {
-                thai: "ดินสไลด์",
-                english: "a landslide"
-            }
+            'flooding': { thai: "น้ำท่วม", english: "flooding" },
+            'derailment': { thai: "ขบวนรถตกราง", english: "a train derailment" },
+            'landslide': { thai: "ดินสไลด์", english: "a landslide" }
         };
-        
         const actions = {
-            thai: {
-                "fixing": "ขณะนี้เจ้าหน้าที่กำลังดำเนินการแก้ไข",
-                "waiting_rescue": "ขณะนี้กำลังรอรถจักรมาทำการช่วยเหลือ",
-                "waiting_inspection": "ขณะนี้รอเจ้าหน้าที่เข้าตรวจสอบความปลอดภัย",
-                "clearing": "ขณะนี้กำลังดำเนินการเคลียร์พื้นที่"
-            },
-            english: {
-                "fixing": "Crews are currently working to resolve the issue",
-                "waiting_rescue": "A rescue locomotive is being arranged",
-                "waiting_inspection": "We are awaiting a safety inspection",
-                "clearing": "The area is currently being cleared"
-            }
+            thai: { "fixing": "ขณะนี้เจ้าหน้าที่กำลังดำเนินการแก้ไข", "waiting_rescue": "ขณะนี้กำลังรอรถจักรมาทำการช่วยเหลือ", "waiting_inspection": "ขณะนี้รอเจ้าหน้าที่เข้าตรวจสอบความปลอดภัย", "clearing": "ขณะนี้กำลังดำเนินการเคลียร์พื้นที่" },
+            english: { "fixing": "Crews are currently working to resolve the issue", "waiting_rescue": "A rescue locomotive is being arranged", "waiting_inspection": "We are awaiting a safety inspection", "clearing": "The area is currently being cleared" }
         };
         const instructions = {
-            thai: {
-                'wait': "โปรดรอรับฟังการประกาศครั้งต่อไป",
-                'alternative': "กำลังจัดเตรียมการขนส่งทางเลือกสำหรับผู้โดยสาร",
-                'refund': "ผู้โดยสารสามารถติดต่อขอรับคืนเงินค่าตั๋วโดยสารได้ที่สถานีรถไฟทั่วประเทศ",
-                'upgrade_pets': "สำหรับผู้โดยสารที่จองล่วงหน้า ไม่มีการเก็บค่าบริการเพิ่มเติม กรณีผู้โดยสารเดินทางพร้อมสัตว์เลี้ยงโปรดติดต่อเจ้าหน้าที่สถานี ก่อนขึ้นขบวนรถ"
-            },
-            english: {
-                'wait': "Please wait for further announcements",
-                'alternative': "Alternative transportation is being arranged",
-                'refund': "Passengers can request a ticket refund at any station nationwide",
-                'upgrade_pets': "For passengers with advance bookings, no additional fees will be charged. Additionally, passengers traveling with pets are requested to contact station staff before boarding"
-            }
+            thai: { 'wait': "โปรดรอรับฟังการประกาศครั้งต่อไป", 'alternative': "กำลังจัดเตรียมการขนส่งทางเลือกสำหรับผู้โดยสาร", 'refund': "ผู้โดยสารสามารถติดต่อขอรับคืนเงินค่าตั๋วโดยสารได้ที่สถานีรถไฟทั่วประเทศ", 'upgrade_pets': "สำหรับผู้โดยสารที่จองล่วงหน้า ไม่มีการเก็บค่าบริการเพิ่มเติม กรณีผู้โดยสารเดินทางพร้อมสัตว์เลี้ยงโปรดติดต่อเจ้าหน้าที่สถานี ก่อนขึ้นขบวนรถ" },
+            english: { 'wait': "Please wait for further announcements", 'alternative': "Alternative transportation is being arranged", 'refund': "Passengers can request a ticket refund at any station nationwide", 'upgrade_pets': "For passengers with advance bookings, no additional fees will be charged. Additionally, passengers traveling with pets are requested to contact station staff before boarding" }
         };
         const carriageChangeMap = {
-            'fan_to_ac': {
-                thai: "เปลี่ยนจากรถพัดลมเป็นปรับอากาศ",
-                english: "changing from a fan car to an air-conditioned car"
-            },
-            'ac_to_fan': {
-                thai: "เปลี่ยนจากรถปรับอากาศเป็นรถพัดลม",
-                english: "changing from an air-conditioned car to a fan car"
-            },
-            'class_upgrade': {
-                thai: "เปลี่ยนจากรถชั้น 3 เป็นรถชั้น 2",
-                english: "upgrading from a 3rd class to a 2nd class car"
-            },
-            'fan_sleeper_to_ac_sleeper': {
-                thai: "เปลี่ยนจากรถนอนพัดลมเป็นรถนอนปรับอากาศ",
-                english: "changing from a fan sleeper to an air-conditioned sleeper"
-            },
-            'ac_sleeper_to_fan_sleeper': {
-                thai: "เปลี่ยนจากรถนอนปรับอากาศเป็นรถนอนพัดลม",
-                english: "changing from an air-conditioned sleeper to a fan sleeper"
-            }
+            'fan_to_ac': { thai: "เปลี่ยนจากรถพัดลมเป็นปรับอากาศ", english: "changing from a fan car to an air-conditioned car" },
+            'ac_to_fan': { thai: "เปลี่ยนจากรถปรับอากาศเป็นรถพัดลม", english: "changing from an air-conditioned car to a fan car" },
+            'class_upgrade': { thai: "เปลี่ยนจากรถชั้น 3 เป็นรถชั้น 2", english: "upgrading from a 3rd class to a 2nd class car" },
+            'fan_sleeper_to_ac_sleeper': { thai: "เปลี่ยนจากรถนอนพัดลมเป็นรถนอนปรับอากาศ", english: "changing from a fan sleeper to an air-conditioned sleeper" },
+            'ac_sleeper_to_fan_sleeper': { thai: "เปลี่ยนจากรถนอนปรับอากาศเป็นรถนอนพัดลม", english: "changing from an air-conditioned sleeper to a fan sleeper" }
         };
         const unavailableCarriageMap = {
-            "ตู้นอนปรับอากาศ ชั้น1": "1st Class Air-conditioned Sleeper",
-            "ตู้นอนปรับอากาศ ชั้น2": "2nd Class Air-conditioned Sleeper",
-            "ตู้นอนพัดลมชั้น2": "2nd Class Fan Sleeper",
-            "ตู้โดยสาร ชั้น2": "2nd Class Coach",
-            "ตู้โดยสาร ชั้น3": "3rd Class Coach",
-            "ตู้เสบียง": "Dining Car"
+            "ตู้นอนปรับอากาศ ชั้น1": "1st Class Air-conditioned Sleeper", "ตู้นอนปรับอากาศ ชั้น2": "2nd Class Air-conditioned Sleeper", "ตู้นอนพัดลมชั้น2": "2nd Class Fan Sleeper",
+            "ตู้โดยสาร ชั้น2": "2nd Class Coach", "ตู้โดยสาร ชั้น3": "3rd Class Coach", "ตู้เสบียง": "Dining Car"
         };
         const stationTranslation = {
             "กรุงเทพอภิวัฒน์":"Krung Thep Aphiwat",
@@ -1318,6 +1239,9 @@
         const allFormElements = Array.from(form.elements);
         const outputArea = document.getElementById('outputArea');
 
+        // Global Audio Context for TTS
+        let audioContext = null;
+
         // --- HELPER FUNCTIONS ---
         function translate(thaiName) {
             return stationTranslation[thaiName] || thaiName;
@@ -1361,6 +1285,7 @@
             textArea.focus();
             textArea.select();
             try {
+                // Use document.execCommand('copy') for broader compatibility in restricted environments like iframes
                 document.execCommand('copy');
                 const originalText = buttonElement.innerHTML;
                 buttonElement.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg><span>คัดลอกแล้ว</span>`;
@@ -1413,7 +1338,6 @@
         let templateToDelete = null;
 
         function getTemplates() {
-            // NOTE: Using localStorage as per requirement, but this storage is private to the browser/session.
             return JSON.parse(localStorage.getItem('announcementTemplates')) || [];
         }
 
@@ -1529,7 +1453,7 @@
             } else if (formData.reason === '3') {
                 // Slow Speed Announcement
                 thaiText = `${trainIdThai} ไม่สามารถใช้ความเร็วสูงสุดได้ ส่งผลให้ขบวนรถเกิดการล่าช้าสะสม ขออภัยในความไม่สะดวก`;
-                englishText = `Notice: ${trainIdEn} is unable to run at maximum speed, causing accumulated delays. We apologize for the inconvenience.`;
+                englishText = `${trainIdEn} is unable to run at maximum speed, causing accumulated delays. We apologize for the inconvenience.`;
                 thaiTickerText = `${trainIdThai} ไม่สามารถใช้ความเร็วสูงสุดได้ ทำให้ล่าช้าสะสม ขออภัยในความไม่สะดวก`;
                 englishTickerText = `${trainIdEn} unable to run at maximum speed, causing accumulated delays. We apologize for the inconvenience.`;
             } else {
@@ -1640,17 +1564,25 @@
                 const finalEnglishParts = partOrder.map(p => englishParts[p]).filter(Boolean);
                 
                 thaiText = `${trainIdThai} ${finalThaiParts.join(' ')} ขออภัยในความไม่สะดวก`;
-                englishText = `Notice: ${finalEnglishParts.join('. ')}. We apologize for the inconvenience.`;
+                englishText = `${finalEnglishParts.join('. ')}. We apologize for the inconvenience.`;
                 
                 // --- Ticker Construction (Standard Flow) ---
                 let tickerReasonThai = reasons[formData.reason].thai;
                 let tickerReasonEn = reasons[formData.reason].english;
                 
                 if (formData.reason === '6' && formData.subReason6) {
-                // ... (subReason 6 logic) ...
+                    const subReason = subReason6Map[formData.subReason6];
+                    if (subReason) {
+                        tickerReasonThai += ` เนื่องจาก ${subReason.thai}`;
+                        tickerReasonEn += ` due to ${subReason.english}`;
+                    }
                 }
                 if (formData.reason === '20' && formData.subReason20) {
-                // ... (subReason 20 logic) ...
+                    const subReason = subReason20Map[formData.subReason20];
+                    if (subReason) {
+                        tickerReasonThai += ` ${subReason.thai}`;
+                        tickerReasonEn += ` ${subReason.english}`;
+                    }
                 }
                 if (formData.reason === '18') {
                     tickerReasonThai = carriageChangeMap[formData.carriageChangeType].thai;
@@ -1675,14 +1607,425 @@
                 }
             }
             // 5. Display results (Cleanup for multiple spaces/dots)
-            document.getElementById('thaiOutput').textContent = thaiText.replace(/\s+/g, ' ');
-            document.getElementById('englishOutput').textContent = englishText.replace(/\. \./g, '.').replace(/\s+/g, ' ').replace(/ \./g, '.');
-            document.getElementById('thaiTickerOutput').textContent = thaiTickerText.replace(/\s+/g, ' ');
-            document.getElementById('englishTickerOutput').textContent = englishTickerText.replace(/\s+/g, ' ');
+            const finalThaiText = thaiText.replace(/\s+/g, ' ');
+            const finalEnglishText = englishText.replace(/\. \./g, '.').replace(/\s+/g, ' ').replace(/ \./g, '.');
+            const finalThaiTicker = thaiTickerText.replace(/\s+/g, ' ');
+            const finalEnglishTicker = englishTickerText.replace(/\s+/g, ' ');
+
+            document.getElementById('thaiOutput').textContent = finalThaiText;
+            document.getElementById('englishOutput').textContent = finalEnglishText;
+            document.getElementById('thaiTickerOutput').textContent = finalThaiTicker;
+            document.getElementById('englishTickerOutput').textContent = finalEnglishTicker;
+            
+            // NEW: Populate Combined Output
+            document.getElementById('combinedOutput').textContent = `| ${finalThaiText} | ${finalEnglishText} |`;
 
         }
+        
+        // --- Free Text Announcement Feature (Gemini API) ---
+        async function generateFreeTextAnnouncement() {
+            const freeTextThai = document.getElementById('freeTextThai').value.trim();
+            
+            if (!freeTextThai) {
+                showToast('กรุณากรอกข้อความประกาศภาษาไทย');
+                return;
+            }
 
-        // --- GEMINI API INTEGRATION ---
+            // Show loading/initial state
+            const outputArea = document.getElementById('outputArea');
+            outputArea.classList.remove('hidden');
+            outputArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            document.getElementById('thaiOutput').textContent = freeTextThai;
+            document.getElementById('englishOutput').textContent = "✨ กำลังแปลภาษาด้วย AI...";
+            document.getElementById('thaiTickerOutput').textContent = freeTextThai; // Use same text for ticker initially
+            document.getElementById('englishTickerOutput').textContent = "...";
+            document.getElementById('combinedOutput').textContent = `| ${freeTextThai} | ... |`;
+
+            // Clear previous AI results
+            document.getElementById('aiAdviceContainer').innerHTML = '<!-- AI-generated advice will be shown here -->';
+            document.getElementById('staffBriefingContainer').innerHTML = '<p class="text-sm text-red-800 dark:text-red-300">ข้อมูลสรุปสำหรับการปฏิบัติงานภายในจะแสดงที่นี่</p>';
+            document.getElementById('internationalNotesContainer').innerHTML = '<p class="text-sm text-slate-700 dark:text-slate-300">คำแปลบันทึกเพิ่มเติม (Operational Notes) จะแสดงที่นี่</p>';
+            // Social Media Output was removed
+
+            const btn = document.getElementById('generateFreeTextBtn');
+            btn.disabled = true;
+            btn.innerHTML = 'กำลังแปลภาษา...';
+
+            try {
+                const apiKey = "AIzaSyB7Bxh_wUXh2eyR9nYZIxSJrtV0hDkP_SM";
+                const apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=' + apiKey;
+
+                const prompt = `
+                    แปลภาษาไทยเป็นภาษาอังกฤษในเชิงปฏิบัติการ คำศัพท์ที่เกี่ยวข้องกับรถไฟ ให้ออกมาในรูปแบบเป็นทางการสั้นกระชับได้ใจความ ถูกต้องตามไวยากรณ์(grammar)ของภาษาอังกฤษตามสากล และเข้าใจง่ายสำหรับผู้โดยสารที่เดินทางด้วยรถไฟ จำนวนตัวอักษรต้องไม่เกิน 200 ตัวอักษร(ข้อความทั้งหมดที่แปลออกมาให้เป็นตัวหนังสือวิ่งบนจอ PID)
+                    Thai text: "${freeTextThai}"
+                    Output only the English translation.
+                `;
+
+                let response;
+                let retries = 3;
+                let delay = 1000;
+
+                while (retries > 0) {
+                    response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: prompt }] }]
+                        }),
+                    });
+
+                    if (response.ok) break;
+                    retries--;
+                    if (retries === 0) throw new Error(`API request failed: ${response.status}`);
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    delay *= 2;
+                }
+
+                const result = await response.json();
+                const translatedText = result.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+
+                if (translatedText) {
+                    document.getElementById('englishOutput').textContent = translatedText;
+                    document.getElementById('englishTickerOutput').textContent = translatedText;
+                    document.getElementById('combinedOutput').textContent = `| ${freeTextThai} | ${translatedText} |`;
+                } else {
+                    document.getElementById('englishOutput').textContent = "ไม่สามารถแปลภาษาได้";
+                }
+
+            } catch (error) {
+                console.error('Translation Error:', error);
+                document.getElementById('englishOutput').textContent = "เกิดข้อผิดพลาดในการแปลภาษา";
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-languages"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg> สร้างประกาศอิสระ & แปลภาษา`;
+            }
+        }
+
+        // --- TTS Helper Functions ---
+        function base64ToArrayBuffer(base64) {
+            const binaryString = atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        function writeString(view, offset, string) {
+            for (let i = 0; i < string.length; i++) {
+                view.setUint8(offset + i, string.charCodeAt(i));
+            }
+        }
+
+        function pcmToWav(pcm16, sampleRate) {
+            const numChannels = 1;
+            const bitsPerSample = 16;
+            const bytesPerSample = bitsPerSample / 8;
+            const blockAlign = numChannels * bytesPerSample;
+            const byteRate = sampleRate * blockAlign;
+            const dataLength = pcm16.length * bytesPerSample;
+            const buffer = new ArrayBuffer(44 + dataLength);
+            const view = new DataView(buffer);
+
+            // RIFF chunk descriptor
+            writeString(view, 0, 'RIFF');
+            view.setUint32(4, 36 + dataLength, true); // ChunkSize
+            writeString(view, 8, 'WAVE');
+
+            // FMT sub-chunk
+            writeString(view, 12, 'fmt ');
+            view.setUint32(16, 16, true); // Subchunk1Size (16 for PCM)
+            view.setUint16(20, 1, true); // AudioFormat (1 for PCM)
+            view.setUint16(22, numChannels, true);
+            view.setUint32(24, sampleRate, true);
+            view.setUint32(28, byteRate, true);
+            view.setUint16(32, blockAlign, true);
+            view.setUint16(34, bitsPerSample, true);
+
+            // DATA sub-chunk
+            writeString(view, 36, 'data');
+            view.setUint32(40, dataLength, true); // Subchunk2Size
+
+            // Write the PCM data
+            let offset = 44;
+            for (let i = 0; i < pcm16.length; i++, offset += 2) {
+                view.setInt16(offset, pcm16[i], true); // Write signed 16-bit little-endian
+            }
+
+            return new Blob([view], { type: 'audio/wav' });
+        }
+
+
+        // --- TTS Feature (Gemini API) ---
+        async function generateTTSAnnouncement() {
+            const ttsButton = document.getElementById('generateTTSBtn');
+            const audioPlayer = document.getElementById('audioPlayer');
+            const ttsStatus = document.getElementById('ttsStatus');
+            const textToSpeak = document.getElementById('thaiOutput').textContent.trim();
+
+            if (!textToSpeak) {
+                showToast('กรุณาสร้างข้อความประกาศก่อน');
+                return;
+            }
+
+            // --- Start Loading State ---
+            ttsButton.disabled = true;
+            audioPlayer.classList.add('hidden');
+            audioPlayer.src = ''; // Clear previous source
+            ttsStatus.textContent = 'กำลังสร้างเสียง... (อาจใช้เวลา 5-10 วินาที)';
+
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+
+            try {
+                const apiKey = "AIzaSyB7Bxh_wUXh2eyR9nYZIxSJrtV0hDkP_SM"; // Using User provided API Key
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+
+                const payload = {
+                    contents: [{
+                        parts: [{ text: textToSpeak }]
+                    }],
+                    generationConfig: {
+                        responseModalities: ["AUDIO"],
+                        speechConfig: {
+                            voiceConfig: {
+                                prebuiltVoiceConfig: { voiceName: "Kore" } // Using 'Kore' (Firm) voice
+                            }
+                        }
+                    },
+                    model: "gemini-2.5-flash-preview-tts"
+                };
+
+                let response;
+                let retries = 3;
+                let delay = 1000;
+
+                while (retries > 0) {
+                    response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        break;
+                    } else if (response.status === 429 || response.status >= 500) {
+                        retries--;
+                        if (retries === 0) throw new Error(`API request failed after multiple retries with status: ${response.status}`);
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        delay *= 2;
+                    } else {
+                        throw new Error(`API request failed with status: ${response.status}`);
+                    }
+                }
+
+                const result = await response.json();
+                const part = result?.candidates?.[0]?.content?.parts?.[0];
+                const audioData = part?.inlineData?.data;
+                const mimeType = part?.inlineData?.mimeType;
+
+                if (audioData && mimeType) {
+                    const rateMatch = mimeType.match(/rate=(\d+)/);
+                    const sampleRate = rateMatch ? parseInt(rateMatch[1], 10) : 24000;
+
+                    const pcmDataBuffer = base64ToArrayBuffer(audioData);
+                    const pcm16 = new Int16Array(pcmDataBuffer);
+                    
+                    const wavBlob = pcmToWav(pcm16, sampleRate);
+                    const audioUrl = URL.createObjectURL(wavBlob);
+
+                    audioPlayer.src = audioUrl;
+                    audioPlayer.classList.remove('hidden');
+                    ttsStatus.textContent = 'สร้างเสียงเสร็จสมบูรณ์';
+                    showToast('สร้างเสียงประกาศสำเร็จ!');
+
+                } else {
+                    throw new Error("Invalid audio data received from API.");
+                }
+
+            } catch (error) {
+                console.error('TTS Generation Error:', error);
+                ttsStatus.textContent = `เกิดข้อผิดพลาดในการสร้างเสียง: ${error.message.includes('API') ? 'โปรดตรวจสอบ API Key' : 'ไม่สามารถสร้างเสียงได้'}`;
+                audioPlayer.classList.add('hidden');
+            } finally {
+                ttsButton.disabled = false;
+            }
+        }
+        
+        // --- Staff Briefing Summary Feature (Gemini API) ---
+        async function generateStaffBriefing() {
+            const briefingContainer = document.getElementById('staffBriefingContainer');
+            const briefingButton = document.getElementById('generateStaffBriefingBtn');
+
+            // 1. Show loading state
+            briefingContainer.innerHTML = `<p class="text-center text-slate-500 dark:text-slate-400 text-sm">✨ กำลังสร้างรายงานสรุปสถานการณ์...</p>`;
+            briefingButton.disabled = true;
+
+            // 2. Get the full Thai announcement text
+            const fullThaiAnnouncement = document.getElementById('thaiOutput').textContent.trim();
+            const minAnnouncementLength = 50; 
+
+            if (!fullThaiAnnouncement || fullThaiAnnouncement.length < minAnnouncementLength) {
+                briefingContainer.innerHTML = `<p class="text-red-500 text-sm">กรุณาสร้างข้อความประกาศ (กดปุ่ม "สร้างข้อความประกาศ") ให้สมบูรณ์ก่อนเพื่อใช้ในการสรุป</p>`;
+                briefingButton.disabled = false;
+                return;
+            }
+
+            // 3. Construct the prompt
+            const prompt = `
+                จากข้อความประกาศสถานการณ์รถไฟอย่างเป็นทางการต่อไปนี้:
+                "${fullThaiAnnouncement}"
+
+                โปรดสรุปสถานการณ์เป็นรายงานสำหรับเจ้าหน้าที่ (Staff Briefing) โดยเน้นข้อมูลปฏิบัติการที่กระชับและเป็นทางการในรูปแบบรายการหัวข้อย่อยเท่านั้น (ห้ามมีประโยคเปิด/ปิด)
+                
+                เน้นข้อมูลดังต่อไปนี้:
+                1. ขบวนรถและเส้นทาง (Train Details)
+                2. ประเภทเหตุการณ์หลัก (Primary Incident Type)
+                3. ตำแหน่งเกิดเหตุ (Location of Incident)
+                4. สถานะปัจจุบัน/การดำเนินการแก้ไข (Current Action/Status)
+                5. ผลกระทบด้านเวลาโดยประมาณ (Estimated Delay/Impact)
+                6. ขบวนรถอื่นที่ได้รับผลกระทบ (ถ้ามี)
+                
+                ตอบกลับเป็นรายการหัวข้อย่อยภาษาไทยที่ขึ้นต้นด้วยเครื่องหมาย - เท่านั้น
+            `;
+
+            // 4. Call the Gemini API
+            try {
+                const apiKey = "AIzaSyB7Bxh_wUXh2eyR9nYZIxSJrtV0hDkP_SM"; // User provided key
+                const apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=' + apiKey;
+
+                let response;
+                let retries = 3;
+                let delay = 1000;
+
+                while (retries > 0) {
+                    response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: prompt }] }],
+                            systemInstruction: { parts: [{ text: "You are an emergency operations center assistant. Your task is to provide a concise, formal, operational summary (Staff Briefing) in Thai language. Output must be in bullet point format only." }] },
+                        }),
+                    });
+
+                    if (response.ok) break;
+                    retries--;
+                    if (retries === 0) throw new Error(`API request failed after multiple retries with status: ${response.status}`);
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    delay *= 2;
+                }
+
+                const result = await response.json();
+                const briefingText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                if (briefingText) {
+                    const briefingItems = briefingText.split('\n').map(item => item.replace(/^- \s*/, '')).filter(item => item.trim() !== '');
+                    const briefingHtml = '<ul>' + briefingItems.map(item => `<li class="mb-2 text-sm text-red-800 dark:text-red-300">🚨 ${item.trim()}</li>`).join('') + '</ul>';
+                    
+                    briefingContainer.innerHTML = `
+                        ${briefingHtml}
+                        <button type="button" onclick="copyToClipboard('staffBriefingContainer', this)" class="mt-4 w-full bg-white dark:bg-slate-700 text-slate-500 dark:text-slate-300 px-3 py-1 rounded-md text-sm hover:bg-slate-100 dark:hover:bg-slate-600 hover:text-slate-700 border border-slate-300 dark:border-slate-500 transition-all flex items-center justify-center gap-1.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy">
+                                <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                            </svg>
+                            คัดลอกรายงาน
+                        </button>
+                    `;
+                } else {
+                    throw new Error("No content received from AI.");
+                }
+
+            } catch (error) {
+                console.error('Gemini Staff Briefing Error:', error);
+                briefingContainer.innerHTML = `<p class="text-red-500 text-sm">เกิดข้อผิดพลาดในการสร้างรายงาน: โปรดลองอีกครั้ง</p>`;
+            } finally {
+                briefingButton.disabled = false;
+            }
+        }
+
+        // --- NEW: International Notes Translation Feature (Gemini API) ---
+        async function translateInternationalNotes() {
+            const notesContainer = document.getElementById('internationalNotesContainer');
+            const translateButton = document.getElementById('translateNotesBtn');
+            const notesText = document.getElementById('notes').value.trim();
+
+            // 1. Show loading state
+            notesContainer.innerHTML = `<p class="text-center text-slate-500 dark:text-slate-400 text-sm">✨ กำลังแปลบันทึกเพิ่มเติม...</p>`;
+            translateButton.disabled = true;
+
+            // 2. Check input
+            if (!notesText || notesText.length < 10) {
+                notesContainer.innerHTML = `<p class="text-red-500 text-sm">กรุณากรอกข้อมูลในช่อง "บันทึกเพิ่มเติม" ให้มีความยาวพอสมควร เพื่อให้ AI แปลได้อย่างถูกต้อง</p>`;
+                translateButton.disabled = false;
+                return;
+            }
+
+            // 3. Construct the prompt
+            const prompt = `
+                แปลข้อความภาษาไทยต่อไปนี้ให้เป็นภาษาอังกฤษเชิงปฏิบัติการ (Operational English) ที่กระชับและเป็นทางการ
+                ข้อความนี้คือ "บันทึกเพิ่มเติม" สำหรับรายงานสถานการณ์รถไฟภายใน:
+                "${notesText}"
+                
+                ห้ามมีประโยคเปิด/ปิด และเน้นความชัดเจนในการสื่อสารข้อมูลทางเทคนิค/ปฏิบัติการ
+            `;
+
+            // 4. Call the Gemini API
+            try {
+                const apiKey = "AIzaSyB7Bxh_wUXh2eyR9nYZIxSJrtV0hDkP_SM"; // User provided key
+                const apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=' + apiKey;
+
+                let response;
+                let retries = 3;
+                let delay = 1000;
+
+                while (retries > 0) {
+                    response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: prompt }] }],
+                            systemInstruction: { parts: [{ text: "You are an expert translator specializing in railway operational reports. Translate the provided Thai text into concise, formal, operational English suitable for internal staff and partner communication. Output only the translated text." }] },
+                        }),
+                    });
+
+                    if (response.ok) break;
+                    retries--;
+                    if (retries === 0) throw new Error(`API request failed after multiple retries with status: ${response.status}`);
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    delay *= 2;
+                }
+
+                const result = await response.json();
+                const translatedText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                if (translatedText) {
+                    notesContainer.innerHTML = `
+                        <p id="translatedNotesOutputText" class="whitespace-pre-wrap text-slate-800 dark:text-slate-300 text-sm leading-relaxed font-mono">${translatedText.trim()}</p>
+                        <button type="button" onclick="copyToClipboard('translatedNotesOutputText', this)" class="mt-4 w-full bg-white dark:bg-slate-700 text-slate-500 dark:text-slate-300 px-3 py-1 rounded-md text-sm hover:bg-slate-100 dark:hover:bg-slate-600 hover:text-slate-700 border border-slate-300 dark:border-slate-500 transition-all flex items-center justify-center gap-1.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy">
+                                <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                            </svg>
+                            คัดลอกคำแปล
+                        </button>
+                    `;
+                } else {
+                    throw new Error("No content received from AI.");
+                }
+
+            } catch (error) {
+                console.error('Gemini Translation Error:', error);
+                notesContainer.innerHTML = `<p class="text-red-500 text-sm">เกิดข้อผิดพลาดในการแปล: โปรดลองอีกครั้ง</p>`;
+            } finally {
+                translateButton.disabled = false;
+            }
+        }
+
+        // --- AI Advice Feature (Gemini API) ---
         async function generateAIAdvice() {
             const adviceContainer = document.getElementById('aiAdviceContainer');
             const adviceButton = document.getElementById('generateAdviceBtn');
@@ -1713,9 +2056,7 @@
 
             // 4. Call the Gemini API with exponential backoff
             try {
-                // IMPORTANT: The API Key is left empty for the platform to inject it at runtime.
-                const apiKey = "AIzaSyDE2LeDCT3DxsJ--o9c9yvYJ61kq7YrH9w";
-                // Corrected Model Name to the current standard
+                const apiKey = "AIzaSyB7Bxh_wUXh2eyR9nYZIxSJrtV0hDkP_SM"; // <-- FIX: Updated with provided API key
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
 
                 let response;
@@ -1734,7 +2075,6 @@
                                     text: prompt
                                 }]
                             }],
-                            // Using systemInstruction for role setting
                             systemInstruction: {
                                 parts: [{ text: "Act as a helpful and compassionate assistant for the State Railway of Thailand (SRT). Provide practical and reassuring advice to passengers affected by train disruptions. Your output must strictly be a list of 3-4 bullet points in Thai only." }]
                             },
@@ -1742,17 +2082,15 @@
                     });
 
                     if (response.ok) {
-                        break; // Success
+                        break;
                     } else if (response.status === 429 || response.status >= 500) {
-                        // Retry on rate limiting or server errors
                         retries--;
                         if (retries === 0) {
                             throw new Error(`API request failed after multiple retries with status: ${response.status}`);
                         }
                         await new Promise(resolve => setTimeout(resolve, delay));
-                        delay *= 2; // Exponential backoff
+                        delay *= 2;
                     } else {
-                        // Don't retry for other client-side errors
                         throw new Error(`API request failed with status: ${response.status}`);
                     }
                 }
@@ -1761,7 +2099,6 @@
                 const adviceText = result.candidates?.[0]?.content?.parts?.[0]?.text;
 
                 if (adviceText) {
-                    // Format as HTML list
                     const adviceItems = adviceText.split('\n').map(item => item.replace(/^- \s*/, '')).filter(item => item.trim() !== '');
                     const adviceHtml = '<ul>' + adviceItems.map(item => `<li class="mb-2 text-sm text-slate-700 dark:text-slate-300">✨ ${item.trim()}</li>`).join('') + '</ul>';
                     adviceContainer.innerHTML = adviceHtml;
@@ -1772,7 +2109,7 @@
             } catch (error) {
                 console.error('Gemini API Error:', error);
                 let errorMessage = 'ขออภัย, ไม่สามารถสร้างคำแนะนำได้ในขณะนี้';
-                if (error.message.includes('400')) {
+                if (error.message.includes('API')) {
                     errorMessage += ' (Bad Request). โปรดตรวจสอบการตั้งค่าของ API';
                 }
                 adviceContainer.innerHTML = `<p class="text-red-500 text-sm">${errorMessage}</p>`;
@@ -1794,7 +2131,7 @@
             });
             // Datalists
             populateDatalist('trainNumbersList', Array.from({
-                length: 1000
+                length: 5000 
             }, (_, i) => i + 1));
             populateDatalist('stationList', Object.keys(stationTranslation));
             // Templates
@@ -1817,14 +2154,15 @@
                             } else {
                                 el.value = template.data[el.id];
                             }
+                            // Trigger change event for selects and checkboxes to update dependent UI
                             if (el.tagName === 'SELECT' || el.type === 'checkbox') {
-                                el.dispatchEvent(new Event('change', {
-                                    bubbles: true
-                                }));
+                                el.dispatchEvent(new Event('change', { bubbles: true }));
                             }
                         }
                     });
                     showToast(`โหลดเทมเพลต '${name}' แล้ว`);
+                    updateConditionalFields(); // Make sure conditional fields visibility is updated
+                    updateLocationFields();
                     generateAnnouncement();
                 } else {
                     showToast('กรุณาเลือกเทมเพลตที่ต้องการโหลด');
@@ -1861,8 +2199,13 @@
                 setTimeout(() => deleteModal.classList.add('hidden'), 300);
             });
 
-            // Gemini API Button
+            // Gemini API Buttons
             document.getElementById('generateAdviceBtn').addEventListener('click', generateAIAdvice);
+            document.getElementById('generateTTSBtn').addEventListener('click', generateTTSAnnouncement); // New TTS Listener
+            // document.getElementById('generateSocialPostBtn').addEventListener('click', generateSocialMediaPost); // Social Post Listener (Removed)
+            document.getElementById('generateStaffBriefingBtn').addEventListener('click', generateStaffBriefing); // Staff Briefing Listener
+            document.getElementById('translateNotesBtn').addEventListener('click', translateInternationalNotes); // NEW International Notes Listener
+            document.getElementById('generateFreeTextBtn').addEventListener('click', generateFreeTextAnnouncement); // NEW Free Text Listener
 
             // Form Logic
             document.getElementById('reason').addEventListener('change', updateConditionalFields);
@@ -1872,13 +2215,20 @@
             });
             document.getElementById('clearFormBtn').addEventListener('click', () => {
                 form.reset();
-                updateConditionalFields();
+                // Manually trigger updates for dependent fields after reset
+                updateConditionalFields(); 
                 updateLocationFields();
-                toggleElement('affectedTrainsWrapper', false);
-                document.getElementById('unavailableDate').value = new Date().toISOString().split('T')[0];
-                document.getElementById('locationType').value = 'not_specified';
-                outputArea.classList.add('hidden');
-                document.getElementById('aiAdviceContainer').innerHTML = '<!-- AI-generated advice will be shown here -->';
+                toggleElement('affectedTrainsWrapper', false); // Ensure this is hidden
+                document.getElementById('unavailableDate').value = new Date().toISOString().split('T')[0]; // Reset date to today
+                document.getElementById('locationType').value = 'not_specified'; // Reset location type
+                outputArea.classList.add('hidden'); // Hide output area
+                document.getElementById('aiAdviceContainer').innerHTML = '<!-- AI-generated advice will be shown here -->'; // Clear AI advice
+                document.getElementById('audioPlayer').classList.add('hidden'); // Clear TTS player
+                document.getElementById('audioPlayer').src = '';
+                document.getElementById('ttsStatus').textContent = '';
+                document.getElementById('staffBriefingContainer').innerHTML = '<p class="text-sm text-red-800 dark:text-red-300">ข้อมูลสรุปสำหรับการปฏิบัติงานภายในจะแสดงที่นี่</p>'; // Clear staff briefing output
+                document.getElementById('internationalNotesContainer').innerHTML = '<p class="text-sm text-slate-700 dark:text-slate-300">คำแปลบันทึกเพิ่มเติม (Operational Notes) จะแสดงที่นี่</p>'; // Clear International Notes output
+                document.getElementById('freeTextThai').value = ''; // Clear free text area
             });
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
