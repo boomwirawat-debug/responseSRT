@@ -58,7 +58,7 @@
         .animate-marquee {
             display: inline-block;
             white-space: nowrap;
-            animation: marquee 40s linear infinite; /* Slower for longer text */
+            animation: marquee 25s linear infinite; /* Slower for longer text */
         }
         
         .hover-pause:hover .animate-marquee {
@@ -542,7 +542,7 @@
 
     <script>
         // --- CONFIG & GLOBAL DATA ---
-        const apiKey = "AIzaSyC67poMm5fNHc5yvHTfv5ihA2-u7VEkA44"; // API Key will be provided by the environment
+        const apiKey = ""; // API Key set to empty for environment injection
         
         // --- DICTIONARIES (Moved to Global Scope) ---
         const trainTypeMap = { 'รถด่วนพิเศษ': 'Special Express Train', 'รถด่วน': 'Express Train', 'รถเร็ว': 'Rapid Train', 'รถธรรมดา': 'Ordinary Train', 'รถท้องถิ่น': 'Local Train', 'รถชานเมือง': 'Commuter Train', 'รถพิเศษชานเมือง': 'S.Commuter Train', 'รถพิเศษโดยสาร': 'Special Train', 'รถสินค้าห่อวัตถุด่วน': 'Parcel Freight Train' };
@@ -938,15 +938,15 @@
             const trainIdThai = formData.trainNumberInput && formData.origin && formData.destination ? `ขบวน${formData.trainType}ที่ ${formData.trainNumberInput} (${formData.origin} - ${formData.destination})` : (formData.trainNumberInput ? `ขบวน${formData.trainType}ที่ ${formData.trainNumberInput}` : 'ขบวนรถ');
             const trainIdEn = formData.trainNumberInput && formData.origin && formData.destination ? `${trainTypeMap[formData.trainType] || 'Train'} No. ${formData.trainNumberInput} (${translate(formData.origin)} - ${translate(formData.destination)})` : (formData.trainNumberInput ? `${trainTypeMap[formData.trainType] || 'Train'} No. ${formData.trainNumberInput}` : 'The train');
 
-            // Location Logic (Same as before)
+            // Location Logic
+            let locationThai = '';
+            let locationEn = '';
             if (formData.locationType === 'at_station' && formData.locationStation) {
-                thaiParts.location = `ที่สถานี ${formData.locationStation}`;
-                englishParts.location = `at ${translate(formData.locationStation)} Station`;
+                locationThai = `ที่สถานี ${formData.locationStation}`;
+                locationEn = `at ${translate(formData.locationStation)} Station`;
             } else if (formData.locationType === 'between_stations' && formData.locationBetween1 && formData.locationBetween2) {
-                thaiParts.location = `ระหว่างสถานี ${formData.locationBetween1} - ${formData.locationBetween2}`;
-                englishParts.location = `between ${translate(formData.locationBetween1)} and ${translate(formData.locationBetween2)} stations`;
-            } else {
-                thaiParts.location = ''; englishParts.location = '';
+                locationThai = `ระหว่างสถานี ${formData.locationBetween1} - ${formData.locationBetween2}`;
+                locationEn = `between ${translate(formData.locationBetween1)} and ${translate(formData.locationBetween2)} stations`;
             }
 
             // Announcement Construction Logic
@@ -954,10 +954,10 @@
                 const subReasonKey = formData.subReason21 || 'flooding';
                 const subReasonThai = subReason21Map[subReasonKey].thai;
                 const subReasonEn = subReason21Map[subReasonKey].english;
-                thaiText = `ประกาศปิดเส้นทาง: จากเหตุ${subReasonThai} ${thaiParts.location} ขณะนี้อยู่ระหว่างการประเมินสถานการณ์ หากมีข้อมูลเพิ่มเติมจะแจ้งให้ทราบอีกครั้ง ขออภัยในความไม่สะดวก`;
-                englishText = `Announcement Route Closure: The line is temporarily closed due to ${subReasonEn} ${englishParts.location}. Assessment is in progress. Further updates will be announced. We apologize for the inconvenience.`;
-                thaiTickerText = `แจ้งปิดเส้นทาง: เกิดเหตุ${subReasonThai} ${thaiParts.location}. ขออภัยในความไม่สะดวก`;
-                englishTickerText = `ROUTE CLOSED: Due to ${subReasonEn} ${englishParts.location}. We apologize for the inconvenience.`;
+                thaiText = `ประกาศปิดเส้นทาง: จากเหตุ${subReasonThai} ${locationThai} ขณะนี้อยู่ระหว่างการประเมินสถานการณ์ หากมีข้อมูลเพิ่มเติมจะแจ้งให้ทราบอีกครั้ง ขออภัยในความไม่สะดวก`;
+                englishText = `Announcement Route Closure: The line is temporarily closed due to ${subReasonEn} ${locationEn}. Assessment is in progress. Further updates will be announced. We apologize for the inconvenience.`;
+                thaiTickerText = `แจ้งปิดเส้นทาง: เกิดเหตุ${subReasonThai} ${locationThai}. ขออภัยในความไม่สะดวก`;
+                englishTickerText = `ROUTE CLOSED: Due to ${subReasonEn} ${locationEn}. We apologize for the inconvenience.`;
             } else if (formData.reason === '3') { 
                 thaiText = `${trainIdThai} ไม่สามารถใช้ความเร็วสูงสุดได้ ส่งผลให้ขบวนรถเกิดการล่าช้าสะสม ขออภัยในความไม่สะดวก`;
                 englishText = `${trainIdEn} is unable to run at maximum speed, causing accumulated delays. We apologize for the inconvenience.`;
@@ -978,7 +978,7 @@
                 }
 
                 if (formData.reason === '18') {
-                     thaiParts.mainClause = `${carriageChangeMap[formData.carriageChangeType].thai}${thaiParts.location ? ' ' + thaiParts.location : ''}`;
+                     thaiParts.mainClause = `${carriageChangeMap[formData.carriageChangeType].thai}${locationThai ? ' ' + locationThai : ''}`;
                      englishParts.mainClause = `${trainIdEn} is subject to ${carriageChangeMap[formData.carriageChangeType].english}`;
                 } else if (formData.reason === '19' && formData.unavailableDate) {
                     const d = new Date(formData.unavailableDate);
@@ -987,12 +987,12 @@
                 } else {
                     if (formData.carriageNumber) { reasonStrThai += ` (${formData.carriageNumber})`; reasonStrEn += ` (Car No. ${formData.carriageNumber})`; }
                     let prefix = (['6', '7', '13', '17', '20', '22'].includes(formData.reason)) ? '' : 'เกิดเหตุ';
-                    thaiParts.mainClause = `${prefix}${reasonStrThai}${thaiParts.location ? ' ' + thaiParts.location : ''}${subReasonTextThai}`;
+                    thaiParts.mainClause = `${prefix}${reasonStrThai}${locationThai ? ' ' + locationThai : ''}${subReasonTextThai}`;
                     
                     let verb = (['7', '13', '17'].includes(formData.reason)) ? 'is' : 'is experiencing a disruption due to';
-                    if(['6', '20'].includes(formData.reason)) englishParts.mainClause = `${trainIdEn} ${reasons[formData.reason].english}${englishParts.location ? ' ' + englishParts.location : ''}${subReasonTextEn}`.trim();
+                    if(['6', '20'].includes(formData.reason)) englishParts.mainClause = `${trainIdEn} ${reasons[formData.reason].english}${locationEn ? ' ' + locationEn : ''}${subReasonTextEn}`.trim();
                     else if(formData.reason === '22') englishParts.mainClause = `${trainIdEn} is experiencing ${reasonStrEn}`;
-                    else englishParts.mainClause = `${trainIdEn} ${verb} ${reasonStrEn}${englishParts.location ? ' ' + englishParts.location : ''}`;
+                    else englishParts.mainClause = `${trainIdEn} ${verb} ${reasonStrEn}${locationEn ? ' ' + locationEn : ''}`;
                 }
 
                 if (formData.actionTaken) { thaiParts.action = actions.thai[formData.actionTaken]; englishParts.action = actions.english[formData.actionTaken]; }
@@ -1021,7 +1021,7 @@
                 // Ticker
                 let tickerReason = reasons[formData.reason].thai;
                 if(formData.reason === '20' && subReason20Map[formData.subReason20]) tickerReason += subReason20Map[formData.subReason20].thai;
-                thaiTickerText = `${trainIdThai} ${tickerReason} ${thaiParts.location} ขออภัยในความไม่สะดวก`;
+                thaiTickerText = `${trainIdThai} ${tickerReason} ${locationThai} ขออภัยในความไม่สะดวก`;
                 englishTickerText = `${trainIdEn} - ${reasons[formData.reason].english}. We apologize for the inconvenience.`;
             }
 
@@ -1359,6 +1359,3 @@
     </script>
 </body>
 </html>
-
-
-
