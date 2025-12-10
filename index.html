@@ -92,7 +92,7 @@
                     <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
                 </svg>
                 <svg id="theme-toggle-light-icon" class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+                    <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
                 </svg>
             </button>
         </header>
@@ -936,7 +936,14 @@
             const thaiParts = {}, englishParts = {};
 
             const trainIdThai = formData.trainNumberInput && formData.origin && formData.destination ? `ขบวน${formData.trainType}ที่ ${formData.trainNumberInput} (${formData.origin} - ${formData.destination})` : (formData.trainNumberInput ? `ขบวน${formData.trainType}ที่ ${formData.trainNumberInput}` : 'ขบวนรถ');
-            const trainIdEn = formData.trainNumberInput && formData.origin && formData.destination ? `${trainTypeMap[formData.trainType] || 'Train'} No. ${formData.trainNumberInput} (${translate(formData.origin)} - ${translate(formData.destination)})` : (formData.trainNumberInput ? `${trainTypeMap[formData.trainType] || 'Train'} No. ${formData.trainNumberInput}` : 'The train');
+            
+            // Logic to append 'Train'
+            const typeEn = trainTypeMap[formData.trainType];
+            const trainTypeString = typeEn ? `${typeEn} Train` : 'Train';
+            
+            const trainIdEn = formData.trainNumberInput && formData.origin && formData.destination 
+                ? `${trainTypeString} No. ${formData.trainNumberInput} (${translate(formData.origin)} - ${translate(formData.destination)})` 
+                : (formData.trainNumberInput ? `${trainTypeString} No. ${formData.trainNumberInput}` : 'The train');
 
             // Location Logic (Same as before)
             if (formData.locationType === 'at_station' && formData.locationStation) {
@@ -1039,28 +1046,59 @@
             ticker.classList.remove('hidden');
         }
 
-        // --- API CALL HELPER (Simplified for Preview Env) ---
-        async function callGeminiAPI(payload, modelName = 'gemini-2.5-flash-preview-09-2025') {
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
-            let retries = 3, delay = 1000;
-            while (retries > 0) {
-                const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-                if (res.ok) return await res.json();
-                
-                // Log but don't expose keys
-                if (res.status === 403 || res.status === 404) {
-                     const errText = await res.text();
-                     throw new Error(`API Error (${modelName}): ${res.status} - ${errText}`);
-                }
+        // --- API CALL HELPER (Auto-Fallback) ---
+        async function callGeminiAPI(payload, specificModel = null) {
+            if (!apiKey) throw new Error("API Key not set.");
+            
+            // Fallback strategy: Try latest models -> standard -> older stable models
+            const modelsToTry = specificModel ? [specificModel] : [
+                'gemini-2.0-flash-exp',
+                'gemini-1.5-flash',
+                'gemini-1.5-flash-latest',
+                'gemini-1.5-flash-001',
+                'gemini-1.5-flash-8b',
+                'gemini-1.5-pro',
+                'gemini-pro'
+            ];
 
-                if (res.status === 429 || res.status >= 500) {
-                    retries--; await new Promise(r => setTimeout(r, delay)); delay *= 2;
-                } else {
-                    const errText = await res.text();
-                    throw new Error(`API Error ${res.status}: ${errText}`);
+            for (const model of modelsToTry) {
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+                try {
+                    const res = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (res.ok) {
+                        return await res.json();
+                    }
+                    
+                    // On 404 (Model Not Found) or 403 (Permission/Quota), try next model
+                    if (res.status === 404 || res.status === 403) {
+                        // If last model failed, throw distinct error
+                        if (model === modelsToTry[modelsToTry.length - 1]) {
+                             const errText = await res.text();
+                             // Try parsing error JSON if possible
+                             let errMsg = errText;
+                             try { errMsg = JSON.parse(errText).error.message; } catch(e){}
+                             throw new Error(`${res.status}: ${errMsg}`);
+                        }
+                        console.warn(`Model ${model} failed (${res.status}), trying next...`);
+                        continue; 
+                    }
+
+                    if (res.status === 429 || res.status >= 500) {
+                        // For transient errors, maybe we should retry same model? 
+                        // But for simplicity in this script, we treat as failure and try next or throw.
+                        const errText = await res.text();
+                        throw new Error(`API Error ${res.status}: ${errText}`);
+                    }
+                    
+                } catch (e) {
+                    if (model === modelsToTry[modelsToTry.length - 1]) throw e;
                 }
             }
-            throw new Error("API Timeout");
         }
 
         // --- FEATURES ---
@@ -1078,7 +1116,7 @@
             ticker.classList.remove('hidden');
             
             try {
-                // Use explicit supported model
+                // No specific model needed for translation, use fallback list
                 const data = await callGeminiAPI({ contents: [{ parts: [{ text: `Translate this Thai railway announcement to formal English: "${text}"` }] }] });
                 const trans = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
                 document.getElementById('englishOutput').textContent = trans || "Error translating";
@@ -1087,7 +1125,7 @@
                 document.getElementById('bottomTickerText').textContent = `📢 | ${text} | ${trans} |`;
             } catch (e) { 
                 showApiError(e.message);
-                document.getElementById('englishOutput').textContent = "Translation Failed";
+                document.getElementById('englishOutput').textContent = "Translation Failed: Check API Key / Quota";
             }
             btn.disabled = false; btn.innerHTML = 'สร้างประกาศอิสระ & แปลภาษา';
         }
@@ -1183,15 +1221,14 @@
             status.textContent = 'Generating Audio...';
             
             try {
-                // TTS uses a specific model. Using the preview TTS model.
+                // TTS uses a specific model. Fallback logic is hard for TTS as models differ.
                 const model = 'gemini-2.5-flash-preview-tts'; 
                 const payload = {
                     contents: [{ parts: [{ text: text }] }],
                     generationConfig: { responseModalities: ["AUDIO"], speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Kore" } } } }
                 };
                 
-                // Direct fetch for TTS
-                // Note: callGeminiAPI helper now defaults to text model, so we pass explicit model
+                // Direct fetch for TTS to avoid fallback loop causing issues with incompatible models
                 const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
                 const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
                 
