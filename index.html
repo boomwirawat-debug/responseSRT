@@ -58,7 +58,7 @@
         .animate-marquee {
             display: inline-block;
             white-space: nowrap;
-            animation: marquee 50s linear infinite; /* Slower for longer text */
+            animation: marquee 25s linear infinite; /* Slower for longer text */
         }
         
         .hover-pause:hover .animate-marquee {
@@ -479,7 +479,7 @@
     </div>
 
     <!-- Bottom Ticker Bar -->
-    <div id="bottomTickerContainer" class="fixed bottom-0 left-0 w-full bg-black text-white p-3 hidden z-40 overflow-hidden whitespace-nowrap hover-pause shadow-lg border-t border-gray-800">
+    <div id="bottomTickerContainer" class="fixed bottom-0 left-0 w-full bg-indigo-900 text-white p-3 hidden z-40 overflow-hidden whitespace-nowrap hover-pause shadow-lg border-t border-indigo-700">
         <div id="bottomTickerText" class="inline-block animate-marquee text-lg font-medium"></div>
     </div>
 
@@ -542,7 +542,7 @@
 
     <script>
         // --- CONFIG & GLOBAL DATA ---
-        const apiKey = "AIzaSyAsKAWqM671QwAB2ETO1qIQqVFxzADoHBM"; // API Key set to empty for environment injection
+        const apiKey = ""; // API Key set to empty for environment injection
         
         // --- DICTIONARIES (Moved to Global Scope) ---
         const trainTypeMap = { 'รถด่วนพิเศษ': 'Special Express Train', 'รถด่วน': 'Express Train', 'รถเร็ว': 'Rapid Train', 'รถธรรมดา': 'Ordinary Train', 'รถท้องถิ่น': 'Local Train', 'รถชานเมือง': 'Commuter Train', 'รถพิเศษชานเมือง': 'S.Commuter Train', 'รถพิเศษโดยสาร': 'Special Train', 'รถสินค้าห่อวัตถุด่วน': 'Parcel Freight Train' };
@@ -583,7 +583,7 @@
             'construction': { thai: "เนื่องจากผ่านเขตก่อสร้าง", english: "passing through a construction zone" },
             'refueling': { thai: "เนื่องจากเติมน้ำ/เชื้อเพลิง", english: "refueling/water refilling" },
             'waiting_pass': { thai: "เนื่องจากรอหลีกขบวนรถ", english: "waiting for another train to pass" },
-            'waiting_track': { thai: "เนื่องจากรอทาง", english: "waiting for the track to clear" },
+            'waiting_track': { thai: "เนื่องจากรอทาง", english: "waiting for the track" },
             'switching_maneuver': { thai: "เนื่องจากสับเปลี่ยนรถ", english: "due to switching maneuver" },
             'traffic_congestion': { thai: "เนื่องจากติดการจราจรทางถนน", english: "due to crowded car traffic" },
             'parcel_handling': { thai: "เนื่องจาก ขึ้น-ลง สินค้าห่อวัตถุ", english: "loading and unloading of parcels" }
@@ -1208,7 +1208,8 @@
             "อู่ตะเภา":"Utaphao",
             "อุรุพงษ์":"Uruphong",
             "อยุธยา":"Ayutthaya",
-            "ไอสะเตีย":"Aisatia"};
+            "ไอสะเตีย":"Aisatia"
+            };
         const trainData = [
                 { route: "กรุงเทพอภิวัฒน์ - ชุมทางหาดใหญ่", number: "31", type: "ด่วนพิเศษ" },
                 { route: "ชุมทางหาดใหญ่ - กรุงเทพอภิวัฒน์", number: "32", type: "ด่วนพิเศษ" },
@@ -1845,7 +1846,8 @@
                     }
                     const typeSelect = document.getElementById('trainType');
                     for(let i=0; i<typeSelect.options.length; i++) {
-                        if(typeSelect.options[i].value.includes(t.type)) {
+                        // Fix: Exact match or match with prefix "รถ" to avoid ambiguity (e.g. "ด่วน" vs "ด่วนพิเศษ")
+                        if(typeSelect.options[i].value === 'รถ' + t.type || typeSelect.options[i].value === t.type) {
                             typeSelect.selectedIndex = i; break;
                         }
                     }
@@ -1953,8 +1955,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
