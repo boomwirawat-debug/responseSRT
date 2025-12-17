@@ -100,6 +100,24 @@
         <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
             <!-- Left Column: Form -->
             <div class="lg:col-span-3 space-y-8">
+                <!-- Mode Selector -->
+                <div class="bg-indigo-50 dark:bg-indigo-900/20 rounded-xl p-2 flex border border-indigo-100 dark:border-indigo-800">
+                    <label class="flex-1 text-center cursor-pointer">
+                        <input type="radio" name="announcementScope" value="specific" checked class="peer sr-only">
+                        <div class="p-3 rounded-lg font-bold text-slate-600 dark:text-slate-400 peer-checked:bg-white dark:peer-checked:bg-indigo-700 peer-checked:text-indigo-600 dark:peer-checked:text-white peer-checked:shadow-sm transition-all flex items-center justify-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-train-front"><path d="M8 3.1V7a4 4 0 0 0 8 0V3.1"/><path d="m9 15-1-1"/><path d="m15 15 1-1"/><path d="M9 19c-2.8 0-5-2.2-5-5v-4a8 8 0 0 1 16 0v4c0 2.8-2.2 5-5 5Z"/><path d="m8 19-2 3"/><path d="m16 19 2 3"/></svg>
+                            ประกาศรายขบวน
+                        </div>
+                    </label>
+                    <label class="flex-1 text-center cursor-pointer">
+                        <input type="radio" name="announcementScope" value="general" class="peer sr-only">
+                        <div class="p-3 rounded-lg font-bold text-slate-600 dark:text-slate-400 peer-checked:bg-white dark:peer-checked:bg-red-700 peer-checked:text-red-600 dark:peer-checked:text-white peer-checked:shadow-sm transition-all flex items-center justify-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-alert-octagon"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+                            เหตุการณ์ทั่วไป/ภัยธรรมชาติ
+                        </div>
+                    </label>
+                </div>
+
                 <!-- Template Section -->
                 <section class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sm:p-8 transition-colors">
                     <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
@@ -119,8 +137,8 @@
                 </section>
 
                 <form id="announcementForm" class="space-y-8">
-                    <!-- Section 1: Train Information -->
-                    <section class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sm:p-8 transition-colors">
+                    <!-- Section 1: Train Information (Only for Specific Mode) -->
+                    <section id="trainInfoSection" class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sm:p-8 transition-colors">
                         <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-train-track"><path d="M2 17 17 2"/><path d="m2 14 8 8"/><path d="m5 11 8 8"/><path d="m8 8 8 8"/><path d="m11 5 8 8"/><path d="M7 22 22 7"/></svg>
                             1. ข้อมูลขบวนรถ
@@ -334,11 +352,11 @@
                             <div class="col-span-full space-y-4">
                                 <label class="flex items-center space-x-3 bg-slate-50 dark:bg-slate-900/50 border border-slate-300 dark:border-slate-600 rounded-lg p-3 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
                                     <input id="otherTrainsAffected" type="checkbox" class="h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                    <span class="text-sm font-medium text-slate-700 dark:text-slate-300">เหตุการณ์นี้อาจส่งผลกระทบต่อขบวนรถอื่น</span>
+                                    <span id="affectedLabel" class="text-sm font-medium text-slate-700 dark:text-slate-300">เหตุการณ์นี้อาจส่งผลกระทบต่อขบวนรถอื่น</span>
                                 </label>
                                 <div id="affectedTrainsWrapper" class="hidden">
-                                    <label for="affectedTrains" class="block text-sm font-medium mb-2 text-slate-600 dark:text-slate-300">ระบุหมายเลขขบวนที่ได้รับผลกระทบ (คั่นด้วยจุลภาค ,)</label>
-                                    <input type="text" id="affectedTrains" class="w-full p-3 bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg" placeholder="เช่น 41, 109, 255">
+                                    <label for="affectedTrains" class="block text-sm font-medium mb-2 text-slate-600 dark:text-slate-300">ระบุหมายเลขขบวน/เส้นทางที่ได้รับผลกระทบ</label>
+                                    <input type="text" id="affectedTrains" class="w-full p-3 bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg" placeholder="เช่น 41, 109 หรือ สายใต้ทุกขบวน">
                                 </div>
                             </div>
                         </div>
@@ -613,6 +631,7 @@
             "ตู้โดยสาร ชั้น2": "2nd Class Coach", "ตู้โดยสาร ชั้น3": "3rd Class Coach", "ตู้เสบียง": "Dining Car"
         };
         const stationTranslation = {
+            // ... (keep existing station translations - truncated for brevity but assuming they are there from previous context) ...
             "กรุงเทพอภิวัฒน์":"Krung Thep Aphiwat",
             "กรุงเทพ [หัวลำโพง]":"Bangkok [Hua LamPhong]",
             "กบินทร์เก่า":"Kabin Kao",
@@ -1210,6 +1229,7 @@
             "อยุธยา":"Ayutthaya",
             "ไอสะเตีย":"Aisatia"
             };
+        // ... (keep existing trainData) ...
         const trainData = [
                 { route: "กรุงเทพอภิวัฒน์ - ชุมทางหาดใหญ่", number: "31", type: "ด่วนพิเศษ" },
                 { route: "ชุมทางหาดใหญ่ - กรุงเทพอภิวัฒน์", number: "32", type: "ด่วนพิเศษ" },
@@ -1524,14 +1544,25 @@
             allFormElements.forEach(el => {
                 if (el.id) formData[el.id] = el.type === 'checkbox' ? el.checked : el.value.trim();
             });
+            
+            // Get Scope
+            const scope = document.querySelector('input[name="announcementScope"]:checked').value;
+
             if (!formData.reason) return;
             
             document.getElementById('outputArea').classList.remove('hidden');
             let thaiText, englishText, thaiTickerText, englishTickerText;
             const thaiParts = {}, englishParts = {};
 
-            const trainIdThai = formData.trainNumberInput && formData.origin && formData.destination ? `ขบวน${formData.trainType}ที่ ${formData.trainNumberInput} (${formData.origin} - ${formData.destination})` : (formData.trainNumberInput ? `ขบวน${formData.trainType}ที่ ${formData.trainNumberInput}` : 'ขบวนรถ');
-            const trainIdEn = formData.trainNumberInput && formData.origin && formData.destination ? `${trainTypeMap[formData.trainType] || 'Train'} No. ${formData.trainNumberInput} (${translate(formData.origin)} - ${translate(formData.destination)})` : (formData.trainNumberInput ? `${trainTypeMap[formData.trainType] || 'Train'} No. ${formData.trainNumberInput}` : 'The train');
+            // Define Subject based on Scope
+            let trainIdThai, trainIdEn;
+            if (scope === 'specific') {
+                trainIdThai = formData.trainNumberInput && formData.origin && formData.destination ? `ขบวน${formData.trainType}ที่ ${formData.trainNumberInput} (${formData.origin} - ${formData.destination})` : (formData.trainNumberInput ? `ขบวน${formData.trainType}ที่ ${formData.trainNumberInput}` : 'ขบวนรถ');
+                trainIdEn = formData.trainNumberInput && formData.origin && formData.destination ? `${trainTypeMap[formData.trainType] || 'Train'} No. ${formData.trainNumberInput} (${translate(formData.origin)} - ${translate(formData.destination)})` : (formData.trainNumberInput ? `${trainTypeMap[formData.trainType] || 'Train'} No. ${formData.trainNumberInput}` : 'The train');
+            } else {
+                trainIdThai = 'เรียน ท่านผู้โดยสารโปรดทราบ';
+                trainIdEn = 'Attention please, passengers';
+            }
 
             // Location Logic
             let locationThai = '';
@@ -1549,11 +1580,16 @@
                 const subReasonKey = formData.subReason21 || 'flooding';
                 const subReasonThai = subReason21Map[subReasonKey].thai;
                 const subReasonEn = subReason21Map[subReasonKey].english;
-                thaiText = `ประกาศปิดเส้นทาง: จากเหตุ${subReasonThai} ${locationThai} ขณะนี้อยู่ระหว่างการประเมินสถานการณ์ หากมีข้อมูลเพิ่มเติมจะแจ้งให้ทราบอีกครั้ง ขออภัยในความไม่สะดวก`;
+                
+                // Adjust for General scope
+                const prefix = scope === 'general' ? 'ขณะนี้' : 'จากเหตุ';
+
+                thaiText = `${scope === 'general' ? 'ประกาศปิดเส้นทาง:' : ''} ${prefix}${subReasonThai} ${locationThai} ขณะนี้อยู่ระหว่างการประเมินสถานการณ์ หากมีข้อมูลเพิ่มเติมจะแจ้งให้ทราบอีกครั้ง ขออภัยในความไม่สะดวก`;
                 englishText = `Announcement Route Closure: The line is temporarily closed due to ${subReasonEn} ${locationEn}. Assessment is in progress. Further updates will be announced. We apologize for the inconvenience.`;
                 thaiTickerText = `แจ้งปิดเส้นทาง: เกิดเหตุ${subReasonThai} ${locationThai}. ขออภัยในความไม่สะดวก`;
                 englishTickerText = `ROUTE CLOSED: Due to ${subReasonEn} ${locationEn}. We apologize for the inconvenience.`;
             } else if (formData.reason === '3') { 
+                // Mostly specific to train, but handled anyway
                 thaiText = `${trainIdThai} ไม่สามารถใช้ความเร็วสูงสุดได้ ส่งผลให้ขบวนรถเกิดการล่าช้าสะสม ขออภัยในความไม่สะดวก`;
                 englishText = `${trainIdEn} is unable to run at maximum speed, causing accumulated delays. We apologize for the inconvenience.`;
                 thaiTickerText = `${trainIdThai} ไม่สามารถใช้ความเร็วสูงสุดได้ ทำให้ล่าช้าสะสม`;
@@ -1580,44 +1616,77 @@
                     thaiParts.mainClause = `ในวันที่ ${d.toLocaleDateString('th-TH')} ${formData.unavailableCarriageType} ไม่มีให้บริการ`;
                     englishParts.mainClause = `On ${d.toLocaleDateString('en-US')}, the ${unavailableCarriageMap[formData.unavailableCarriageType]} will be unavailable`;
                 } else {
-                    if (formData.carriageNumber) { reasonStrThai += ` (${formData.carriageNumber})`; reasonStrEn += ` (Car No. ${formData.carriageNumber})`; }
-                    let prefix = (['6', '7', '13', '17', '20', '22'].includes(formData.reason)) ? '' : 'เกิดเหตุ';
+                    if (formData.carriageNumber && scope === 'specific') { reasonStrThai += ` (${formData.carriageNumber})`; reasonStrEn += ` (Car No. ${formData.carriageNumber})`; }
+                    
+                    let prefix = '';
+                    if(scope === 'general') {
+                        prefix = 'ขณะนี้เกิดเหตุ'; 
+                    } else {
+                        prefix = (['6', '7', '13', '17', '20', '22'].includes(formData.reason)) ? '' : 'เกิดเหตุ';
+                    }
+
                     thaiParts.mainClause = `${prefix}${reasonStrThai}${locationThai ? ' ' + locationThai : ''}${subReasonTextThai}`;
                     
                     let verb = (['7', '13', '17'].includes(formData.reason)) ? 'is' : 'is experiencing a disruption due to';
-                    if(['6', '20'].includes(formData.reason)) englishParts.mainClause = `${trainIdEn} ${reasons[formData.reason].english}${locationEn ? ' ' + locationEn : ''}${subReasonTextEn}`.trim();
-                    else if(formData.reason === '22') englishParts.mainClause = `${trainIdEn} is experiencing ${reasonStrEn}`;
-                    else englishParts.mainClause = `${trainIdEn} ${verb} ${reasonStrEn}${locationEn ? ' ' + locationEn : ''}`;
+                    
+                    if (scope === 'general') {
+                        englishParts.mainClause = `There is ${reasonStrEn} ${locationEn ? locationEn : ''}${subReasonTextEn}`;
+                    } else {
+                        if(['6', '20'].includes(formData.reason)) englishParts.mainClause = `${trainIdEn} ${reasons[formData.reason].english}${locationEn ? ' ' + locationEn : ''}${subReasonTextEn}`.trim();
+                        else if(formData.reason === '22') englishParts.mainClause = `${trainIdEn} is experiencing ${reasonStrEn}`;
+                        else englishParts.mainClause = `${trainIdEn} ${verb} ${reasonStrEn}${locationEn ? ' ' + locationEn : ''}`;
+                    }
                 }
 
                 if (formData.actionTaken) { thaiParts.action = actions.thai[formData.actionTaken]; englishParts.action = actions.english[formData.actionTaken]; }
+                
+                // Impact Logic for General vs Specific
                 if (formData.delayTime) { 
                     thaiParts.impact = `ซึ่งจะทำให้ขบวนรถล่าช้าประมาณ ${formData.delayTime}`; 
                     englishParts.impact = `A delay of approximately ${formData.delayTime.replace('นาที', ' minutes')} is expected`;
+                } else if (scope === 'general') {
+                     // Only show generic impact if checked AND no specific text provided
+                     if (formData.otherTrainsAffected && !formData.affectedTrains) {
+                         thaiParts.impact = 'ส่งผลกระทบต่อการเดินรถในเส้นทาง';
+                         englishParts.impact = "This is affecting train services on the route";
+                     }
                 } else if (!['6', '18', '19', '20', '22'].includes(formData.reason)) {
                     thaiParts.impact = 'ซึ่งจะทำให้ขบวนรถล่าช้า'; englishParts.impact = "This will cause a delay";
                 }
-                if (formData.departureTime) {
+
+                if (formData.departureTime && scope === 'specific') {
                     thaiParts.departure = `คาดการณ์ออกเวลาประมาณ ${formData.departureTime} น.`;
                     englishParts.departure = `Estimated departure time is ${formatTimeToAMPM(formData.departureTime)}`;
                 }
+                
                 if (formData.instruction !== 'none') {
                     thaiParts.instruction = instructions.thai[formData.instruction]; englishParts.instruction = instructions.english[formData.instruction];
                 }
+                
                 thaiParts.notes = formData.notes; englishParts.notes = formData.notes ? translateNotes(formData.notes) : '';
+                
                 if (formData.otherTrainsAffected) {
-                    thaiParts.affected = `อาจส่งผลกระทบต่อขบวนรถอื่น${formData.affectedTrains ? ' รวมถึงขบวน ' + formData.affectedTrains : ''}`;
-                    englishParts.affected = `This may affect other trains${formData.affectedTrains ? ' including ' + formData.affectedTrains : ''}`;
+                    if (scope === 'general' && formData.affectedTrains) {
+                         thaiParts.affected = `ส่งผลกระทบต่อ ${formData.affectedTrains}`;
+                         englishParts.affected = `This affects ${formData.affectedTrains}`; // Note: User needs to input English or rely on simple terms
+                    } else {
+                        thaiParts.affected = `อาจส่งผลกระทบต่อขบวนรถอื่น${formData.affectedTrains ? ' รวมถึงขบวน ' + formData.affectedTrains : ''}`;
+                        englishParts.affected = `This may affect other trains${formData.affectedTrains ? ' including ' + formData.affectedTrains : ''}`;
+                    }
                 }
 
                 thaiText = `${trainIdThai} ${Object.values(thaiParts).filter(Boolean).join(' ')} ขออภัยในความไม่สะดวก`;
-                englishText = `${Object.values(englishParts).filter(Boolean).join('. ')}. We apologize for the inconvenience.`;
+                englishText = `${trainIdEn}. ${Object.values(englishParts).filter(Boolean).join('. ')}. We apologize for the inconvenience.`;
                 
                 // Ticker
                 let tickerReason = reasons[formData.reason].thai;
                 if(formData.reason === '20' && subReason20Map[formData.subReason20]) tickerReason += subReason20Map[formData.subReason20].thai;
-                thaiTickerText = `${trainIdThai} ${tickerReason} ${locationThai} ขออภัยในความไม่สะดวก`;
-                englishTickerText = `${trainIdEn} - ${reasons[formData.reason].english}. We apologize for the inconvenience.`;
+                
+                let tickerSubject = scope === 'general' ? 'ประกาศสถานการณ์:' : trainIdThai;
+                let tickerSubjectEn = scope === 'general' ? 'NOTICE:' : trainIdEn;
+
+                thaiTickerText = `${tickerSubject} ${tickerReason} ${locationThai} ขออภัยในความไม่สะดวก`;
+                englishTickerText = `${tickerSubjectEn} - ${reasons[formData.reason].english}. We apologize for the inconvenience.`;
             }
 
             document.getElementById('thaiOutput').textContent = thaiText.replace(/\s+/g, ' ');
@@ -1629,7 +1698,6 @@
             // Update Bottom Ticker
             const ticker = document.getElementById('bottomTickerContainer');
             const text = document.getElementById('bottomTickerText');
-            // Change from short ticker text to combined full text
             text.textContent = `📢 | ${thaiText} | ${englishText} |`; 
             ticker.classList.remove('hidden');
         }
@@ -1642,7 +1710,6 @@
                 const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
                 if (res.ok) return await res.json();
                 
-                // Log but don't expose keys
                 if (res.status === 403 || res.status === 404) {
                      const errText = await res.text();
                      throw new Error(`API Error (${modelName}): ${res.status} - ${errText}`);
@@ -1667,18 +1734,15 @@
             document.getElementById('outputArea').classList.remove('hidden');
             document.getElementById('thaiOutput').textContent = text;
             
-            // Ticker Update
             const ticker = document.getElementById('bottomTickerContainer');
             document.getElementById('bottomTickerText').textContent = `📢 | ${text} | ... |`;
             ticker.classList.remove('hidden');
             
             try {
-                // Use explicit supported model
                 const data = await callGeminiAPI({ contents: [{ parts: [{ text: `Translate this Thai railway announcement to formal English: "${text}"` }] }] });
                 const trans = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
                 document.getElementById('englishOutput').textContent = trans || "Error translating";
                 document.getElementById('combinedOutput').textContent = `| ${text} | ${trans} |`;
-                // Update ticker with English
                 document.getElementById('bottomTickerText').textContent = `📢 | ${text} | ${trans} |`;
             } catch (e) { 
                 showApiError(e.message);
@@ -1778,15 +1842,12 @@
             status.textContent = 'Generating Audio...';
             
             try {
-                // TTS uses a specific model. Using the preview TTS model.
                 const model = 'gemini-2.5-flash-preview-tts'; 
                 const payload = {
                     contents: [{ parts: [{ text: text }] }],
                     generationConfig: { responseModalities: ["AUDIO"], speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Kore" } } } }
                 };
                 
-                // Direct fetch for TTS
-                // Note: callGeminiAPI helper now defaults to text model, so we pass explicit model
                 const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
                 const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
                 
@@ -1836,6 +1897,31 @@
             });
             populateDatalist('stationList', Object.keys(stationTranslation));
 
+            // --- Scope Toggling ---
+            const scopes = document.getElementsByName('announcementScope');
+            const trainSection = document.getElementById('trainInfoSection');
+            const affectedLabel = document.getElementById('affectedLabel');
+            const affectedInput = document.getElementById('affectedTrains');
+            const otherTrainsCheckbox = document.getElementById('otherTrainsAffected');
+            
+            function updateScope() {
+                const scope = document.querySelector('input[name="announcementScope"]:checked').value;
+                if (scope === 'general') {
+                    trainSection.classList.add('hidden');
+                    affectedLabel.textContent = "ขบวนรถ/เส้นทางที่ได้รับผลกระทบ";
+                    otherTrainsCheckbox.checked = true;
+                    toggleElement('affectedTrainsWrapper', true);
+                    affectedInput.placeholder = "เช่น สายเหนือทุกขบวน, ขบวน 13, 14";
+                } else {
+                    trainSection.classList.remove('hidden');
+                    affectedLabel.textContent = "เหตุการณ์นี้อาจส่งผลกระทบต่อขบวนรถอื่น";
+                    otherTrainsCheckbox.checked = false;
+                    toggleElement('affectedTrainsWrapper', false);
+                    affectedInput.placeholder = "เช่น 41, 109, 255";
+                }
+            }
+            scopes.forEach(s => s.addEventListener('change', updateScope));
+
             document.getElementById('trainNumberInput').addEventListener('change', function() {
                 const t = trainData.find(x => x.number === this.value);
                 if (t) {
@@ -1846,7 +1932,6 @@
                     }
                     const typeSelect = document.getElementById('trainType');
                     for(let i=0; i<typeSelect.options.length; i++) {
-                        // Fix: Exact match or match with prefix "รถ" to avoid ambiguity (e.g. "ด่วน" vs "ด่วนพิเศษ")
                         if(typeSelect.options[i].value === 'รถ' + t.type || typeSelect.options[i].value === t.type) {
                             typeSelect.selectedIndex = i; break;
                         }
@@ -1892,6 +1977,9 @@
                 if(!name) return;
                 const data = {};
                 allFormElements.forEach(el => { if(el.id) data[el.id] = el.type==='checkbox'?el.checked:el.value; });
+                // Also save scope
+                data['announcementScope'] = document.querySelector('input[name="announcementScope"]:checked').value;
+                
                 const ts = getT();
                 const idx = ts.findIndex(x => x.name === name);
                 if(idx > -1) ts[idx].data = data; else ts.push({name, data});
@@ -1904,6 +1992,12 @@
             document.getElementById('loadTemplateBtn').addEventListener('click', () => {
                 const t = getT().find(x => x.name === document.getElementById('templateSelect').value);
                 if(t) {
+                    // Load scope first
+                    if(t.data['announcementScope']) {
+                        const rad = document.querySelector(`input[name="announcementScope"][value="${t.data['announcementScope']}"]`);
+                        if(rad) { rad.checked = true; updateScope(); }
+                    }
+                    
                     allFormElements.forEach(el => {
                         if(el.id && t.data[el.id] !== undefined) {
                             if(el.type === 'checkbox') el.checked = t.data[el.id]; else el.value = t.data[el.id];
@@ -1938,6 +2032,8 @@
             
             document.getElementById('clearFormBtn').addEventListener('click', () => {
                 form.reset();
+                document.querySelector('input[name="announcementScope"][value="specific"]').checked = true;
+                updateScope();
                 document.getElementById('outputArea').classList.add('hidden');
                 document.getElementById('reason').dispatchEvent(new Event('change'));
                 document.getElementById('bottomTickerContainer').classList.add('hidden');
@@ -1955,5 +2051,3 @@
     </script>
 </body>
 </html>
-
-
