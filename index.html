@@ -460,17 +460,6 @@
                         </div>
                     </div>
 
-                    <!-- TTS Section -->
-                    <div id="ttsSection" class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
-                        <h3 class="text-base font-semibold text-slate-600 dark:text-slate-400 mb-4">✨ เสียงประกาศ (Text-to-Speech)</h3>
-                        <button id="generateTTSBtn" type="button" class="w-full flex items-center justify-center gap-2 bg-pink-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-pink-700 transition disabled:opacity-50">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-megaphone"><path d="m3 11 1.4-2.7c.3-.6.9-1.2 1.6-1.5L22 2V6l-7 3"/><path d="M7 16a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/><path d="M11 7c0-2.3-2.6-4.5-5.5-4.5S0 4.7 0 7"/><path d="M10 18c0 1.2-.6 2.3-1.4 3.1"/></svg>
-                            สร้างเสียงประกาศ (TTS)
-                        </button>
-                        <audio id="audioPlayer" class="w-full mt-4 hidden" controls></audio>
-                        <p id="ttsStatus" class="text-center text-sm mt-2 text-slate-500 dark:text-slate-400"></p>
-                    </div>
-
                     <!-- Staff Briefing -->
                     <div id="staffBriefingSection" class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
                         <h3 class="text-base font-semibold text-slate-600 dark:text-slate-400 mb-4">✨ สรุปสถานการณ์สำหรับเจ้าหน้าที่ (Briefing)</h3>
@@ -1873,57 +1862,6 @@
             }
         }
 
-        async function generateTTSAnnouncement() {
-            const text = document.getElementById('thaiOutput').textContent;
-            if (!text) return showToast('ไม่มีข้อความ');
-            const btn = document.getElementById('generateTTSBtn');
-            const status = document.getElementById('ttsStatus');
-            const player = document.getElementById('audioPlayer');
-            
-            if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            btn.disabled = true;
-            status.textContent = 'Generating Audio...';
-            
-            try {
-                const key = getApiKey();
-                if (!key) {
-                    document.getElementById('settingsModal').classList.remove('hidden');
-                    setTimeout(() => document.getElementById('settingsModal').classList.remove('opacity-0'), 10);
-                    throw new Error("Missing API Key");
-                }
-
-                const model = 'gemini-2.5-flash-preview-tts'; 
-                const payload = {
-                    contents: [{ parts: [{ text: text }] }],
-                    generationConfig: { responseModalities: ["AUDIO"], speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Kore" } } } }
-                };
-                
-                const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`;
-                const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-                
-                if (!res.ok) {
-                     const errText = await res.text();
-                     let errMsg = errText;
-                     try { errMsg = JSON.parse(errText).error.message; } catch(e){}
-                     throw new Error(`${res.status}: ${errMsg}`);
-                }
-                
-                const data = await res.json();
-                const inlineData = data.candidates?.[0]?.content?.parts?.[0]?.inlineData;
-                if (!inlineData) throw new Error("No audio data received");
-                
-                const pcm16 = new Int16Array(base64ToArrayBuffer(inlineData.data));
-                const wav = pcmToWav(pcm16, 24000);
-                player.src = URL.createObjectURL(wav);
-                player.classList.remove('hidden');
-                status.textContent = 'พร้อมเล่นเสียง';
-            } catch (e) { 
-                status.textContent = e.message === "Missing API Key" ? "API Key required" : "Error creating audio.";
-                if (e.message !== "Missing API Key") showApiError(e.message);
-            }
-            btn.disabled = false;
-        }
-
         // --- INIT ---
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('announcementForm');
@@ -2122,7 +2060,7 @@
             document.getElementById('generateStaffBriefingBtn').addEventListener('click', generateStaffBriefing);
             document.getElementById('translateNotesBtn').addEventListener('click', translateInternationalNotes);
             document.getElementById('generateAdviceBtn').addEventListener('click', generateAIAdvice);
-            document.getElementById('generateTTSBtn').addEventListener('click', generateTTSAnnouncement);
+            // REMOVED TTS LISTENER
             
             document.getElementById('clearFormBtn').addEventListener('click', () => {
                 form.reset();
