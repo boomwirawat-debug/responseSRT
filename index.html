@@ -660,7 +660,6 @@
             "ตู้โดยสาร ชั้น2": "2nd Class Coach", "ตู้โดยสาร ชั้น3": "3rd Class Coach", "ตู้เสบียง": "Dining Car"
         };
         const stationTranslation = {
-            // ... (keep existing station translations - truncated for brevity but assuming they are there from previous context) ...
             "กรุงเทพอภิวัฒน์":"Krung Thep Aphiwat",
             "กรุงเทพ [หัวลำโพง]":"Bangkok [Hua LamPhong]",
             "กบินทร์เก่า":"Kabin Kao",
@@ -1475,7 +1474,6 @@
             ];
 
         // --- GLOBAL VARIABLES ---
-        let audioContext = null;
         let templateToDelete = null;
 
         // --- HELPER FUNCTIONS ---
@@ -1787,7 +1785,10 @@
             ticker.classList.remove('hidden');
             
             try {
-                const data = await callGeminiAPI({ contents: [{ parts: [{ text: `Translate this Thai railway announcement to formal English: "${text}"` }] }] });
+                // Updated Prompt for better quality translation
+                const prompt = `Translate this Thai text into a formal, concise, and grammatically perfect English passenger announcement: "${text}"`;
+                
+                const data = await callGeminiAPI({ contents: [{ parts: [{ text: prompt }] }] });
                 const trans = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
                 document.getElementById('englishOutput').textContent = trans || "Error translating";
                 document.getElementById('combinedOutput').textContent = `| ${text} | ${trans} |`;
