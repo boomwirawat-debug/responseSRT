@@ -58,7 +58,7 @@
         .animate-marquee {
             display: inline-block;
             white-space: nowrap;
-            animation: marquee 45s linear infinite; /* Slower for longer text */
+            animation: marquee 25s linear infinite; /* Slower for longer text */
         }
         
         .hover-pause:hover .animate-marquee {
@@ -236,6 +236,11 @@
                                     <option value="switching_maneuver">5. สับเปลี่ยนรถ</option>
                                     <option value="traffic_congestion">6. ติดการจราจรทางถนน</option>
                                     <option value="parcel_handling">7. ขึ้น-ลง สินค้าห่อวัตถุ</option>
+                                    <option value="locomotive_failure_delay">8. รถจักรขัดข้อง</option>
+                                    <option value="train_malfunction_delay">9. ขบวนรถขัดข้อง</option>
+                                    <option value="animal_collision_delay">10. ชนสัตว์</option>
+                                    <option value="person_accident_delay">11. เกิดอุบัติเหตุกับบุคคล</option>
+                                    <option value="vehicle_collision_delay">12. ชนยานพาหนะ</option>
                                 </select>
                             </div>
 
@@ -331,7 +336,7 @@
                                 <label for="delayTime" class="block text-sm font-medium mb-2 text-slate-600 dark:text-slate-300">เวลาที่คาดว่าจะล่าช้า (ถ้ามี)</label>
                                 <input type="text" id="delayTime" class="w-full p-3 bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg" placeholder="เช่น 30 นาที">
                             </div>
-                            <div>
+                            <div id="departureTimeWrapper">
                                 <label for="departureTime" class="block text-sm font-medium mb-2 text-slate-600 dark:text-slate-300">เวลาคาดว่าจะออก (ถ้ามี)</label>
                                 <input type="time" id="departureTime" class="w-full p-3 bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg">
                             </div>
@@ -560,7 +565,7 @@
 
     <script>
         // --- CONFIG & GLOBAL DATA ---
-        const apiKey = "AIzaSyAsKAWqM671QwAB2ETO1qIQqVFxzADoHBM"; // API Key set to empty for environment injection
+        const apiKey = ""; // API Key set to empty for environment injection
         
         // --- DICTIONARIES (Moved to Global Scope) ---
         const trainTypeMap = { 'รถด่วนพิเศษ': 'Special Express Train', 'รถด่วน': 'Express Train', 'รถเร็ว': 'Rapid Train', 'รถธรรมดา': 'Ordinary Train', 'รถท้องถิ่น': 'Local Train', 'รถชานเมือง': 'Commuter Train', 'รถพิเศษชานเมือง': 'S.Commuter Train', 'รถพิเศษโดยสาร': 'Special Train', 'รถสินค้าห่อวัตถุด่วน': 'Parcel Freight Train' };
@@ -604,7 +609,12 @@
             'waiting_track': { thai: "เนื่องจากรอทาง", english: "waiting for the track" },
             'switching_maneuver': { thai: "เนื่องจากสับเปลี่ยนรถ", english: "due to switching maneuver" },
             'traffic_congestion': { thai: "เนื่องจากติดการจราจรทางถนน", english: "due to crowded car traffic" },
-            'parcel_handling': { thai: "เนื่องจาก ขึ้น-ลง สินค้าห่อวัตถุ", english: "loading and unloading of parcels" }
+            'parcel_handling': { thai: "เนื่องจาก ขึ้น-ลง สินค้าห่อวัตถุ", english: "loading and unloading of parcels" },
+            'locomotive_failure_delay': { thai: "เนื่องจากรถจักรขัดข้อง", english: "due to a locomotive failure" },
+            'train_malfunction_delay': { thai: "เนื่องจากขบวนรถขัดข้อง", english: "due to a train malfunction" },
+            'animal_collision_delay': { thai: "เนื่องจากชนสัตว์", english: "due to a collision with an animal" },
+            'person_accident_delay': { thai: "เนื่องจากเกิดอุบัติเหตุกับบุคคล", english: "due to an incident involving a person" },
+            'vehicle_collision_delay': { thai: "เนื่องจากชนยานพาหนะ", english: "due to a collision with a vehicle" }
         };
         const subReason21Map = {
             'flooding': { thai: "น้ำท่วม", english: "flooding" },
@@ -1676,7 +1686,14 @@
                 }
 
                 thaiText = `${trainIdThai} ${Object.values(thaiParts).filter(Boolean).join(' ')} ขออภัยในความไม่สะดวก`;
-                englishText = `${trainIdEn}. ${Object.values(englishParts).filter(Boolean).join('. ')}. We apologize for the inconvenience.`;
+                
+                // Fix: Prevent duplicate Train ID in English output
+                let enContent = Object.values(englishParts).filter(Boolean).join('. ');
+                if (scope === 'specific' && enContent.startsWith(trainIdEn)) {
+                    englishText = `${enContent}. We apologize for the inconvenience.`;
+                } else {
+                    englishText = `${trainIdEn}. ${enContent}. We apologize for the inconvenience.`;
+                }
                 
                 // Ticker
                 let tickerReason = reasons[formData.reason].thai;
@@ -1900,20 +1917,32 @@
             // --- Scope Toggling ---
             const scopes = document.getElementsByName('announcementScope');
             const trainSection = document.getElementById('trainInfoSection');
+            const departureWrapper = document.getElementById('departureTimeWrapper');
             const affectedLabel = document.getElementById('affectedLabel');
             const affectedInput = document.getElementById('affectedTrains');
             const otherTrainsCheckbox = document.getElementById('otherTrainsAffected');
+            const carriageNumWrapper = document.getElementById('carriageNumberWrapper');
             
             function updateScope() {
                 const scope = document.querySelector('input[name="announcementScope"]:checked').value;
                 if (scope === 'general') {
                     trainSection.classList.add('hidden');
-                    affectedLabel.textContent = "ขบวนรถ/เส้นทางที่ได้รับผลกระทบ";
+                    if(departureWrapper) departureWrapper.classList.add('hidden');
+                    
+                    // Force hide specific train details
+                    if(carriageNumWrapper) carriageNumWrapper.classList.add('hidden');
+
+                    affectedLabel.textContent = "พื้นที่/ขบวนรถ/เส้นทางที่ได้รับผลกระทบ";
                     otherTrainsCheckbox.checked = true;
                     toggleElement('affectedTrainsWrapper', true);
-                    affectedInput.placeholder = "เช่น สายเหนือทุกขบวน, ขบวน 13, 14";
+                    affectedInput.placeholder = "เช่น สายเหนือช่วงระหว่างสถานี... ถึง..., ขบวน 13, 14";
                 } else {
                     trainSection.classList.remove('hidden');
+                    if(departureWrapper) departureWrapper.classList.remove('hidden');
+                    
+                    // Re-trigger reason change to restore carriage wrapper visibility if needed
+                    document.getElementById('reason').dispatchEvent(new Event('change'));
+
                     affectedLabel.textContent = "เหตุการณ์นี้อาจส่งผลกระทบต่อขบวนรถอื่น";
                     otherTrainsCheckbox.checked = false;
                     toggleElement('affectedTrainsWrapper', false);
@@ -1941,7 +1970,10 @@
 
             document.getElementById('reason').addEventListener('change', () => {
                 const r = document.getElementById('reason').value;
-                toggleElement('carriageNumberWrapper', ['2', '5'].includes(r));
+                const scope = document.querySelector('input[name="announcementScope"]:checked').value;
+                
+                // Only toggle carriage fields if in specific mode
+                toggleElement('carriageNumberWrapper', ['2', '5'].includes(r) && scope === 'specific');
                 toggleElement('carriageChangeWrapper', r === '18');
                 toggleElement('unavailableCarriageWrapper', r === '19');
                 toggleElement('subReason6Wrapper', r === '6');
@@ -2051,4 +2083,3 @@
     </script>
 </body>
 </html>
-
