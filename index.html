@@ -660,7 +660,7 @@
             "ตู้โดยสาร ชั้น2": "2nd Class Coach", "ตู้โดยสาร ชั้น3": "3rd Class Coach", "ตู้เสบียง": "Dining Car"
         };
         const stationTranslation = {
-            "กรุงเทพอภิวัฒน์":"Krung Thep Aphiwat Station",
+            "กรุงเทพอภิวัฒน์":"Krung Thep Aphiwat",
             "กรุงเทพ[หัวลำโพง]":"Bangkok[Hua Lamphong] ",
             "กบินทร์เก่า":"Kabin Kao",
             "กบินทร์บุรี":"Kabin Buri",
@@ -1599,7 +1599,7 @@
             let locationThai = '';
             let locationEn = '';
             if (formData.locationType === 'at_station' && formData.locationStation) {
-                locationThai = `ที่สถานี ${formData.locationStation}`;
+                locationThai = `ที่สถานี ${formData.locationStation} Station`;
                 locationEn = `at ${translate(formData.locationStation)}`;
             } else if (formData.locationType === 'between_stations' && formData.locationBetween1 && formData.locationBetween2) {
                 locationThai = `ระหว่างสถานี ${formData.locationBetween1} - ${formData.locationBetween2}`;
@@ -2084,6 +2084,7 @@
     </script>
 </body>
 </html>
+
 
 
 
