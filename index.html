@@ -1599,8 +1599,8 @@
             let locationThai = '';
             let locationEn = '';
             if (formData.locationType === 'at_station' && formData.locationStation) {
-                locationThai = `ที่สถานี ${formData.locationStation} Station`;
-                locationEn = `at ${translate(formData.locationStation)}`;
+                locationThai = `ที่สถานี ${formData.locationStation}`;
+                locationEn = `at ${translate(formData.locationStation)} Station`;
             } else if (formData.locationType === 'between_stations' && formData.locationBetween1 && formData.locationBetween2) {
                 locationThai = `ระหว่างสถานี ${formData.locationBetween1} - ${formData.locationBetween2}`;
                 locationEn = `between ${translate(formData.locationBetween1)} and ${translate(formData.locationBetween2)} stations`;
@@ -2084,6 +2084,7 @@
     </script>
 </body>
 </html>
+
 
 
 
