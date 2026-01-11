@@ -1601,10 +1601,28 @@
             let locationEn = '';
             if (formData.locationType === 'at_station' && formData.locationStation) {
                 locationThai = `ที่สถานี${formData.locationStation}`;
-                locationEn = `at ${translate(formData.locationStation)} Station`;
+                const stationEnName = translate(formData.locationStation);
+                // Check if station name ends with 'Jct'
+                if (stationEnName.endsWith('Jct')) {
+                    locationEn = `at ${stationEnName}`;
+                } else {
+                    locationEn = `at ${stationEnName} Station`;
+                }
             } else if (formData.locationType === 'between_stations' && formData.locationBetween1 && formData.locationBetween2) {
                 locationThai = `ระหว่างสถานี${formData.locationBetween1} - ${formData.locationBetween2}`;
-                locationEn = `between ${translate(formData.locationBetween1)} and ${translate(formData.locationBetween2)} stations`;
+                
+                const st1 = translate(formData.locationBetween1);
+                const st2 = translate(formData.locationBetween2);
+                
+                // New logic: If neither is a Junction, group them with one "Station" at the end
+                if (!st1.endsWith('Jct') && !st2.endsWith('Jct')) {
+                    locationEn = `between ${st1} and ${st2} Station`;
+                } else {
+                    // If one or both are Jct, handle individually
+                    const st1Str = st1.endsWith('Jct') ? st1 : `${st1} Station`;
+                    const st2Str = st2.endsWith('Jct') ? st2 : `${st2} Station`;
+                    locationEn = `between ${st1Str} and ${st2Str}`;
+                }
             }
 
             // Announcement Construction Logic
@@ -2085,11 +2103,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
